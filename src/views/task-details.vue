@@ -267,6 +267,7 @@ export default {
         this.saveActivity(
           `changed the task "${this.currTask.title}" to "${updatedTask.title}"`
         );
+        console.log(task);
       this.updateBoard(board);
     },
     getTaskActivity() {

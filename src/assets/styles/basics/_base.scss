@@ -20,6 +20,10 @@ body {
     // background-color: rgb(0, 174, 204);
 }
 
+html, body, #app, .board-main {
+    height: 100%;
+}
+
 main,
 footer {
     padding: 5px;

@@ -10,6 +10,8 @@
   .activity-details {
       flex-direction: column;
       font-size: 14px;
+      word-wrap: break-word;
+      max-width: 450px;
   }
 
   .avatar {
@@ -18,6 +20,6 @@
   }
 
   .task-details-activity {
-    //   max-height: 50vh;
-    //   overflow-y: auto;
+      //   max-height: 50vh;
+      //   overflow-y: auto;
   }

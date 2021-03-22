@@ -76,6 +76,7 @@
 
                 .main-details {
                     grid-column: 1;
+                    max-width: 500px;
                 }
             }
         }
@@ -85,6 +86,9 @@
     .members-preview {
         margin-right: 15px;
 
+        .avatar {
+            padding-right: 6px;
+        }
     }
 }
 
@@ -452,7 +456,6 @@
     .file-upload {
         padding: 5px 0;
         margin-bottom: 10px;
-        padding-left: 4px;
 
         &:hover {
             background-color: rgba(9, 30, 66, .04);
