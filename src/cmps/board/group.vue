@@ -39,6 +39,7 @@
 			>
 			<div class="add-task-container" v-if="isAddingTask">
 				<textarea
+					@keyup.enter="addTask(group.id)"
 					ref="textarea"
 					placeholder="Your task title here..."
 					rows="2"
