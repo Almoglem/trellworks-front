@@ -1,8 +1,9 @@
 import { storageService } from './async-storage.service'
 import { utilService } from './util.service'
+import { httpService } from './http.service'
 
-const BOARD_DB = 'boards'
-// const BOARD_URL = '/board'
+// const BOARD_DB = 'boards'
+const BOARD_URL = 'board/'
 
 export const boardService = {
     query,
@@ -19,18 +20,18 @@ export const boardService = {
 }
 
 async function query() {
-    return storageService.query(BOARD_DB)
-    // return httpService.get(BOARD_URL)
+    // return storageService.query(BOARD_DB)
+    return httpService.get(BOARD_URL)
 }
 
 async function getById(boardId) {
-    return storageService.get(BOARD_DB, boardId)
-    // return httpService.get(`board/${boardId}`)
+    // return storageService.get(BOARD_DB, boardId)
+    return httpService.get(`board/${boardId}`)
 }
 
 async function remove(boardId) {
-    return storageService.remove(BOARD_DB, boardId)
-    // return httpService.delete(`board/${boardId}`)
+    // return storageService.remove(BOARD_DB, boardId)
+    return httpService.delete(`board/${boardId}`)
 }
 
 async function addBoard() {
@@ -38,12 +39,12 @@ async function addBoard() {
 }
 
 async function save(board) {
-    if (board._id) {
-        return storageService.put(BOARD_DB, board)
-        // return httpService.put(TOY_URL + toy._id, toy)
+    if (!board._id) {
+        // return storageService.put(BOARD_DB, board)
+        return httpService.post(BOARD_URL, board)
     } else {
-        return storageService.post(BOARD_DB, board)
-        // return httpService.post(TOY_URL, toy)
+        // return storageService.post(BOARD_DB, board)
+        return httpService.put(BOARD_URL + board._id, board)
     }
 }
 
@@ -71,17 +72,17 @@ function _getEmptyBoard() {
                 "_id": "u101",
                 "fullname": "Guy Zohar",
                 "imgUrl": "https://www.google.com"
-            }], 
-            activities: [
-                {
-                    id: utilService.makeId(),
-                    title: 'This board was created',
-                    createdAt: Date.now(),
-                    byMember: { fullname: 'Guest' },
-                    task: { id: '', title: '' }
-                }
-            ],
-            
+            }],
+        activities: [
+            {
+                id: utilService.makeId(),
+                title: 'This board was created',
+                createdAt: Date.now(),
+                byMember: { fullname: 'Guest' },
+                task: { id: '', title: '' }
+            }
+        ],
+
     }
 }
 
@@ -101,7 +102,7 @@ function getEmptyTask() {
         id: utilService.makeId(),
         title: '',
         dueDate: '',
-        isCompleted:false,
+        isCompleted: false,
         labelIds: [],
         description: '',
         checklists: [],
@@ -116,7 +117,7 @@ function getEmptyTask() {
 }
 
 function getLabelColorById(board, labelId) {
-    return board.labels.find(label =>{
+    return board.labels.find(label => {
         return label.id === labelId
     })
 }
