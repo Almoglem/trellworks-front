@@ -4,12 +4,9 @@
 		@mouseleave="toggleEditPen(false)"
 		@click="getDetails"
 		class="task-preview clickable"
+		:style="bgcToShow"
 	>
-		<div class="full-cover" v-if="task.cover.src && task.cover.type==='full'">
-			<div class="cover-color" v-if="!task.cover.isImg"> </div>
-			<div class="cover-img" v-if="task.cover.isImg"> </div>
-		</div>
-		<div class="top-cover" v-if="task.cover.src && task.cover.type==='top'">
+		<div class="top-cover" v-if="task.cover.src && typeTop">
 			<div class="cover-color" v-if="!task.cover.isImg" :style="{backgroundColor: task.cover.src}"> </div>
 			<div class="cover-img" v-if="task.cover.isImg"> 
 				<img :src="task.cover.src" />
@@ -17,7 +14,11 @@
 		</div>
 
 		<div class="task-preview-main">
-		<div class="task-preview-labels" v-if="task.labelIds.length && currBoard">
+		<!-- <div class="full-cover" v-if="task.cover.src && task.cover.type==='full'">
+			<div class="cover-color" v-if="!task.cover.isImg"> </div>
+			<div class="cover-img" v-if="task.cover.isImg"> </div>
+		</div> -->
+		<div class="task-preview-labels" v-if="task.labelIds.length && currBoard && typeTop">
 			<labels-preview
 				v-for="labelId in task.labelIds"
 				:key="labelId"
@@ -25,8 +26,8 @@
 				:fromPreview="true"
 			/>
 		</div>
-		<p class="task-preview-title">{{ task.title }}</p>
-		<div class="preview-footer-container flex">
+		<p class="task-preview-title" :style="typeFullFont">{{ task.title }}</p>
+		<div class="preview-footer-container flex" v-if="typeTop">
 			<dueDatePreview v-if="task.dueDate" :task="task" @dueDateUpdated="updateDueDate"/>
 			<i v-if="task.description" class="fas fa-align-left fa-sm"></i>
 			<i
@@ -77,6 +78,20 @@ export default {
 		currBoard() {
 			return this.$store.getters.currBoard;
 		},
+		bgcToShow(){
+			if(this.task.cover.src && this.task.cover.type==='full') return {background: this.task.cover.src}
+			else return {background: '#fff'}
+		},
+		typeTop(){
+			return this.task.cover.type === 'top' ? true : false
+		},
+		typeFullFont(){
+			if(this.task.cover.type === 'full' && this.task.cover.src === '#344563') return {fontSize: '16px', fontWeight: 700, color: '#fff'}
+			if(this.task.cover.type === 'full') return {fontSize: '16px', fontWeight: 700}
+		},
+		penToggler() {
+			return { "fas fa-pencil-alt edit-pen": this.isEditPenShown };
+		},
 	},
 	methods: {
 		getDetails() {
@@ -98,13 +113,7 @@ export default {
 			this.$emit('updateDueDate',task)
 		}
 	},
-	computed: {
-		penToggler() {
-			return { "fas fa-pencil-alt edit-pen": this.isEditPenShown };
-		},
-	},
 	created() {
-		this.currBoard = this.$store.getters.currBoard;
 	},
 	components: {
 		quickEdit,

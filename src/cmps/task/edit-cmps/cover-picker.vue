@@ -48,20 +48,21 @@ export default {
       return JSON.parse(JSON.stringify(this.task))
     },
     coverToShow(){
-      if(!this.taskToEdit.cover && !this.coverSelected) return '#344563'
+      if(!this.taskToEdit.cover.src) return '#d9d9da'
       else if(this.taskToEdit.cover) return this.taskToEdit.cover.src
     }
   },
   methods: {
     setCoverType(type){
+      if(!this.taskToEdit.cover.src) return console.log('cant');
       this.taskToEdit.cover.type = type;
       this.$emit('updateTask', this.taskToEdit)
     },
     selectCoverByColor(color){
-      console.log(this.taskToEdit);
       this.taskToEdit.cover.isImg = false;
       if(this.taskToEdit.cover.src === color) {
         this.taskToEdit.cover.src = '';
+        this.taskToEdit.cover.type = 'top'
         return this.$emit('updateTask', this.taskToEdit)
       }
       this.taskToEdit.cover.src = color;
