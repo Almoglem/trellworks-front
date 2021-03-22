@@ -1,0 +1,23 @@
+  .activity-log {
+      position: relative;
+  }
+
+  .activity {
+      align-items: center;
+      margin: 15px 0;
+  }
+
+  .activity-details {
+      flex-direction: column;
+      font-size: 14px;
+  }
+
+  .avatar {
+      padding-right: 15px;
+
+  }
+
+  .task-details-activity {
+    //   max-height: 50vh;
+    //   overflow-y: auto;
+  }

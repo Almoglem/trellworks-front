@@ -1,0 +1,65 @@
+.header-btn {
+    border-radius: 3px;
+    border: 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    background-color: hsla(0, 0%, 100%, .3);
+    box-shadow: none;
+    color: #fff;
+    font-weight: 700;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 0 0;
+    padding: 7px 10px;
+    font-size: 14px;
+    font-family: Opensans;
+
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.781);
+    }
+}
+
+.cta-btn {
+    padding: 18px 26px;
+
+}
+
+button {
+    color: #516077;
+    border: none;
+    transition: all .2s ease;
+    box-shadow: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 8px 15px;
+    background-color: white;
+    outline: none;
+}
+
+.btn-success {
+    background-color: #5aac44;
+    color: #fff;
+    font-size: 14px;
+
+    &:hover {
+        background-color: #61bd4f;
+    }
+}
+
+.btn-danger {
+    background-color: #cf513d;
+    color: #fff;
+    font-size: 14px;
+
+    &:hover {
+        background-color: #eb5a46;
+    }
+}
+
+.btn-gray {
+    background-color: $lightgray;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+}

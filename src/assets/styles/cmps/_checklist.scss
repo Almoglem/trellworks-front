@@ -1,0 +1,55 @@
+.checklist-header {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-checklist {
+    margin-bottom: 30px;
+}
+
+.todo-item {
+    justify-content: space-between;
+    padding: 5px;
+    margin: 7px;
+
+    .line-through {
+        text-decoration: line-through;
+    }
+
+    &:hover {
+        background-color: $lightgray;
+
+        .fa-trash-alt {
+            opacity: 100%;
+        }
+    }
+}
+
+.fa-trash-alt {
+    opacity: 0;
+}
+
+
+.progress-container {
+    span {
+        font-size: 0.9rem;
+        min-width: 50px;
+    }
+
+    .progress-bar {
+        background-color: rgb(214, 210, 210);
+        height: 15px;
+        width: 90%;
+        border-radius: 20px;
+        margin-bottom: 15px;
+
+        .progress-done {
+            background-color: rgb(106, 117, 165);
+            height: 100%;
+            width: 0;
+            border-radius: 20px;
+            transition: 1s ease;
+        }
+    }
+
+}
