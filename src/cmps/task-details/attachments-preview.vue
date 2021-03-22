@@ -16,7 +16,7 @@
 							>Edit
 						</span>
 					</small>
-					<small class="image-info cover-maker">Make cover</small>
+					<small class="image-info cover-maker" @click="setCover">{{setCoverToDisplay}}</small>
 				</div>
 			</div>
 			<div class="edit-window pop-up-header" v-if="editToggler">
@@ -53,6 +53,11 @@ export default {
 			currImg: null,
 		}
 	},
+	computed: {
+		setCoverToDisplay(){
+			return this.taskToEdit.cover.isImg ? 'Remove cover' : 'Make cover'
+		}
+	},
 	methods: {
 		editImg() {
 			this.imgToEdit.name = this.txtToEdit;
@@ -73,7 +78,10 @@ export default {
 		showImage(toggler, img) {
 			if (!toggler) this.currImg = null
 			this.currImg = img;
-
+		},
+		setCover(){
+			if(this.taskToEdit.cover.isImg) return this.$emit('setCover', false)
+			this.$emit('setCover', true)
 		},
 		moment: function () {
 			return moment();

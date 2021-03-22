@@ -39,7 +39,7 @@
 				<span class="avatar" v-for="member in task.members" :key="member.id">
 					<avatar
 						v-if="task.members.length"
-						:size="20"
+						:size="28"
 						:username="member.fullname"
 					></avatar>
 				</span>
