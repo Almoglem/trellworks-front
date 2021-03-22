@@ -21,6 +21,21 @@
         .cover {
             height: 116px;
             width: 100%;
+            border-radius: 3px;
+        }
+
+        .cover-image {
+            @include aspect-ratio(1, 1);
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            background-color: #625649;
+
+            img {
+                width: 160px;
+                left: 50%;
+                transform: translate(-50%);
+            }
         }
 
         .details-close {

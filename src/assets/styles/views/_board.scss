@@ -154,7 +154,12 @@
         &:first-of-type {
             margin-top: 0;
         }
-        
+
+        &.cover-img-full {
+            height: 244.51px;
+            background-size: cover;
+        }
+
 
         .top-cover {
 
@@ -177,8 +182,18 @@
         }
 
         .task-preview-main {
-            
             padding: 6px 8px 2px;
+
+            &.cover-txt-full {
+                display: flex;
+                justify-content: flex-end;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            &.full-height {
+                min-height: 56px;
+            }
         }
 
         .task-preview-title {
@@ -189,6 +204,8 @@
             font-size: 14px;
             line-height: 23px;
             font-weight: 400;
+            word-wrap: break-word;
+
         }
 
 

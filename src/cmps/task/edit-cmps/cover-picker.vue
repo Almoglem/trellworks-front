@@ -48,8 +48,9 @@ export default {
       return JSON.parse(JSON.stringify(this.task))
     },
     coverToShow(){
-      if(!this.taskToEdit.cover.src) return '#d9d9da'
-      else if(this.taskToEdit.cover) return this.taskToEdit.cover.src
+      if(!this.taskToEdit.cover.src || this.taskToEdit.isImg) return '#d9d9da'
+      else if(this.taskToEdit.cover.src && !this.taskToEdit.cover.isImg) return this.taskToEdit.cover.src
+      else return '#d9d9da'
     }
   },
   methods: {

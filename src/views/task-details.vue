@@ -2,7 +2,10 @@
   <section @mousedown.self="closeModal" class="task-details-modal">
     <div @click="togglePopUp(false)" class="task-details">
       <i class="fas fa-times details-close clickable" @click="closeModal"></i>
-      <div class="cover" :style="coverToShow" v-if="currTask.cover.src"></div>
+      <div class="cover" :style="{backgroundColor: currTask.cover.src}" v-if="currTask.cover.src && !currTask.cover.isImg"></div>
+      <div class="cover-image" v-if="currTask.cover.src && currTask.cover.isImg">
+        <img :src="currTask.cover.src">
+      </div>
       <div class="task-details-main">
         <div class="details-header">
           <input
@@ -28,7 +31,6 @@
                 class="members-preview container"
                 v-if="currTask.members.length"
               >
-                <!-- <i class="fas fa-user"></i> -->
                 <h1 class="uppercase-title">Members</h1>
                 <section class="flex members-preview">
                   <span
@@ -71,6 +73,7 @@
               v-if="currTask.imgs.length"
               @editImg="editImg"
               @removeImg="removeImg"
+              @setCover="setCoverImg"
               :task="currTask"
               @logActivity="saveActivity"
             />
@@ -199,10 +202,6 @@ export default {
     taskId() {
       return this.$route.params.taskId;
     },
-    coverToShow() {
-      if (this.currTask.cover.isImg) return { backgroundImage: this.currTask.cover.src };
-      else return { backgroundColor: this.currTask.cover.src };
-    },
   },
   methods: {
     removeChecklist(idx) {
@@ -304,6 +303,13 @@ export default {
       taskToEdit.imgs.splice(foundIdx, 1);
       this.updateTask(taskToEdit);
     },
+    setCoverImg(toggler, imgSrc){
+      const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
+      taskToEdit.cover.isImg = toggler;
+      taskToEdit.cover.src = imgSrc
+      if(!toggler) taskToEdit.cover.type = 'top'
+      this.updateTask(taskToEdit)
+    }
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });

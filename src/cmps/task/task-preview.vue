@@ -5,7 +5,8 @@
 		@click="getDetails"
 		class="task-preview clickable"
 		:style="bgcToShow"
-	>
+		:class="setCoverImgFull"
+	>	
 		<div class="top-cover" v-if="task.cover.src && typeTop">
 			<div class="cover-color" v-if="!task.cover.isImg" :style="{backgroundColor: task.cover.src}"> </div>
 			<div class="cover-img" v-if="task.cover.isImg"> 
@@ -13,7 +14,7 @@
 			</div>
 		</div>
 
-		<div class="task-preview-main">
+		<div class="task-preview-main" :class="setCoverFullTitle">
 		<!-- <div class="full-cover" v-if="task.cover.src && task.cover.type==='full'">
 			<div class="cover-color" v-if="!task.cover.isImg"> </div>
 			<div class="cover-img" v-if="task.cover.isImg"> </div>
@@ -26,7 +27,7 @@
 				:fromPreview="true"
 			/>
 		</div>
-		<p class="task-preview-title" :style="typeFullFont">{{ task.title }}</p>
+		<p class="task-preview-title"  :style="typeFullFont">{{ task.title }}</p>
 		<div class="preview-footer-container flex" v-if="typeTop">
 			<dueDatePreview v-if="task.dueDate" :task="task" @dueDateUpdated="updateDueDate"/>
 			<i v-if="task.description" class="fas fa-align-left fa-sm"></i>
@@ -79,8 +80,16 @@ export default {
 			return this.$store.getters.currBoard;
 		},
 		bgcToShow(){
-			if(this.task.cover.src && this.task.cover.type==='full') return {background: this.task.cover.src}
-			else return {background: '#fff'}
+			if(this.task.cover.src && this.task.cover.type==='full' && this.task.cover.isImg) return {backgroundImage: `url(${this.task.cover.src})`}
+			else if(this.task.cover.src && this.task.cover.type==='full' && !this.task.cover.isImg) return {backgroundColor: this.task.cover.src}
+			else return {backgroundColor: '#fff'}
+		},
+		setCoverImgFull(){
+			return {'cover-img-full': this.task.cover.isImg && this.task.cover.type === 'full'}
+		},
+		setCoverFullTitle(){
+			return {'cover-txt-full': this.task.cover.type === 'full',
+			'full-height': !this.task.cover.isImg && this.task.cover.type === 'full'}
 		},
 		typeTop(){
 			return this.task.cover.type === 'top' ? true : false
