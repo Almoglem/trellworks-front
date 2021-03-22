@@ -35,10 +35,14 @@ export default {
         name: `${imgUploaded.original_filename}.${imgUploaded.format}`,
         createdAt: Date.now()
       }
-      if(this.taskToEdit.imgs.length === 0 && !this.taskToEdit.cover) this.taskToEdit.cover = img.src;
+      if(!this.taskToEdit.cover.src) {
+        this.taskToEdit.cover.src = img.src;
+        this.taskToEdit.cover.type = 'top';
+        this.taskToEdit.cover.isImg = true
+      }
       this.taskToEdit.imgs.unshift(img)
       this.$emit("updateTask", this.taskToEdit);
-        this.$emit('logActivity',`added an attachment to "${this.taskToEdit.title}"`)
+      this.$emit('logActivity',`added an attachment to "${this.taskToEdit.title}"`)
       this.$emit('close')
     },
     addFileUrl(){
@@ -50,7 +54,11 @@ export default {
           name: `Your Image`,
           createdAt: Date.now()
         }
-        if(this.taskToEdit.imgs.length === 0 && !this.taskToEdit.cover) this.taskToEdit.cover = img.src;
+        if(!this.taskToEdit.cover.src) {
+          this.taskToEdit.src = img.src;
+          this.taskToEdit.type = 'top';
+          this.taskToEdit.isImg = true
+        }
         this.taskToEdit.imgs.unshift(img)
         this.$emit('logActivity',`added an attachment to "${this.taskToEdit.title}"`)
         this.$emit("updateTask", this.taskToEdit);
