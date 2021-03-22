@@ -25,6 +25,7 @@
 }
 
 .task-details .overdue::before {
+    font-family: Helvetica;
     content: 'overdue!   ';
     color: #fff;
 }
