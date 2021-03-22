@@ -26,7 +26,7 @@
 			Add an item
 		</button>
 		<form v-if="isAddingItem" @submit.prevent="addTodo">
-			<input placeholder="Add an item" v-model="todoToAdd.title" />
+			<input placeholder="Add an item" ref="taskadd" v-model="todoToAdd.title" />
 			<button type="submit" class="btn-success">Add</button>
 			<i
 				class="fas fa-times clickable close-desc"
@@ -105,6 +105,7 @@ export default {
 			this.todoToAdd = { title: "", isDone: false };
 			this.$emit('logActivity', `added items in the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`)
 			this.isAddingItem = true
+			this.$refs.taskadd.focus()
 
 		},
 		removeTodo(todoId) {
