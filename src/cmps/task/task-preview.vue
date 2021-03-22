@@ -27,7 +27,7 @@
 			/>
 		</div>
 		<p class="task-preview-title" :style="typeFullFont">{{ task.title }}</p>
-		<div class="preview-footer-container flex" v-if="typeTop">
+		<div class="preview-footer-container flex" style="align-items:baseline" v-if="typeTop">
 			<dueDatePreview v-if="task.dueDate" :task="task" @dueDateUpdated="updateDueDate"/>
 			<i v-if="task.description" class="fas fa-align-left fa-sm"></i>
 			<i
