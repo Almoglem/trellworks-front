@@ -28,7 +28,7 @@
 			/>
 		</div>
 		<p class="task-preview-title" :style="typeFullFont">{{ task.title }}</p>
-		<div class="preview-footer-container flex" style="align-items:baseline" v-if="typeTop">
+		<div class="preview-footer-container flex" style="align-items:baseline" v-if="typeTop && footerIsShown">
 			<dueDatePreview v-if="task.dueDate" :task="task" @dueDateUpdated="updateDueDate"/>
 			<i v-if="task.description" class="fas fa-align-left fa-sm"></i>
 			<i
@@ -101,6 +101,10 @@ export default {
 		penToggler() {
 			return { "fas fa-pencil-alt edit-pen": this.isEditPenShown };
 		},
+		footerIsShown(){
+			if(this.task.dueDate || this.task.description || this.task.members.length) return true
+			else return false
+		}
 	},
 	methods: {
 		getDetails() {

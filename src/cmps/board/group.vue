@@ -39,6 +39,7 @@
 			>
 			<div class="add-task-container" v-if="isAddingTask">
 				<textarea
+					ref="textarea"
 					placeholder="Your task title here..."
 					rows="2"
 					cols="29"
@@ -83,6 +84,9 @@ export default {
 		},
 		openAddTask() {
 			this.isAddingTask = true;
+			setTimeout(() => {
+				this.$refs.textarea.focus()
+			}, 0)
 		},
 		closeAddTask() {
 			this.isAddingTask = false;
@@ -91,7 +95,8 @@ export default {
 			if (this.taskToAdd.title === "") return;
 			this.$emit("addTask", this.taskToAdd, groupId);
 			this.taskToAdd = boardService.getEmptyTask();
-			this.isAddingTask = false;
+			this.isAddingTask = true;
+			this.$refs.textarea.focus()
 		},
 		itemsDragged() {
 			this.$emit("taskDragged", this.board);
