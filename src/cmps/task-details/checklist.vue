@@ -97,12 +97,14 @@ export default {
 		},
 		/// actions coming from todo emits
 		addTodo() {
+			if(!this.todoToAdd.title) return
 			this.isAddingItem = false;
 			this.todoToAdd.id = utilService.makeId();
 			this.checklistToEdit.todos.push(this.todoToAdd);
 			this.updateTask();
 			this.todoToAdd = { title: "", isDone: false };
 			this.$emit('logActivity', `added items in the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`)
+			this.isAddingItem = true
 
 		},
 		removeTodo(todoId) {
