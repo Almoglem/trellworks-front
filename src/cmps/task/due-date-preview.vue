@@ -45,10 +45,11 @@ export default ({
 			else this.dueClass = "months"
 		},
 		toggleComlpetion() {
+			const task = JSON.parse(JSON.stringify(this.taskToEdit))
 			this.isDone = !this.isDone
-			this.taskToEdit.isCompleted = !this.taskToEdit.isCompleted
-			this.$emit('dueDateUpdated', this.taskToEdit)
-			if (this.isDone) this.$emit('logActivity', `marked the task "${this.task.title}" as completed`)
+			task.isCompleted = !task.isCompleted
+			this.$emit('dueDateUpdated', task)
+			if (this.isDone) this.$emit('logActivity', `marked the task "${task.title}" as completed`)
 		}
 	}, created() {
 		this.deteremineDate()
