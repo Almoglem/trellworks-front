@@ -4,6 +4,7 @@
 		<input type="datetime-local" v-model="value"  />
 		<button class="btn-success">Save</button>
 		</form>
+		<button @click="clearDueDate" class="btn-gray">Save</button>
 	</section>
 </template>
 
@@ -30,8 +31,13 @@ export default {
 		setDate() {
 			this.taskToEdit.dueDate=Date.parse(this.value)
 			this.$emit('updateTask', this.taskToEdit)
-			this.$emit('logActivity',`added a due date for "${this.taskToEdit.title}"`)
+			if(this.taskToEdit.dueDate)this.$emit('logActivity',`added a due date for "${this.taskToEdit.title}"`)
 		},
+		clearDueDate(){
+			this.value=''
+			this.setDate()
+
+		}
 	},
 	created() {
 
