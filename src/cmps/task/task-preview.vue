@@ -52,7 +52,7 @@
 					@click.stop="toggleEdit(true)"
 				></i>
 				<span class="checklist-preview" :class="{success:areTodosCompleted}" v-if="task.checklists">
-					<i class="far fa-check-square"></i>
+					<i v-if="task.checklists.length" class="far fa-check-square"></i>
 					{{getChecklsitString}}
 				</span>
 				<span class="flex preview-avatar-container">
@@ -128,6 +128,7 @@ export default {
 			else return false
 		},
 				getChecklsitString() {
+					console.log(this.task);
 			if(!this.task.checklists)return
 			let allTodos=0
 			let doneTodos=0
@@ -139,7 +140,9 @@ export default {
 					allTodos += checklist.todos.length
 				}
 			})
+			if(!allTodos) return
 			if (doneTodos === allTodos && allTodos > 0) this.areTodosCompleted = true
+			console.log(`${doneTodos}/${allTodos}`);
 			return `${doneTodos}/${allTodos}`
 		}
 	},
