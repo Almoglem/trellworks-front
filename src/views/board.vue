@@ -270,6 +270,7 @@ export default {
     group,
     draggable,
     appHeader,
+    loader,
   },
 };
 </script>
