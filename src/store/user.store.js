@@ -88,7 +88,12 @@ export const userStore = {
             }
         },
         saveActivity({ commit }, payload) {
-            activityService.add(payload)
+            try{
+                activityService.add(payload)
+            } catch (err) {
+                console.log('userStore: error adding activity');
+                // throw err
+            }
         }
     }
 }

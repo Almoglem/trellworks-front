@@ -214,15 +214,30 @@ export default {
       this.updateTask(task);
     },
     async saveActivity(activityTitle) {
-      this.$store.dispatch({
-        type: "saveActivity",
-        activity: activityTitle,
-        group: this.currGroup,
-        board: this.currBoard,
-        task: this.getTask(this.currBoard),
-      });
-      await this.updateBoard(this.currBoard);
-      this.updateBoardSocket(this.currBoard)
+      try {
+        this.$store.dispatch({
+          type: "saveActivity",
+          activity: activityTitle,
+          group: this.currGroup,
+          board: this.currBoard,
+          task: this.getTask(this.currBoard),
+        });
+        await this.updateBoard(this.currBoard);
+        this.updateBoardSocket(this.currBoard)
+      } catch(err){
+        Swal.fire({
+					position: 'bottom-end',
+					title: 'Sorry, There was a problem with your request.',
+					showConfirmButton: false,
+					timer: 1500,
+					customClass: {
+						title: 'error',
+						popup: 'error'
+					},
+					toast:true,
+					animation:true
+			  })
+      }
     },
     getTask(board, isIdx) {
       const group = board.groups.find(
@@ -234,11 +249,26 @@ export default {
       return res;
     },
     async updateBoard(board) {
-      await this.$store.dispatch({
-        type: "saveBoardChanges",
-        editedBoard: board,
-      });
-      this.$store.commit({ type: "setTask", taskId: this.taskId });
+      try {
+        await this.$store.dispatch({
+          type: "saveBoardChanges",
+          editedBoard: board,
+        });
+        this.$store.commit({ type: "setTask", taskId: this.taskId });
+      } catch(err) {
+        Swal.fire({
+					position: 'bottom-end',
+					title: 'Sorry, Could not update the board. ' + err ,
+					showConfirmButton: false,
+					timer: 1500,
+					customClass: {
+						title: 'error',
+						popup: 'error'
+					},
+					toast:true,
+					animation:true
+			})
+      }
     },
     closeModal() {
       this.$router.push(`/board/${this.$route.params.boardId}`);
@@ -265,7 +295,10 @@ export default {
 			title: 'Task removed successfully',
 			showConfirmButton: false,
 			timer: 1500,
-			background:'#c6c8cc',
+      customClass: {
+        title: 'success',
+        popup: 'success'
+      },
 			toast:true,
 			animation:true
 		})
@@ -316,7 +349,10 @@ export default {
 			title: 'Attachment edited successfully',
 			showConfirmButton: false,
 			timer: 1500,
-			background:'#c6c8cc',
+      customClass: {
+        title: 'success',
+        popup: 'success'
+      },
 			toast:true,
 			animation:true
 		})
@@ -332,7 +368,10 @@ export default {
 			title: 'Attachment removed successfully',
 			showConfirmButton: false,
 			timer: 1500,
-			background:'#c6c8cc',
+      customClass: {
+        title: 'success',
+        popup: 'success'
+      },
 			toast:true,
 			animation:true
 		})
