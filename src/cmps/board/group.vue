@@ -24,7 +24,6 @@
 					:key="task.id"
 					:task="task"
 					:groupId="group.id"
-					@timeDueReminder="logTimeDue"
 					@updateDueDate="updatedDueDate"
 				/>
 			</draggable>
@@ -105,9 +104,7 @@ export default {
 			socketService.emit('board update', this.board);
 
 		},
-		logTimeDue(activityTitle, task) {
-			this.$emit("timeDueReminder", activityTitle, task);
-		},
+
 		updatedDueDate(task) {
 			const group = JSON.parse(JSON.stringify(this.group));
 			const taskIdx = group.task.findIndex(groupTask => groupTask.id === task.id)
