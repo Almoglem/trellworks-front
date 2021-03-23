@@ -16,6 +16,8 @@
 
 <script>
 import moment from "moment";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 export default ({
 	props: {
@@ -49,7 +51,16 @@ export default ({
 			this.isDone = !this.isDone
 			task.isCompleted = !task.isCompleted
 			this.$emit('dueDateUpdated', task)
-			if (this.isDone) this.$emit('logActivity', `marked the task "${task.title}" as completed`)
+			if (this.isDone) {this.$emit('logActivity', `marked the task "${task.title}" as completed`)
+					Swal.fire({
+			position: 'bottom-end',
+			title: 'Task completed!',
+			showConfirmButton: false,
+			timer: 1500,
+			background:'#c6c8cc',
+			toast:true,
+			animation:true
+		})}
 		}
 	}, created() {
 		this.deteremineDate()

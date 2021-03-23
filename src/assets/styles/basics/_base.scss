@@ -111,3 +111,8 @@ textarea:focus {
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+.swal2-popup.swal2-toast.swal2-show,
+.swal2-popup.swal2-toast.swal2-hide {
+box-shadow: none;
+  }
