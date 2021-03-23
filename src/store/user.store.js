@@ -1,4 +1,4 @@
-import { activityService } from '../services/activity.service';
+
 import { userService } from '../services/user.service'
 
 // var localLoggedinUser = null;
@@ -87,13 +87,5 @@ export const userStore = {
                 throw err
             }
         },
-        saveActivity({ commit }, payload) {
-            try{
-                activityService.add(payload)
-            } catch (err) {
-                console.log('userStore: error adding activity');
-                // throw err
-            }
-        }
     }
 }
