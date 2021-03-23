@@ -2,9 +2,16 @@
   <section @mousedown.self="closeModal" class="task-details-modal">
     <div @click="togglePopUp(false)" class="task-details">
       <i class="fas fa-times details-close clickable" @click="closeModal"></i>
-      <div class="cover" :style="{backgroundColor: currTask.cover.src}" v-if="currTask.cover.src && !currTask.cover.isImg"></div>
-      <div class="cover-image" v-if="currTask.cover.src && currTask.cover.isImg">
-        <img :src="currTask.cover.src">
+      <div
+        class="cover"
+        :style="{ backgroundColor: currTask.cover.src }"
+        v-if="currTask.cover.src && !currTask.cover.isImg"
+      ></div>
+      <div
+        class="cover-image"
+        v-if="currTask.cover.src && currTask.cover.isImg"
+      >
+        <img :src="currTask.cover.src" />
       </div>
       <div class="task-details-main">
         <div class="details-header">
@@ -129,7 +136,7 @@
         </main>
       </div>
     </div>
-    <loader v-if="isLoading"/>
+    <loader v-if="isLoading" />
   </section>
 </template>
 
@@ -149,10 +156,11 @@ import taskDescription from "../cmps/task-details/task-description.vue";
 import checklist from "../cmps/task-details/checklist";
 import Avatar from "vue-avatar";
 import memberProfile from "../cmps/recurring-cmps/user-miniprofile.vue";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
-import {socketService} from '@/services/socket.service'
-import loader from '@/cmps/recurring-cmps/loader'
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+import { socketService } from "@/services/socket.service";
+import { utilService } from "@/services/util.service";
+import loader from "@/cmps/recurring-cmps/loader";
 
 export default {
   data() {
@@ -194,7 +202,7 @@ export default {
       currAction: null,
       openPopUp: false,
       taskCopy: null,
-      isLoading: false
+      isLoading: false,
     };
   },
   computed: {
@@ -219,28 +227,30 @@ export default {
     },
     async saveActivity(activityTitle) {
       try {
-        this.$store.dispatch({
-          type: "saveActivity",
-          activity: activityTitle,
+        const board = this.currBoard;
+        board.activities.unshift({
+          byMember: { fullname: "Guest" },
+          title: activityTitle,
+          createdAt: Date.now(),
           group: this.currGroup,
-          board: this.currBoard,
+          id: utilService.makeId(),
           task: this.getTask(this.currBoard),
         });
-        await this.updateBoard(this.currBoard);
-        this.updateBoardSocket(this.currBoard)
-      } catch(err){
+        await this.updateBoard(board);
+        socketService.emit("board update", board);
+      } catch (err) {
         Swal.fire({
-					position: 'bottom-end',
-					title: 'Sorry, There was a problem with your request.',
-					showConfirmButton: false,
-					timer: 1500,
-					customClass: {
-						title: 'error',
-						popup: 'error'
-					},
-					toast:true,
-					animation:true
-			  })
+          position: "bottom-end",
+          title: "Sorry, There was a problem with your request.",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "error",
+            popup: "error",
+          },
+          toast: true,
+          animation: true,
+        });
       }
     },
     getTask(board, isIdx) {
@@ -259,19 +269,19 @@ export default {
           editedBoard: board,
         });
         this.$store.commit({ type: "setTask", taskId: this.taskId });
-      } catch(err) {
+      } catch (err) {
         Swal.fire({
-					position: 'bottom-end',
-					title: 'Sorry, Could not update the board. ' + err ,
-					showConfirmButton: false,
-					timer: 1500,
-					customClass: {
-						title: 'error',
-						popup: 'error'
-					},
-					toast:true,
-					animation:true
-			})
+          position: "bottom-end",
+          title: "Sorry, Could not update the board. " + err,
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "error",
+            popup: "error",
+          },
+          toast: true,
+          animation: true,
+        });
       }
     },
     closeModal() {
@@ -282,7 +292,7 @@ export default {
       this.currAction = actionType;
     },
     async removeTask() {
-      this.isLoading = true
+      this.isLoading = true;
       const board = JSON.parse(JSON.stringify(this.currBoard));
       const taskIdx = this.getTask(board, true);
       const group = board.groups.find(
@@ -293,21 +303,21 @@ export default {
       );
       group.task.splice(taskIdx, 1);
       await this.updateBoard(board);
-      this.isLoading = false
-      this.updateBoardSocket(board)
+      this.isLoading = false;
+      this.updateBoardSocket(board);
       this.$router.push("../");
-      	Swal.fire({
-			position: 'bottom-end',
-			title: 'Task removed successfully',
-			showConfirmButton: false,
-			timer: 1500,
-      customClass: {
-        title: 'success',
-        popup: 'success'
-      },
-			toast:true,
-			animation:true
-		})
+      Swal.fire({
+        position: "bottom-end",
+        title: "Task removed successfully",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          title: "success",
+          popup: "success",
+        },
+        toast: true,
+        animation: true,
+      });
     },
     async updateTask(task) {
       const updatedTask = JSON.parse(JSON.stringify(task));
@@ -322,7 +332,7 @@ export default {
           `changed the task "${this.currTask.title}" to "${updatedTask.title}"`
         );
       await this.updateBoard(board);
-      this.updateBoardSocket(board)
+      this.updateBoardSocket(board);
     },
     getTaskActivity() {
       const filteredActivities = this.currBoard.activities.filter(
@@ -350,18 +360,18 @@ export default {
       if (foundIdx < 0) return console.log("couldnt find idx");
       taskToEdit.imgs.splice(foundIdx, 1, imgToEdit);
       this.updateTask(taskToEdit);
-      	Swal.fire({
-			position: 'bottom-end',
-			title: 'Attachment edited successfully',
-			showConfirmButton: false,
-			timer: 1500,
-      customClass: {
-        title: 'success',
-        popup: 'success'
-      },
-			toast:true,
-			animation:true
-		})
+      Swal.fire({
+        position: "bottom-end",
+        title: "Attachment edited successfully",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          title: "success",
+          popup: "success",
+        },
+        toast: true,
+        animation: true,
+      });
     },
     removeImg(imgId) {
       const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
@@ -369,41 +379,40 @@ export default {
       if (foundIdx < 0) return console.log("couldnt find idx");
       taskToEdit.imgs.splice(foundIdx, 1);
       this.updateTask(taskToEdit);
-      	Swal.fire({
-			position: 'bottom-end',
-			title: 'Attachment removed successfully',
-			showConfirmButton: false,
-			timer: 1500,
-      customClass: {
-        title: 'success',
-        popup: 'success'
-      },
-			toast:true,
-			animation:true
-		})
+      Swal.fire({
+        position: "bottom-end",
+        title: "Attachment removed successfully",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          title: "success",
+          popup: "success",
+        },
+        toast: true,
+        animation: true,
+      });
     },
-    setCoverImg(toggler, imgSrc){
+    setCoverImg(toggler, imgSrc) {
       const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
       taskToEdit.cover.isImg = toggler;
-      taskToEdit.cover.src = imgSrc
-      if(!toggler) taskToEdit.cover.type = 'top'
-      this.updateTask(taskToEdit)
+      taskToEdit.cover.src = imgSrc;
+      if (!toggler) taskToEdit.cover.type = "top";
+      this.updateTask(taskToEdit);
     },
-    updateBoardSocket(board){
-      this.$emit('updateBoardSocket', board)
+    updateBoardSocket(board) {
+      this.$emit("updateBoardSocket", board);
     },
-    toggleLoader(condition){
-      this.isLoading = condition
-    }
+    toggleLoader(condition) {
+      this.isLoading = condition;
+    },
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
     this.taskCopy = JSON.parse(JSON.stringify(this.currTask));
-    socketService.setup()
-    socketService.on('board updated', board => {
-			this.updateBoard(board)
-		})
-
+    socketService.setup();
+    socketService.on("board updated", (board) => {
+      this.updateBoard(board);
+    });
   },
   components: {
     popUp,
@@ -421,7 +430,7 @@ export default {
     memberProfile,
     attachmentsPreview,
     dueDateDetails,
-    loader
+    loader,
   },
 };
 </script>

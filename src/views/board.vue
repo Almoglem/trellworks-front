@@ -185,7 +185,6 @@ export default {
           title: task.title,
         },
       });
-      console.log("board activities:", board.activities);
       await this.updateBoard(board);
       socketService.emit("board update", board);
     },
