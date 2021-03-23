@@ -4,6 +4,7 @@
 		:style="{ backgroundColor: currBoard.styles.backgroundColor }"
 		v-if="currBoard"
 		:board="currBoard"
+		
 	>
 		<app-header />
 		<board-header
@@ -11,8 +12,8 @@
 			@boardTitleUpdated="updateBoardTitle"
 			@changeBgc="bgcChanged"
 		/>
-		<div class="flex board">
-			<div class="flex group-container">
+		<div class="flex board"  >
+			<div class="flex group-container" >
 				<draggable
 					v-model="currBoard.groups"
 					class="flex"
@@ -20,9 +21,9 @@
 					@end="draggingEnd"
 					ghostClass="group-ghost"
 					handle=".handle"
-					stop-propagation="true"
+					stop-propagation="true" 
 				>
-					<group
+					<group						
 						v-for="group in currBoard.groups"
 						:key="group.id"
 						:group="group"
@@ -149,6 +150,9 @@ export default {
 			board.groups.splice(groupIdx, 1, group);
 			this.saveActivity(`marked the task "${task.title}" as completed`, board, group, task)
 			this.updateBoard(board)
+		},
+		scrollHorizontally(){
+
 		}
 	},
 	async created() {

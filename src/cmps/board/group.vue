@@ -1,7 +1,6 @@
 <template>
-	<section v-if="group">
-		<div class="group handle">
-			<section class="flex group-header transition">
+		<div class="group handle" v-if="group">
+			<section class="flex group-header transition"> 
 				<!-- <p class="group-title">{{ group.title }}</p> -->
 				<input
 					class="clean-input group-title"
@@ -52,7 +51,7 @@
 				></span>
 			</div>
 		</div>
-	</section>
+
 </template>
 
 <script>
@@ -107,7 +106,7 @@ export default {
 			const taskIdx = group.task.findIndex(groupTask => groupTask.id === task.id)
 			group.task.splice(taskIdx, 1, task)
 			this.$emit('toggleTaskCompletion', group,task)
-		}
+		},
 	},
 	components: {
 		taskPreview,

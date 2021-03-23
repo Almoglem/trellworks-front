@@ -6,6 +6,9 @@ import './assets/styles/main.scss'
 import draggable from 'vuedraggable'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
+import VueDragscroll from 'vue-dragscroll'
+
+Vue.use(VueDragscroll)
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
