@@ -128,6 +128,7 @@
         </main>
       </div>
     </div>
+    <loader v-if="isLoading"/>
   </section>
 </template>
 
@@ -150,6 +151,7 @@ import memberProfile from "../cmps/recurring-cmps/user-miniprofile.vue";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import {socketService} from '@/services/socket.service'
+import loader from '@/cmps/recurring-cmps/loader'
 
 export default {
   data() {
@@ -191,6 +193,7 @@ export default {
       currAction: null,
       openPopUp: false,
       taskCopy: null,
+      isLoading: false
     };
   },
   computed: {
@@ -278,6 +281,7 @@ export default {
       this.currAction = actionType;
     },
     async removeTask() {
+      this.isLoading = true
       const board = JSON.parse(JSON.stringify(this.currBoard));
       const taskIdx = this.getTask(board, true);
       const group = board.groups.find(
@@ -288,6 +292,7 @@ export default {
       );
       group.task.splice(taskIdx, 1);
       await this.updateBoard(board);
+      this.isLoading = false
       this.updateBoardSocket(board)
       this.$router.push("../");
       	Swal.fire({
@@ -412,6 +417,7 @@ export default {
     memberProfile,
     attachmentsPreview,
     dueDateDetails,
+    loader
   },
 };
 </script>
