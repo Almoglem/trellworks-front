@@ -44,7 +44,7 @@
 					cols="29"
 					class="task-preview add-task"
 					v-model="taskToAdd.title"
-					@focusout="isAddingTask = false"
+					@focusout="addTask($event, group.id)"
 				></textarea>
 				<button class="btn-success" @click="addTask($event, group.id)">Add task</button>
 				<span class="clickable" @click="closeAddTask">
