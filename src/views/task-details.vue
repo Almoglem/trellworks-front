@@ -86,6 +86,7 @@
                 @updateTask="updateTask"
                 @changeMade="changeTaskDetails"
                 @removeChecklist="removeChecklist"
+                @logActivity="saveActivity"
               />
             </div>
             <activityLog

@@ -72,8 +72,9 @@ export default {
 				this.checklistToEdit
 			);
 			this.$emit("updateTask", this.taskToEdit);
-
 			this.updateProgress();
+			if (this.completed !== "0%") this.$emit('logActivity', `has completed ${this.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`)
+
 		},
 		updateProgress() {
 			const todosLength = this.checklistToEdit.todos.length;
@@ -82,18 +83,14 @@ export default {
 			).length;
 			if (!todosLength) this.completed = "0%";
 			else this.completed = Math.round((doneLength / todosLength) * 100) + "%";
-		    //FIXME: this log occures every time one enters the task details...
-			// if (this.completed !== "0%") this.$emit('logActivity', `has completed ${this.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`)
 			this.$refs.progress.style.width = this.completed;
 			this.$refs.progress.style.background =
 				doneLength / todosLength === 1 ? "#64916a" : "#0079bf";
-
 		},
 		/// actions
 		removeChecklist() {
 			this.$emit('logActivity', `removed a checklist in "${this.taskToEdit.title}"`)
 			this.$emit("removeChecklist", this.checklistIdx);
-
 		},
 		/// actions coming from todo emits
 		addTodo() {
