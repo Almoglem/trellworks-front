@@ -41,6 +41,8 @@
 <script>
 import { utilService } from "../../services/util.service";
 import todoItem from "../task-details/todo-item";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 export default {
 	props: {
@@ -122,6 +124,24 @@ export default {
 			return this.checklistToEdit.todos.findIndex((todo) => todo.id === todoId);
 		},
 		getChecklistIdx() { },
+	},
+	watch: {
+		completed(){
+			if(this.completed === '100%'){
+			Swal.fire({
+				position: 'bottom-end',
+				title: 'You have finished all of your to-do list!',
+				showConfirmButton: false,
+				timer: 1500,
+				customClass: {
+					title: 'success',
+					popup: 'success'
+				},
+				toast:true,
+				animation:true
+			})
+			}
+		}
 	},
 	created() {
 		this.taskToEdit = JSON.parse(JSON.stringify(this.task));

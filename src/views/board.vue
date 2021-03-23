@@ -44,6 +44,7 @@
       </div>
     </div>
     <router-view @updateBoardSocket="updateBoardSocket" />
+    <loader v-if="isLoading" />
   </section>
 </template>
 
@@ -51,6 +52,7 @@
 import appHeader from "@/cmps/app-header";
 import boardHeader from "@/cmps/board/board-header";
 import group from "@/cmps/board/group";
+import loader from "@/cmps/recurring-cmps/loader";
 import draggable from "vuedraggable";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
@@ -59,6 +61,11 @@ import { socketService } from "@/services/socket.service";
 import { utilService } from "@/services/util.service";
 
 export default {
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   computed: {
     boardId() {
       return this.$route.params.boardId;
@@ -91,10 +98,12 @@ export default {
     },
     async loadBoard() {
       try {
+        this.isLoading = true;
         await this.$store.dispatch({
           type: "getBoard",
           boardId: this.boardId,
         });
+        this.isLoading = false;
       } catch (err) {
         Swal.fire({
           position: "bottom-end",

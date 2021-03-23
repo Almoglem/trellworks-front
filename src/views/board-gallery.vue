@@ -22,6 +22,7 @@
 				</router-link>
 			</div>
 		</div>
+		<loader v-if="isLoading"/>
 	</section>
 </template>
 
@@ -29,9 +30,12 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import appHeader from '@/cmps/app-header'
+import loader from '@/cmps/recurring-cmps/loader'
 export default {
 	data() {
-		return {}
+		return {
+			isLoading: false
+		}
 	},
 	computed: {
 		boards() {
@@ -42,9 +46,11 @@ export default {
 	methods: {
 		async loadBoards() {
 			try {
+				this.isLoading = true;
 				await this.$store.dispatch({
 				type: 'loadBoards'
-			})
+				})
+				this.isLoading = false;
 			} catch (err) {
 				Swal.fire({
 					position: 'bottom-end',
@@ -71,7 +77,8 @@ export default {
 		await this.loadBoards()
 	},
 	components: {
-		appHeader
+		appHeader,
+		loader
 	}
 
 
