@@ -28,22 +28,39 @@ export default {
   },
   methods: {
     async addFilePc(ev) {
-      const imgUploaded = await uploadImg(ev)
-      const img = {
-        id: utilService.makeId(),
-        src: imgUploaded.url,
-        name: `${imgUploaded.original_filename}.${imgUploaded.format}`,
-        createdAt: Date.now()
-      }
-      if(!this.taskToEdit.cover.src) {
-        this.taskToEdit.cover.src = img.src;
-        this.taskToEdit.cover.type = 'top';
-        this.taskToEdit.cover.isImg = true
-      }
-      this.taskToEdit.imgs.unshift(img)
-      this.$emit("updateTask", this.taskToEdit);
-      this.$emit('logActivity',`added an attachment to "${this.taskToEdit.title}"`)
-      this.$emit('close')
+      try{
+          this.$emit('toggleLoader', true)
+          const imgUploaded = await uploadImg(ev)
+          const img = {
+            id: utilService.makeId(),
+            src: imgUploaded.url,
+            name: `${imgUploaded.original_filename}.${imgUploaded.format}`,
+            createdAt: Date.now()
+          }
+          if(!this.taskToEdit.cover.src) {
+            this.taskToEdit.cover.src = img.src;
+            this.taskToEdit.cover.type = 'top';
+            this.taskToEdit.cover.isImg = true
+          }
+          this.taskToEdit.imgs.unshift(img)
+          this.$emit("updateTask", this.taskToEdit);
+          this.$emit('logActivity',`added an attachment to "${this.taskToEdit.title}"`)
+          this.$emit('close')
+          this.$emit('toggleLoader', false)
+        } catch (err) {
+            Swal.fire({
+              position: 'bottom-end',
+              title: 'Sorry, There was a problem with uploading your image.',
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                title: 'error',
+                popup: 'error'
+              },
+              toast:true,
+              animation:true
+            })
+        }
     },
     addFileUrl(){
       setTimeout(() => {

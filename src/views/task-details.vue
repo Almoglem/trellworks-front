@@ -115,6 +115,7 @@
                   @logActivity="saveActivity"
                   @close="togglePopUp(false)"
                   :task="currTask"
+                  @toggleLoader="toggleLoader"
                 />
               </pop-up>
             </ul>
@@ -390,6 +391,9 @@ export default {
     },
     updateBoardSocket(board){
       this.$emit('updateBoardSocket', board)
+    },
+    toggleLoader(condition){
+      this.isLoading = condition
     }
   },
   created() {
