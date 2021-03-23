@@ -39,7 +39,7 @@
 			>
 			<div class="add-task-container" v-if="isAddingTask">
 				<textarea
-					@keyup.enter="addTask(group.id)"
+					@keyup.enter="addTask($event, group.id)"
 					ref="textarea"
 					placeholder="Your task title here..."
 					rows="2"
@@ -47,7 +47,7 @@
 					class="task-preview add-task"
 					v-model="taskToAdd.title"
 				></textarea>
-				<button class="btn-success" @click="addTask(group.id)">Add task</button>
+				<button class="btn-success" @click="addTask($event, group.id)">Add task</button>
 				<span class="clickable" @click="closeAddTask">
 					<i class="fas fa-times"> </i
 				></span>
@@ -92,8 +92,8 @@ export default {
 		closeAddTask() {
 			this.isAddingTask = false;
 		},
-		async addTask(groupId) {
-			if (this.taskToAdd.title === "") return;
+		async addTask(ev,groupId) {
+			if (this.taskToAdd.title === "" || (ev.key == 'Enter' && this.taskToAdd.title.length < 2 )) return;
 			this.$emit("addTask", this.taskToAdd, groupId);
 			this.taskToAdd = boardService.getEmptyTask();
 			this.isAddingTask = true;

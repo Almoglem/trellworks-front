@@ -124,12 +124,13 @@ export default {
 			return { "fas fa-pencil-alt edit-pen": this.isEditPenShown };
 		},
 		footerIsShown() {
-			if (this.task.dueDate || this.task.description || this.task.members.length || this.task.checklists) return true
+			if (this.task.dueDate || this.task.description || this.task.members.length || this.task.checklists.length) return true
 			else return false
 		},
-				getChecklsitString() {
+		getChecklsitString() {
 			if(!this.task.checklists) {
-				this.areTodosCompleted = false
+				this.areTodosCompleted=false
+				return
 			}
 			let allTodos=0
 			let doneTodos=0

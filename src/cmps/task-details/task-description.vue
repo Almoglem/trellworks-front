@@ -22,7 +22,7 @@
           v-model="taskToEdit.description"
           ref="descriptionEdit"
           autofocus
-          @focusout="isEditing = !isEditing"
+          @focusout="setDescription"
           class="description-input clean-input"
           placeholder="Add a more detailed description..."
         ></textarea>
