@@ -96,6 +96,9 @@
                 @logActivity="saveActivity"
               />
             </div>
+            <i class="far fa-comment"></i>
+            <h1 class="uppercase-title">Post a Comment</h1>
+            <comments @postComment="logComment"/>
             <activityLog
               class="task-details-activity"
               :activities="getTaskActivity()"
@@ -150,6 +153,7 @@ import taskCover from "@/cmps/task/edit-cmps/cover-picker";
 import activityLog from "@/cmps/recurring-cmps/activity-list";
 import popUp from "@/cmps/task/pop-up";
 import attachmentsPreview from "@/cmps/task-details/attachments-preview.vue";
+import comments from "@/cmps/task-details/comments.vue";
 import dueDateDetails from "@/cmps/task-details/due-date-details.vue";
 import labelsPreview from "../cmps/task-details/labels-preview.vue";
 import taskDescription from "../cmps/task-details/task-description.vue";
@@ -228,7 +232,7 @@ export default {
       task.checklists.splice(idx, 1);
       this.updateTask(task);
     },
-    async saveActivity(activityTitle) {
+    async saveActivity(activityTitle,isComment = false) {
       try {
         const board = this.currBoard;
         board.activities.unshift({
@@ -238,6 +242,7 @@ export default {
           group: this.currGroup,
           id: utilService.makeId(),
           task: this.getTask(this.currBoard),
+          isComment:isComment
         });
         await this.updateBoard(board);
         socketService.emit("board update", board);
@@ -343,7 +348,7 @@ export default {
     getTaskActivity() {
       const filteredActivities = this.currBoard.activities.filter(
         (activity) => {
-          return activity.task && activity.task.id === this.currTask.id;
+          return activity.task && activity.task.id === this.currTask.id || activity.task && activity.task.id === this.currTask.id && activity.isComment;
         }
       );
       return filteredActivities;
@@ -411,6 +416,9 @@ export default {
     toggleLoader(condition) {
       this.isLoading = condition;
     },
+    logComment(commentTxt){
+      this.saveActivity(commentTxt,true)
+    }
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
@@ -437,6 +445,7 @@ export default {
     attachmentsPreview,
     dueDateDetails,
     loader,
+    comments
   },
 };
 </script>
