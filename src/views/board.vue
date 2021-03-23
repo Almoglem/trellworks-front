@@ -20,6 +20,7 @@
 					@end="draggingEnd"
 					ghostClass="group-ghost"
 					handle=".handle"
+					stop-propagation="true"
 				>
 					<group
 						v-for="group in currBoard.groups"

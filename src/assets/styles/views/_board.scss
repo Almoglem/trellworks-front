@@ -1,25 +1,27 @@
-// .board-main {
-//     height: 100%;
-// }
+.board-main {
+    height: 100%;
+}
 
 .board {
     overflow-y: hidden;
     flex: 1;
+    height: 90%;
+
 }
 
 .group-container {
     position: relative;
 }
-
-.group-ghost {
-    transition: transform 0.18s ease;
-    // &:before { 
-    //     content: ' ';
-    //     background-color: #0000002c;
-    //     position: absolute;
-    //     top: 0; left: 0; right: 0; bottom: 0;
-    // }
-}
+//buggy fornow
+// .group-ghost {
+//     transition: transform 0.18s ease;
+//     &:before { 
+//         content: ' ';
+//         background-color: #0000002c;
+//         position: absolute;
+//         top: 0; left: 0; right: 0; bottom: 10%;
+//     }
+// }
 
 .task-ghost {
     cursor: grabbing;
