@@ -83,7 +83,6 @@ export default {
       }
           this.labelIds.push(labelId);
           this.taskToEdit.labelIds = this.labelIds  
-          console.log(labelId);
           this.$emit('updateTask', this.taskToEdit)
     },
     setEditToggler(toggle, label){
@@ -126,7 +125,6 @@ export default {
     }
   },
   created() {
-    console.log(this.colorsToAdd, 'colorstoadd');
     this.filterTxt = ''
     this.filterLabels()
   },

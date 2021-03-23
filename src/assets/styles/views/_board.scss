@@ -112,12 +112,7 @@
     border-radius: 3px;
     position: relative;
     overflow-y: auto;
-
-    margin-left: 10px;
-
-    &:first-child {
-        margin-left: 10px
-    }
+    margin-left: 8px;
 
     .group-header {
         justify-content: space-between;

@@ -73,8 +73,13 @@ export const boardStore = {
     },
     actions: {
         async loadBoards({ commit }) {
-            const foundBoards = await boardService.query();
-            commit({ type: 'setBoards', foundBoards })
+            try {
+                const foundBoards = await boardService.query();
+                commit({ type: 'setBoards', foundBoards })
+            } catch(err) {
+                console.log('Error loading boards');
+                throw err.message
+            }
         },
         async getBoard({ commit }, { boardId }) {
             try {
@@ -82,12 +87,17 @@ export const boardStore = {
                 commit({ type: 'setBoard', board: foundBoard })
             } catch (err) {
                 console.log('reviewStore: Error in loadReviews', err)
-                throw err
+                throw err.message
             }
         },
         async saveBoardChanges(context, { editedBoard }) {
-            context.commit({ type: 'setBoard', board: editedBoard });
-            await boardService.save(editedBoard)
+            try {
+                context.commit({ type: 'setBoard', board: editedBoard });
+                await boardService.save(editedBoarrd)
+            } catch(err) {
+                console.log('error saving board changes', err.message);
+                throw err.message
+            }
         },
         async newBoard({ commit }) {
             try {
@@ -95,6 +105,7 @@ export const boardStore = {
             }
             catch (err) {
                 console.log('Adding new board: Error', err);
+                throw err.message
             }
         }
     }

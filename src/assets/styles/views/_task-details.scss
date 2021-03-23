@@ -544,7 +544,6 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: 50%;
-            box-shadow: none;
             cursor: pointer;
             background: #fff;
             border-radius: 3px;
@@ -576,4 +575,12 @@
 
         }
     }
+}
+
+.active-top {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0079bf;
+}
+
+.active-full {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0079bf;
 }

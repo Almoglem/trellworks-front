@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import appHeader from '@/cmps/app-header'
 export default {
 	data() {
@@ -39,9 +41,24 @@ export default {
 	},
 	methods: {
 		async loadBoards() {
-			await this.$store.dispatch({
+			try {
+				await this.$store.dispatch({
 				type: 'loadBoards'
 			})
+			} catch (err) {
+				Swal.fire({
+					position: 'bottom-end',
+					title: 'Sorry, could not load boards.',
+					showConfirmButton: false,
+					timer: 1500,
+					customClass: {
+						title: 'error',
+						popup: 'error'
+					},
+					toast:true,
+					animation:true
+			})
+			}
 		},
 		async createBoard() {
 			await this.$store.dispatch({
