@@ -11,6 +11,7 @@
 			:boardTitle="currBoard.title"
 			@boardTitleUpdated="updateBoardTitle"
 			@changeBgc="bgcChanged"
+			@updateBoard="updateBoard"
 		/>
 		<div class="flex board"  >
 			<div class="flex group-container" >

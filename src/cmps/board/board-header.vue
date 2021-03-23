@@ -4,7 +4,6 @@
 			<input class="clean-input" v-model="titleToEdit" v-if="isEditing" ref="titleInput" 
 			@keypress.enter="editBoardTitle"
 			@focusout="editBoardTitle" />
-
 			<h2 @click="getInput" v-else>{{ boardTitle }}</h2>
 			<button class="header-btn star"><i class="far fa-star"></i></button>
 			<ul class="flex avatars-show">
@@ -14,9 +13,9 @@
 					class="clickable transition board-header-avatar"
 					@click="showProfile(member)"
 				>
-					<span @click="currMember = member">
-						<avatar :size="30" :username="member.fullname"></avatar
-					></span>
+				<span @click="currMember = member">
+					<avatar :size="30" :username="member.fullname"></avatar
+				></span>
 				</span>
 				<memberProfile
 					:currMember="currMember"
@@ -24,7 +23,7 @@
 					@closeProfile="hideProfile"
 				/>
 			</ul>
-			<button class="header-btn invite">Invite to Board</button>
+			<button class="header-btn invite" @click="showUsers">Invite to Board</button>
 		</div>
 		<button @click="menuShown = !menuShown" class="header-btn">
 			Show Menu
@@ -37,8 +36,16 @@
 				@bgcChanged="changeBgc"
 			></boardMenu>
 		</transition>
+		<div class="pop-up-window" @click.self="userWindow = !userWindow">
+			<div v-if="userWindow" class="pop-up">
+				<h3 class="pop-up-title">Invite to board</h3>
+				<hr>
+			<li v-for="user in users" @click="toggleBoardMember(user)" :key="user._id">{{user.fullname}}</li>
+			</div>
+		</div>
 	</div>
 </template>
+
 <script>
 import boardMenu from "./menu.vue";
 import memberProfile from "../recurring-cmps/user-miniprofile.vue"
@@ -57,15 +64,25 @@ export default {
 			titleToEdit: this.boardTitle,
 			isEditing: false,
 			showMemberProfile: false,
-			currMember: null
+			currMember: null,
+			userWindow: false
 		};
 	},
 	computed: {
 		boardMembers() {
 			return this.$store.getters.currBoardMembers;
 		},
+		users(){
+			return this.$store.getters.users
+		},
+		currBoard(){
+			return JSON.parse(JSON.stringify(this.$store.getters.currBoard))
+		}
 	},
 	methods: {
+		async loadUsers(){
+			await this.$store.dispatch({type: 'loadUsers'});
+		},
 		editBoardTitle() {
 			this.isEditing = !this.isEditing;
 			this.$emit("boardTitleUpdated", this.titleToEdit);
@@ -85,9 +102,28 @@ export default {
 			setTimeout(() => {
 				this.$refs.titleInput.focus()
 			}, 0);
-		}
+		},
+		showUsers(){
+			this.userWindow = !this.userWindow
+		},
+		toggleBoardMember(user){
+			const userToAdd = {
+				_id: user._id,
+				fullname: user.fullname
+			}
+
+			const foundIdx = this.currBoard.members.findIndex(member => member._id === user._id)
+			if(foundIdx !== -1) {
+				this.currBoard.members.splice(foundIdx, 1)
+				return this.$emit('updateBoard', this.currBoard)
+			}
+			this.currBoard.members.push(userToAdd)
+			this.$emit('updateBoard', this.currBoard)
+		}	
 	},
-	created() { },
+	async created() { 
+		await this.loadUsers()
+	},
 	components: { boardMenu, Avatar, memberProfile },
 };
 </script>

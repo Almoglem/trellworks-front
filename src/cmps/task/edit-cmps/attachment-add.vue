@@ -63,24 +63,39 @@ export default {
         }
     },
     addFileUrl(){
-      setTimeout(() => {
-        if(!this.urlToUpload.includes('http')) return console.log('not a valid link')
-        const img = {
-          id: utilService.makeId(),
-          src: this.urlToUpload,
-          name: `Your Image`,
-          createdAt: Date.now()
-        }
-        if(!this.taskToEdit.cover.src) {
-          this.taskToEdit.src = img.src;
-          this.taskToEdit.type = 'top';
-          this.taskToEdit.isImg = true
-        }
-        this.taskToEdit.imgs.unshift(img)
-        this.$emit('logActivity',`added an attachment to "${this.taskToEdit.title}"`)
-        this.$emit("updateTask", this.taskToEdit);
-        this.$emit('close')
-      }, 200);
+      try {
+        setTimeout(() => {
+          if(!this.urlToUpload.includes('http')) return console.log('not a valid link')
+          const img = {
+            id: utilService.makeId(),
+            src: this.urlToUpload,
+            name: `Your Image`,
+            createdAt: Date.now()
+          }
+          if(!this.taskToEdit.cover.src) {
+            this.taskToEdit.src = img.src;
+            this.taskToEdit.type = 'top';
+            this.taskToEdit.isImg = true
+          }
+          this.taskToEdit.imgs.unshift(img)
+          this.$emit('logActivity',`added an attachment to "${this.taskToEdit.title}"`)
+          this.$emit("updateTask", this.taskToEdit);
+          this.$emit('close')
+        }, 200);
+      } catch(err){
+          Swal.fire({
+            position: 'bottom-end',
+            title: 'Sorry, There was a problem with uploading your image.',
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              title: 'error',
+              popup: 'error'
+            },
+            toast:true,
+            animation:true
+          })
+      }
     }
   },
   

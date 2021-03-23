@@ -11,7 +11,6 @@ export const userService = {
     remove,
     update,
     getLoggedinUser,
-    increaseScore
 }
 
 window.userService = userService
@@ -41,18 +40,11 @@ async function update(user) {
     if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
 }
 
-async function increaseScore(by = SCORE_FOR_REVIEW) {
-    const user = getLoggedinUser()
-    user.score = user.score + by || by
-    await update(user)
-    return user.score
-}
 
 async function login(userCred) {
     // const users = await storageService.query('user')
     // const user = users.find(user => user.username === userCred.username)
     // return _saveLocalUser(user)
-
     const user = await httpService.post('auth/login', userCred)
     if (user) return _saveLocalUser(user)
 }

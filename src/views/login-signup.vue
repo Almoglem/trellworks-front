@@ -42,7 +42,7 @@
       </form>
     </div>
     <hr />
-    <details>
+    <!-- <details>
       <summary>
         Admin Section
       </summary>
@@ -52,11 +52,14 @@
           <button @click="removeUser(user._id)">x</button>
         </li>
       </ul>
-    </details>
+    </details> -->
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+import loader from '@/cmps/recurring-cmps/loader'
 export default {
   name: "test",
   data() {
@@ -88,7 +91,8 @@ export default {
         this.$router.push('/')
       } catch(err) {
           console.log(err)
-          this.msg = "Failed to login"
+          this.msg = 'Failed to log in.'
+
       }
     },
     doLogout() {
@@ -114,6 +118,9 @@ export default {
         this.msg = 'Failed to remove user'
       }
     }
+  },
+  components: {
+    loader
   }
 };
 </script>

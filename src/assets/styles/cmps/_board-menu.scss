@@ -15,7 +15,7 @@
         margin: 0;
     }
 
-    
+
     .menu-close {
         position: absolute;
         right: 10px;
@@ -49,26 +49,26 @@
 }
 
 .board-menu {
-    
+
     ul {
-        
+
         li {
             cursor: pointer;
             border-radius: 3px;
             font-family: 'Opensans';
             font-size: 15px;
             padding: 10px;
-            
+
             &:hover {
                 background-color: rgba(9, 30, 66, .08);
             }
         }
-        
+
     }
 }
 
 .menu {
-    
+
     .back-btn {
         position: absolute;
         top: 15px;
@@ -77,11 +77,11 @@
 
 .color-menu {
     display: flex;
-    
+
     .background-options {
         width: 100%;
     }
-    
+
     .templates {
         display: flex;
         flex-direction: column;
@@ -90,11 +90,11 @@
         padding: 0 4px;
         text-align: center;
         width: 50%;
-        
+
         &:hover {
             opacity: .7;
         }
-        
+
         .templates-image {
             background-image: url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg);
             background-size: cover;
@@ -103,12 +103,12 @@
             margin-bottom: 8px;
             width: 100%;
         }
-        
+
         .templates-title {
             font-size: 14px;
         }
     }
-    
+
     .colors {
         display: flex;
         flex-direction: column;
@@ -117,11 +117,11 @@
         padding: 0 4px;
         text-align: center;
         width: 50%;
-        
+
         &:hover {
             opacity: .7;
         }
-        
+
         .colors-image {
             background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg);
             background-size: cover;
@@ -130,27 +130,27 @@
             margin-bottom: 8px;
             width: 100%;
         }
-        
+
         .colors-title {
             font-size: 14px;
         }
-        
+
     }
-    
+
     .color-list {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        
+
         .color-preview {
             width: 50%;
             padding: 0 4px;
             list-style: none;
-            
+
             &:hover {
                 opacity: .7;
             }
-            
+
             div {
                 margin-bottom: 8px;
                 border-radius: 8px;
@@ -160,6 +160,7 @@
         }
     }
 }
+
 hr {
     background-color: rgba(9, 30, 66, .13);
     border: 0;
@@ -167,4 +168,23 @@ hr {
     margin: 16px 0;
     padding: 0;
     width: 100%;
+}
+
+.board-header {
+
+    .pop-up-window {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: transparent;
+        z-index: 10;
+    }
+
+    .pop-up {
+        top: 140px;
+        left: 539px;
+
+    }
 }
