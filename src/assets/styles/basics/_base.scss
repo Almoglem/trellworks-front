@@ -79,7 +79,7 @@ textarea:focus {
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
   height: 12px;
 }
 ::-webkit-scrollbar-button {
@@ -95,7 +95,7 @@ textarea:focus {
   background: #ffffff;
 }
 ::-webkit-scrollbar-thumb:active {
-  background: #000000;
+  background: #505050;
 }
 ::-webkit-scrollbar-track {
   background: #666666;
