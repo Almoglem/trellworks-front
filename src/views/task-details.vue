@@ -299,6 +299,7 @@ export default {
       this.isLoading = true;
       const board = JSON.parse(JSON.stringify(this.currBoard));
       const taskIdx = this.getTask(board, true);
+      const oldTask = JSON.parse(JSON.stringify(this.getTask(board)));
       const group = board.groups.find(
         (group) => group.id === this.currGroup.id
       );
@@ -320,7 +321,7 @@ export default {
         animation: true,
       });
       this.saveActivity(
-        `removed the task "${group.task[taskIdx].title}" from "${group.title}"`
+        `removed the task "${oldTask.title}" from "${group.title}"`
       );
     },
     async updateTask(task) {
