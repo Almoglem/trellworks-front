@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 
 const baseUrl = (process.env.NODE_ENV === 'production')? '' : '//localhost:3030'
 // export const socketService = createSocketService()
-export const socketService = createDummySocketService()
+export const socketService = createSocketService()
 
 window.socketService = socketService
 
@@ -30,35 +30,35 @@ function createSocketService() {
 }
 
 // eslint-disable-next-line
-function createDummySocketService() {
-  var listenersMap = {}
-  const socketService = {
-    listenersMap,
-    setup() {
-      listenersMap = {}
-    },
-    terminate() {
-      this.setup()
-    },
-    on(eventName, cb) {
-      listenersMap[eventName] = [...(listenersMap[eventName]) || [], cb]
-    },
-    off(eventName, cb) {
-      if (!listenersMap[eventName]) return
-      listenersMap[eventName] = listenersMap[eventName].filter(l => l !== cb)
-    },
-    emit(eventName, data) {
-      if (!listenersMap[eventName]) return
-      listenersMap[eventName].forEach(listener => {
-        listener(data)
-      })
-    },
-    debugMsg() {
-      this.emit('chat newMsg', {from: 'Someone', txt: 'Aha it worked!'})
-    },
-  }
-  return socketService
-}
+// function createDummySocketService() {
+//   var listenersMap = {}
+//   const socketService = {
+//     listenersMap,
+//     setup() {
+//       listenersMap = {}
+//     },
+//     terminate() {
+//       this.setup()
+//     },
+//     on(eventName, cb) {
+//       listenersMap[eventName] = [...(listenersMap[eventName]) || [], cb]
+//     },
+//     off(eventName, cb) {
+//       if (!listenersMap[eventName]) return
+//       listenersMap[eventName] = listenersMap[eventName].filter(l => l !== cb)
+//     },
+//     emit(eventName, data) {
+//       if (!listenersMap[eventName]) return
+//       listenersMap[eventName].forEach(listener => {
+//         listener(data)
+//       })
+//     },
+//     debugMsg() {
+//       this.emit('chat newMsg', {from: 'Someone', txt: 'Aha it worked!'})
+//     },
+//   }
+//   return socketService
+// }
 
 
 // Basic Tests

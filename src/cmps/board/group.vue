@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import {socketService} from '@/services/socket.service'
 import taskPreview from "@/cmps/task/task-preview";
 import { boardService } from "../../services/board.service";
 import draggable from "vuedraggable";
@@ -99,6 +100,9 @@ export default {
 		},
 		itemsDragged() {
 			this.$emit("taskDragged", this.board);
+			console.log(socketService);
+			socketService.emit('board update', this.board);
+
 		},
 
 		updatedDueDate(task) {
@@ -112,5 +116,8 @@ export default {
 		taskPreview,
 		draggable,
 	},
+	created(){
+		socketService.setup()
+	}
 };
 </script>
