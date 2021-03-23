@@ -1,5 +1,5 @@
 <template>
-  <div class="container about">
+  <div class="about-page">
     <p>{{ msg }}</p>
 
     <div v-if="loggedinUser">
@@ -16,7 +16,11 @@
           <option value="">Select User</option>
           <option v-for="user in users" :key="user._id" :value="user.username">{{user.fullname}}</option>
         </select> -->
-        <input type="text" v-model="loginCred.username" placeholder="User name" />
+        <input
+          type="text"
+          v-model="loginCred.username"
+          placeholder="User name"
+        />
         <input
           type="text"
           v-model="loginCred.password"
@@ -27,7 +31,11 @@
 
       <form @submit.prevent="doSignup">
         <h2>Signup</h2>
-        <input type="text" v-model="signupCred.fullname" placeholder="Your full name" />
+        <input
+          type="text"
+          v-model="signupCred.fullname"
+          placeholder="Your full name"
+        />
         <input
           type="text"
           v-model="signupCred.password"
@@ -57,16 +65,16 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
-import loader from '@/cmps/recurring-cmps/loader'
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+import loader from "@/cmps/recurring-cmps/loader";
 export default {
   name: "test",
   data() {
     return {
       msg: "",
-      loginCred: {username: '', password: ''},
-      signupCred: {username: '', password: '', fullname: ''},
+      loginCred: { username: "", password: "" },
+      signupCred: { username: "", password: "", fullname: "" },
     };
   },
   computed: {
@@ -78,49 +86,51 @@ export default {
     },
   },
   created() {
-    this.loadUsers()
+    this.loadUsers();
   },
   methods: {
     async doLogin() {
       if (!this.loginCred.username) {
-        this.msg = "Please enter username/password"
+        this.msg = "Please enter username/password";
         return;
       }
       try {
         await this.$store.dispatch({ type: "login", userCred: this.loginCred });
-        this.$router.push('/')
-      } catch(err) {
-          console.log(err)
-          this.msg = 'Failed to log in.'
-
+        this.$router.push("/");
+      } catch (err) {
+        console.log(err);
+        this.msg = "Failed to log in.";
       }
     },
     doLogout() {
       this.$store.dispatch({ type: "logout" });
     },
     async doSignup() {
-      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.username) {
-        this.msg = "Please fill up the form"
-        return
+      if (
+        !this.signupCred.fullname ||
+        !this.signupCred.password ||
+        !this.signupCred.username
+      ) {
+        this.msg = "Please fill up the form";
+        return;
       }
       await this.$store.dispatch({ type: "signup", userCred: this.signupCred });
-      this.$router.push('/')
-      
+      this.$router.push("/");
     },
     loadUsers() {
       this.$store.dispatch({ type: "loadUsers" });
     },
     async removeUser(userId) {
       try {
-        await this.$store.dispatch({ type: "removeUser", userId })
-        this.msg = 'User removed'
-      } catch(err) {
-        this.msg = 'Failed to remove user'
+        await this.$store.dispatch({ type: "removeUser", userId });
+        this.msg = "User removed";
+      } catch (err) {
+        this.msg = "Failed to remove user";
       }
-    }
+    },
   },
   components: {
-    loader
-  }
+    loader,
+  },
 };
 </script>

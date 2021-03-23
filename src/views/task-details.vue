@@ -218,9 +218,9 @@ export default {
     taskId() {
       return this.$route.params.taskId;
     },
-        		loggedInUser() {
-			return this.$store.getters.loggedinUser
-		}
+    loggedInUser() {
+      return this.$store.getters.loggedinUser;
+    },
   },
   methods: {
     removeChecklist(idx) {
@@ -232,7 +232,7 @@ export default {
       try {
         const board = this.currBoard;
         board.activities.unshift({
-        byMember: this.loggedInUser || {fullname:'Guest'},
+          byMember: this.loggedInUser || { fullname: "Guest" },
           title: activityTitle,
           createdAt: Date.now(),
           group: this.currGroup,
@@ -295,14 +295,12 @@ export default {
       this.currAction = actionType;
     },
     async removeTask() {
+      /// do in try and catch
       this.isLoading = true;
       const board = JSON.parse(JSON.stringify(this.currBoard));
       const taskIdx = this.getTask(board, true);
       const group = board.groups.find(
         (group) => group.id === this.currGroup.id
-      );
-      this.saveActivity(
-        `removed the task "${group.task[taskIdx].title}" from "${group.title}"`
       );
       group.task.splice(taskIdx, 1);
       await this.updateBoard(board);
@@ -321,8 +319,12 @@ export default {
         toast: true,
         animation: true,
       });
+      this.saveActivity(
+        `removed the task "${group.task[taskIdx].title}" from "${group.title}"`
+      );
     },
     async updateTask(task) {
+      const oldTask = JSON.parse(JSON.stringify(this.currTask));
       const updatedTask = JSON.parse(JSON.stringify(task));
       const board = this.currBoard;
       const group = board.groups.find(
@@ -330,9 +332,9 @@ export default {
       );
       const taskIdx = this.getTask(board, true);
       group.task.splice(taskIdx, 1, updatedTask);
-      if (this.currTask.title !== updatedTask.title)
+      if (oldTask.title !== updatedTask.title)
         this.saveActivity(
-          `changed the task "${this.currTask.title}" to "${updatedTask.title}"`
+          `changed the task "${oldTask.title}" to "${updatedTask.title}"`
         );
       await this.updateBoard(board);
       this.updateBoardSocket(board);
@@ -340,7 +342,7 @@ export default {
     getTaskActivity() {
       const filteredActivities = this.currBoard.activities.filter(
         (activity) => {
-          return activity.task.id === this.currTask.id;
+          return activity.task && activity.task.id === this.currTask.id;
         }
       );
       return filteredActivities;
