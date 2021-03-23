@@ -218,6 +218,9 @@ export default {
     taskId() {
       return this.$route.params.taskId;
     },
+        		loggedInUser() {
+			return this.$store.getters.loggedinUser
+		}
   },
   methods: {
     removeChecklist(idx) {
@@ -229,7 +232,7 @@ export default {
       try {
         const board = this.currBoard;
         board.activities.unshift({
-          byMember: { fullname: "Guest" },
+        byMember: this.loggedInUser || {fullname:'Guest'},
           title: activityTitle,
           createdAt: Date.now(),
           group: this.currGroup,

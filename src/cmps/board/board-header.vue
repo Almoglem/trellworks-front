@@ -36,7 +36,7 @@
 				@bgcChanged="changeBgc"
 			></boardMenu>
 		</transition>
-		<div class="pop-up-window" @click.self="userWindow = !userWindow">
+		<div :class="{'pop-up-window': userWindow}" @click.self="userWindow = !userWindow">
 			<div v-if="userWindow" class="pop-up">
 				<h3 class="pop-up-title">Invite to board</h3>
 				<hr>
@@ -77,7 +77,8 @@ export default {
 		},
 		currBoard(){
 			return JSON.parse(JSON.stringify(this.$store.getters.currBoard))
-		}
+		},
+
 	},
 	methods: {
 		async loadUsers(){

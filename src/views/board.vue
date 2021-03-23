@@ -75,6 +75,9 @@ export default {
     currBoard() {
       return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     },
+    		loggedInUser() {
+			return this.$store.getters.loggedinUser
+		}
   },
   methods: {
     async updateBoard(board) {
@@ -177,7 +180,7 @@ export default {
       task = { title: "", id: "" }
     ) {
       board.activities.unshift({
-        byMember: { fullname: "Guest" },
+        byMember: this.loggedInUser || {fullname:'Guest'},
         title: activityTitle,
         createdAt: Date.now(),
         group: group.title,
