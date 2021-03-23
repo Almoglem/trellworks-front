@@ -213,7 +213,7 @@ export default {
       task.checklists.splice(idx, 1);
       this.updateTask(task);
     },
-    saveActivity(activityTitle) {
+    async saveActivity(activityTitle) {
       this.$store.dispatch({
         type: "saveActivity",
         activity: activityTitle,
@@ -221,8 +221,8 @@ export default {
         board: this.currBoard,
         task: this.getTask(this.currBoard),
       });
-      this.updateBoardSocket(board)
-      this.updateBoard(this.currBoard);
+      await this.updateBoard(this.currBoard);
+      this.updateBoardSocket(this.currBoard)
     },
     getTask(board, isIdx) {
       const group = board.groups.find(
@@ -247,7 +247,7 @@ export default {
       this.openPopUp = boolean;
       this.currAction = actionType;
     },
-    removeTask() {
+    async removeTask() {
       const board = JSON.parse(JSON.stringify(this.currBoard));
       const taskIdx = this.getTask(board, true);
       const group = board.groups.find(
@@ -257,8 +257,8 @@ export default {
         `removed the task "${group.task[taskIdx].title}" from "${group.title}"`
       );
       group.task.splice(taskIdx, 1);
+      await this.updateBoard(board);
       this.updateBoardSocket(board)
-      this.updateBoard(board);
       this.$router.push("../");
       	Swal.fire({
 			position: 'bottom-end',
@@ -270,7 +270,7 @@ export default {
 			animation:true
 		})
     },
-    updateTask(task) {
+    async updateTask(task) {
       const updatedTask = JSON.parse(JSON.stringify(task));
       const board = this.currBoard;
       const group = board.groups.find(
@@ -282,8 +282,8 @@ export default {
         this.saveActivity(
           `changed the task "${this.currTask.title}" to "${updatedTask.title}"`
         );
+      await this.updateBoard(board);
       this.updateBoardSocket(board)
-      this.updateBoard(board);
     },
     getTaskActivity() {
       const filteredActivities = this.currBoard.activities.filter(

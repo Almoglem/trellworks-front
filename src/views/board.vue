@@ -85,18 +85,17 @@ export default {
 			const group = await boardService.getEmptyGroup();
 			board.groups.push(group);
 			this.saveActivity(`added the group "${group.title}" to the board`, board, group)
+			await this.updateBoard(board);
 			socketService.emit('board update', board)
-			this.updateBoard(board);
 		},
 		async removeGroup(groupId) {
 			const board = this.currBoard;
 			const groupIdx = board.groups.findIndex((group) => group.id === groupId);
 			this.saveActivity(`removed the group "${board.groups[groupIdx].title}" from the board`, board, board.groups[groupIdx])
 			board.groups.splice(groupIdx, 1);
-			socketService.emit('board update', board)
-			this.updateBoard(board);
+			await this.updateBoard(board);
 					Swal.fire({
-			position: 'bottom-end',
+						position: 'bottom-end',
 			title: 'Removed successfully',
 			showConfirmButton: false,
 			timer: 1500,
@@ -104,14 +103,15 @@ export default {
 			toast:true,
 			animation:true
 		})
+		socketService.emit('board update', board)
 		},
-		addTask(task, groupId) {
+		async addTask(task, groupId) {
 			const board = this.currBoard;
 			const group = board.groups.find((group) => group.id === groupId);
 			group.task.push(task);
 			this.saveActivity(`added the task "${task.title}" in "${group.title}"`, board, group, task)
+			await this.updateBoard(board);
 			socketService.emit('board update', board)
-			this.updateBoard(board);
 		},
 		saveActivity(activityTitle, board, group, task = { id: '', title: '' }) {
 			this.$store.dispatch({
@@ -122,20 +122,20 @@ export default {
 				task: task
 			});
 		},
-		bgcChanged() {
+		async bgcChanged() {
 			this.saveActivity('changed this board`s background color', this.currBoard, {})
+			await this.updateBoard(this.currBoard);
 			socketService.emit('board update', board)
-			this.updateBoard(this.currBoard);
 		},
-		draggingEnd() {
+		async draggingEnd() {
 			const board = this.currBoard;
 			board.groups = this.currBoard.groups;
+			await this.updateBoard(board);
 			socketService.emit('board update', board)
-			this.updateBoard(board);
 		},
-		draggedTask(board) {
+		async draggedTask(board) {
+			await this.updateBoard(board);
 			socketService.emit('board update', board)
-			this.updateBoard(board);
 		},
 		async changeTitle(newTitle, groupId) {
 			const board = this.currBoard;
@@ -143,22 +143,22 @@ export default {
 			const groupCopy = JSON.parse(JSON.stringify(group))
 			this.saveActivity(`renamed a group in the board`, board, groupCopy)
 			group.title = newTitle;
+			await this.updateBoard(board);
 			socketService.emit('board update', board)
-			this.updateBoard(board);
 		},
 		async updateBoardTitle(newTitle) {
 			this.saveActivity('changed this board`s name', this.currBoard, {})
 			this.currBoard.title = newTitle
+			await this.updateBoard(this.currBoard);
 			socketService.emit('board update', board)
-			this.updateBoard(this.currBoard);
 		},
-		toggleTaskCompleted(group, task) {
+		async toggleTaskCompleted(group, task) {
 			const board = this.currBoard;
 			const groupIdx = board.groups.findIndex((foundGroup) => group.id === foundGroup.id);
 			board.groups.splice(groupIdx, 1, group);
 			this.saveActivity(`marked the task "${task.title}" as completed`, board, group, task)
+			await this.updateBoard(board)
 			socketService.emit('board update', board)
-			this.updateBoard(board)
 		},
 		updateBoardSocket(board){
 			socketService.emit('board update', board)
