@@ -56,6 +56,7 @@ import draggable from "vuedraggable";
 import { boardService } from "../services/board.service.js";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import {socketService} from '@/services/socket.service'
 
 export default {
 	computed: {
@@ -84,6 +85,7 @@ export default {
 			const group = await boardService.getEmptyGroup();
 			board.groups.push(group);
 			this.saveActivity(`added the group "${group.title}" to the board`, board, group)
+			socketService.emit('board update', board)
 			this.updateBoard(board);
 		},
 		async removeGroup(groupId) {
@@ -91,6 +93,7 @@ export default {
 			const groupIdx = board.groups.findIndex((group) => group.id === groupId);
 			this.saveActivity(`removed the group "${board.groups[groupIdx].title}" from the board`, board, board.groups[groupIdx])
 			board.groups.splice(groupIdx, 1);
+			socketService.emit('board update', board)
 			this.updateBoard(board);
 					Swal.fire({
 			position: 'bottom-end',
@@ -107,6 +110,7 @@ export default {
 			const group = board.groups.find((group) => group.id === groupId);
 			group.task.push(task);
 			this.saveActivity(`added the task "${task.title}" in "${group.title}"`, board, group, task)
+			socketService.emit('board update', board)
 			this.updateBoard(board);
 		},
 		saveActivity(activityTitle, board, group, task = { id: '', title: '' }) {
@@ -120,14 +124,17 @@ export default {
 		},
 		bgcChanged() {
 			this.saveActivity('changed this board`s background color', this.currBoard, {})
+			socketService.emit('board update', board)
 			this.updateBoard(this.currBoard);
 		},
 		draggingEnd() {
 			const board = this.currBoard;
 			board.groups = this.currBoard.groups;
+			socketService.emit('board update', board)
 			this.updateBoard(board);
 		},
 		draggedTask(board) {
+			socketService.emit('board update', board)
 			this.updateBoard(board);
 		},
 		async changeTitle(newTitle, groupId) {
@@ -136,12 +143,13 @@ export default {
 			const groupCopy = JSON.parse(JSON.stringify(group))
 			this.saveActivity(`renamed a group in the board`, board, groupCopy)
 			group.title = newTitle;
+			socketService.emit('board update', board)
 			this.updateBoard(board);
 		},
 		async updateBoardTitle(newTitle) {
-			const task = { newTitle: newTitle, oldTitle: this.currBoard.title }
 			this.saveActivity('changed this board`s name', this.currBoard, {})
 			this.currBoard.title = newTitle
+			socketService.emit('board update', board)
 			this.updateBoard(this.currBoard);
 		},
 		toggleTaskCompleted(group, task) {
@@ -149,14 +157,16 @@ export default {
 			const groupIdx = board.groups.findIndex((foundGroup) => group.id === foundGroup.id);
 			board.groups.splice(groupIdx, 1, group);
 			this.saveActivity(`marked the task "${task.title}" as completed`, board, group, task)
+			socketService.emit('board update', board)
 			this.updateBoard(board)
 		},
-		scrollHorizontally(){
-
-		}
 	},
 	async created() {
 		await this.loadBoard();
+		socketService.setup()
+		socketService.on('board updated', board => {
+			this.updateBoard(board)
+		})
 	},
 	components: {
 		boardHeader,

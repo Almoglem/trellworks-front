@@ -221,6 +221,7 @@ export default {
         board: this.currBoard,
         task: this.getTask(this.currBoard),
       });
+      socketService.emit('board update', this.currBoard)
       this.updateBoard(this.currBoard);
     },
     getTask(board, isIdx) {
@@ -237,7 +238,6 @@ export default {
         type: "saveBoardChanges",
         editedBoard: board,
       });
-      socketService.emit('board update', board)
       this.$store.commit({ type: "setTask", taskId: this.taskId });
     },
     closeModal() {
@@ -257,6 +257,7 @@ export default {
         `removed the task "${group.task[taskIdx].title}" from "${group.title}"`
       );
       group.task.splice(taskIdx, 1);
+      socketService.emit('board update', board)
       this.updateBoard(board);
       this.$router.push("../");
       	Swal.fire({
@@ -281,6 +282,7 @@ export default {
         this.saveActivity(
           `changed the task "${this.currTask.title}" to "${updatedTask.title}"`
         );
+      socketService.emit('board update', board)
       this.updateBoard(board);
     },
     getTaskActivity() {
