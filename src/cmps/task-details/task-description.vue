@@ -22,6 +22,7 @@
           v-model="taskToEdit.description"
           ref="descriptionEdit"
           autofocus
+          @focusout="isEditing = !isEditing"
           class="description-input clean-input"
           placeholder="Add a more detailed description..."
         ></textarea>
@@ -35,7 +36,7 @@
         </div>
       </form>
     </div>
-    <p v-else>{{ taskToEdit.description }}</p>
+    <p v-else @click="openEdit">{{ taskToEdit.description }}</p>
   </div>
 </template>
 
@@ -53,7 +54,7 @@ export default {
   computed: {
     taskToEdit(){
       return JSON.parse(JSON.stringify(this.task))
-    } 
+    },
   },
   methods: {
     openEdit() {

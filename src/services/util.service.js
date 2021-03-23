@@ -3,7 +3,7 @@ export const utilService = {
     delay,
     getRandomInt,
     makeId,
-    deepCopy
+    deepCopy,
 }
 
 function delay(ms = 1500) {
@@ -37,3 +37,4 @@ function deepCopy(object) {
     }
     return objectCopy;
 }
+

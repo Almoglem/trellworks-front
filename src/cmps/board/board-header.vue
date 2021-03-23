@@ -1,10 +1,11 @@
 <template>
 	<div class="flex board-header">
 		<div class="flex header-container" @submit.prevent="editBoardTitle">
-			<form v-if="isEditing">
-				<input class="clean-input" v-model="titleToEdit" />
-			</form>
-			<h2 v-else @click="isEditing = !isEditing">{{ boardTitle }}</h2>
+			<input class="clean-input" v-model="titleToEdit" v-if="isEditing" ref="titleInput" 
+			@keypress.enter="editBoardTitle"
+			@focusout="editBoardTitle" />
+
+			<h2 @click="getInput" v-else>{{ boardTitle }}</h2>
 			<button class="header-btn star"><i class="far fa-star"></i></button>
 			<ul class="flex avatars-show">
 				<span
@@ -78,6 +79,12 @@ export default {
 		},
 		changeBgc() {
 			this.$emit('changeBgc')
+		},
+		getInput(){
+			this.isEditing = !this.isEditing
+			setTimeout(() => {
+				this.$refs.titleInput.focus()
+			}, 0);
 		}
 	},
 	created() { },
