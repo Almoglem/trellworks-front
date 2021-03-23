@@ -97,7 +97,7 @@
               />
             </div>
             <i class="far fa-comment"></i>
-            <h1 class="uppercase-title">Post a Comment</h1>
+            <h1 class="details-title">Post a Comment</h1>
             <comments @postComment="logComment"/>
             <activityLog
               class="task-details-activity"

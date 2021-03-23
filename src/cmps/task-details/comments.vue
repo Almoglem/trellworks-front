@@ -16,6 +16,7 @@ export default ({
     methods:{
         postComment(){
             this.$emit('postComment',this.comment)
+            this.comment=''
         }
     }
 })
