@@ -1,8 +1,8 @@
 <template>
   <section class="menu">
-    <i class="fas fa-times menu-close clickable" @click="closeMenu"></i>
-    <h1>{{ setTitle }}</h1>
-    <hr />
+      <i class="fas fa-times menu-close clickable" @click="closeMenu"></i>
+      <h1>{{ setTitle }}</h1>
+      <hr />  
     <section v-if="menuToggler" class="menu-info">
       <ul>
         <li>About this board</li>
