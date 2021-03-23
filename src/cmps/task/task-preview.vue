@@ -124,11 +124,10 @@ export default {
 			return { "fas fa-pencil-alt edit-pen": this.isEditPenShown };
 		},
 		footerIsShown() {
-			if (this.task.dueDate || this.task.description || this.task.members.length || this.task.checklists) return true
+			if (this.task.dueDate || this.task.description || this.task.members.length || this.task.checklists.length) return true
 			else return false
 		},
-				getChecklsitString() {
-					console.log(this.task);
+		getChecklsitString() {
 			if(!this.task.checklists)return
 			let allTodos=0
 			let doneTodos=0
@@ -142,7 +141,6 @@ export default {
 			})
 			if(!allTodos) return
 			if (doneTodos === allTodos && allTodos > 0) this.areTodosCompleted = true
-			console.log(`${doneTodos}/${allTodos}`);
 			return `${doneTodos}/${allTodos}`
 		}
 	},
