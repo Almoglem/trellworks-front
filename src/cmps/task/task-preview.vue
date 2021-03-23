@@ -128,8 +128,9 @@ export default {
 			else return false
 		},
 				getChecklsitString() {
-					console.log(this.task);
-			if(!this.task.checklists)return
+			if(!this.task.checklists) {
+				this.areTodosCompleted = false
+			}
 			let allTodos=0
 			let doneTodos=0
 			this.task.checklists.forEach(checklist => {
@@ -142,7 +143,7 @@ export default {
 			})
 			if(!allTodos) return
 			if (doneTodos === allTodos && allTodos > 0) this.areTodosCompleted = true
-			console.log(`${doneTodos}/${allTodos}`);
+			else if(doneTodos!==allTodos && allTodos > 0)this.areTodosCompleted=false
 			return `${doneTodos}/${allTodos}`
 		}
 	},
