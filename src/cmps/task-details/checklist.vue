@@ -79,11 +79,26 @@ export default {
       );
       this.$emit("updateTask", this.taskToEdit);
       this.updateProgress();
-      if (this.completed !== "0%")
+      if (this.completed !== "0%") {
         this.$emit(
           "logActivity",
           `has completed ${this.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
         );
+        if (this.completed === "100%") {
+          Swal.fire({
+            position: "bottom-end",
+            title: "You have finished all of your to-do list!",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              title: "success",
+              popup: "success",
+            },
+            toast: true,
+            animation: true,
+          });
+        }
+      }
     },
     updateProgress() {
       const todosLength = this.checklistToEdit.todos.length;
@@ -122,12 +137,11 @@ export default {
     removeTodo(todoId) {
       const idx = this.getTodoIdx(todoId);
       this.checklistToEdit.todos.splice(idx, 1);
+      this.updateTask();
       this.$emit(
         "logActivity",
         `removed items from the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
       );
-
-      this.updateTask();
     },
     updateTodo(updatedTodo) {
       const idx = this.getTodoIdx(updatedTodo.id);
@@ -139,24 +153,6 @@ export default {
       return this.checklistToEdit.todos.findIndex((todo) => todo.id === todoId);
     },
     getChecklistIdx() {},
-  },
-  watch: {
-    completed() {
-      if (this.completed === "100%") {
-        Swal.fire({
-          position: "bottom-end",
-          title: "You have finished all of your to-do list!",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "success",
-            popup: "success",
-          },
-          toast: true,
-          animation: true,
-        });
-      }
-    },
   },
   created() {
     this.taskToEdit = JSON.parse(JSON.stringify(this.task));
