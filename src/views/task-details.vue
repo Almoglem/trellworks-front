@@ -147,6 +147,8 @@ import taskDescription from "../cmps/task-details/task-description.vue";
 import checklist from "../cmps/task-details/checklist";
 import Avatar from "vue-avatar";
 import memberProfile from "../cmps/recurring-cmps/user-miniprofile.vue";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 export default {
   data() {
@@ -255,6 +257,15 @@ export default {
       group.task.splice(taskIdx, 1);
       this.updateBoard(board);
       this.$router.push("../");
+      	Swal.fire({
+			position: 'bottom-end',
+			title: 'Task removed successfully',
+			showConfirmButton: false,
+			timer: 1500,
+			background:'#c6c8cc',
+			toast:true,
+			animation:true
+		})
     },
     updateTask(task) {
       const updatedTask = JSON.parse(JSON.stringify(task));
@@ -296,6 +307,15 @@ export default {
       if (foundIdx < 0) return console.log("couldnt find idx");
       taskToEdit.imgs.splice(foundIdx, 1, imgToEdit);
       this.updateTask(taskToEdit);
+      	Swal.fire({
+			position: 'bottom-end',
+			title: 'Attachment edited successfully',
+			showConfirmButton: false,
+			timer: 1500,
+			background:'#c6c8cc',
+			toast:true,
+			animation:true
+		})
     },
     removeImg(imgId) {
       const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
@@ -303,6 +323,15 @@ export default {
       if (foundIdx < 0) return console.log("couldnt find idx");
       taskToEdit.imgs.splice(foundIdx, 1);
       this.updateTask(taskToEdit);
+      	Swal.fire({
+			position: 'bottom-end',
+			title: 'Attachment removed successfully',
+			showConfirmButton: false,
+			timer: 1500,
+			background:'#c6c8cc',
+			toast:true,
+			animation:true
+		})
     },
     setCoverImg(toggler, imgSrc){
       const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
@@ -310,11 +339,13 @@ export default {
       taskToEdit.cover.src = imgSrc
       if(!toggler) taskToEdit.cover.type = 'top'
       this.updateTask(taskToEdit)
+      
     }
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
     this.taskCopy = JSON.parse(JSON.stringify(this.currTask));
+
   },
   components: {
     popUp,
