@@ -16,7 +16,7 @@
 							>Edit
 						</span>
 					</small>
-					<small class="image-info cover-maker" @click="setCover(img)">{{setCoverToDisplay}}</small>
+					<small class="image-info cover-maker" @click="setCover(img)">{{task.cover.src === img.src ? 'Remove cover' : 'Make cover'}}</small>
 				</div>
 			</div>
 			<div class="edit-window pop-up-header" v-if="editToggler">
@@ -54,9 +54,6 @@ export default {
 		}
 	},
 	computed: {
-		setCoverToDisplay(){
-			return this.task.cover.isImg ? 'Remove cover' : 'Make cover'
-		}
 	},
 	methods: {
 		editImg() {
@@ -80,7 +77,7 @@ export default {
 			this.currImg = img;
 		},
 		setCover(img){
-			if(this.task.cover.isImg) {
+			if(img.src === this.task.cover.src) {
 				return this.$emit('setCover', false, '')
 			}
 			this.$emit('setCover', true, img.src)

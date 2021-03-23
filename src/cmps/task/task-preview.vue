@@ -124,7 +124,7 @@ export default {
 			return { "fas fa-pencil-alt edit-pen": this.isEditPenShown };
 		},
 		footerIsShown() {
-			if (this.task.dueDate || this.task.description || this.task.members.length) return true
+			if (this.task.dueDate || this.task.description || this.task.members.length || this.task.checklists) return true
 			else return false
 		},
 				getChecklsitString() {
