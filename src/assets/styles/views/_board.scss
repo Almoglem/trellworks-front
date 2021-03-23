@@ -3,9 +3,9 @@
 }
 
 .board {
-    overflow-y: auto;
     flex: 1;
     height: 90%;
+    overflow: hidden;
 
 }
 
@@ -107,9 +107,11 @@
     margin: 0;
     padding: 0 3px 0 3px;
     width: 272px;
-    height: fit-content;
+    max-height: 85vh;
     border-radius: 3px;
     position: relative;
+    overflow-y: auto;
+
 
     &:first-child {
         margin-left: 10px

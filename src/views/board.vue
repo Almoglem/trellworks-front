@@ -31,7 +31,6 @@
 						@removeGroup="removeGroup"
 						@addTask="addTask"
 						@titleChange="changeTitle"
-						@timeDueReminder="logTimeDue"
 						@toggleTaskCompletion="toggleTaskCompleted"
 					/>
 				</draggable>
