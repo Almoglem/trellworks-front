@@ -3,8 +3,8 @@
 		<form @submit.prevent="setDate">
 		<input type="datetime-local" v-model="value"  />
 		<button class="btn-success">Save</button>
+		<button @click.prevent="clearDueDate" style="float:right" class="btn-gray">Unset</button>
 		</form>
-		<button @click="clearDueDate" class="btn-gray">Save</button>
 	</section>
 </template>
 
