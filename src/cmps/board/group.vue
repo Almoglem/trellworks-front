@@ -110,7 +110,7 @@ export default {
 			const taskIdx = group.task.findIndex(groupTask => groupTask.id === task.id)
 			group.task.splice(taskIdx, 1, task)
 			this.$emit('toggleTaskCompletion', group,task)
-		},
+		}
 	},
 	components: {
 		taskPreview,
@@ -118,6 +118,9 @@ export default {
 	},
 	created(){
 		socketService.setup()
+		socketService.on('board updated', board => {
+			this.$emit('taskDragged', board)
+		})
 	}
 };
 </script>

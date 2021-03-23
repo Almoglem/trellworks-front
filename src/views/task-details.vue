@@ -149,6 +149,7 @@ import Avatar from "vue-avatar";
 import memberProfile from "../cmps/recurring-cmps/user-miniprofile.vue";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import {socketService} from '@/services/socket.service'
 
 export default {
   data() {
@@ -236,6 +237,7 @@ export default {
         type: "saveBoardChanges",
         editedBoard: board,
       });
+      socketService.emit('board update', board)
       this.$store.commit({ type: "setTask", taskId: this.taskId });
     },
     closeModal() {
@@ -345,6 +347,10 @@ export default {
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
     this.taskCopy = JSON.parse(JSON.stringify(this.currTask));
+    socketService.setup()
+    socketService.on('board updated', board => {
+			this.updateBoard(board)
+		})
 
   },
   components: {
