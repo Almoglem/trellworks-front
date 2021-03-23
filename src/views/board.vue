@@ -44,7 +44,7 @@
 				</section>
 			</div>
 		</div>
-		<router-view />
+		<router-view @updateBoardSocket="updateBoardSocket" />
 	</section>
 </template>
 
@@ -160,6 +160,10 @@ export default {
 			socketService.emit('board update', board)
 			this.updateBoard(board)
 		},
+		updateBoardSocket(board){
+			socketService.emit('board update', board)
+			// console.log('hihihih from board', board);
+		}
 	},
 	async created() {
 		await this.loadBoard();
