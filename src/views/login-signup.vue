@@ -1,5 +1,6 @@
 <template>
-  <div class="about-page">
+  <div class="login-signup">
+    <appHeader />
     <p>{{ msg }}</p>
 
     <div v-if="loggedinUser">
@@ -65,6 +66,7 @@
 </template>
 
 <script>
+import appHeader from "@/cmps/app-header";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import loader from "@/cmps/recurring-cmps/loader";
@@ -131,6 +133,7 @@ export default {
   },
   components: {
     loader,
+    appHeader,
   },
 };
 </script>
