@@ -93,7 +93,6 @@
 }
 
 .uppercase-title {
-    color: #5e6c84;
     font-size: 0.8rem;
     font-weight: bolder;
     letter-spacing: .04em;
@@ -118,6 +117,10 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+
+    ul {
+        min-width: 90px;
+    }
 
     ul:first-child {
         margin: 0;
@@ -147,6 +150,9 @@
         padding: 6px 12px;
         width: 168px;
 
+        .action-txt {
+            padding-left: 10px;
+        }
 
     }
 }
@@ -154,7 +160,7 @@
 
 .description-input {
     background-color: $lightgray;
-    width: 100%;
+    width: 90%;
     padding: 10px 0 30px 10px;
     margin-bottom: 10px;
 
@@ -198,6 +204,31 @@
 
 .comment-add {
     input {
-        width: 100%;
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .task-details-modal {
+
+        .task-details {
+
+            .uppercase-title {
+                font-size: 0.7rem;
+            }
+
+            .action-bar .action {
+                width: 40px;
+                text-align: center;
+
+                .action-txt {
+                    display: none;
+                }
+            }
+
+            .task-details-main .details-body {
+                grid-template-columns: 1fr 5rem;
+            }
+        }
     }
 }
