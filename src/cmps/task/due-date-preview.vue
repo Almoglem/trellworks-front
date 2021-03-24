@@ -57,7 +57,7 @@ export default ({
 			title: 'Task completed!',
 			showConfirmButton: false,
 			timer: 1500,
-			background:'#c6c8cc',
+
 			toast:true,
 			animation:true
 		})}

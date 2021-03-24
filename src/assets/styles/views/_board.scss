@@ -12,6 +12,7 @@
 .group-container {
     position: relative;
 }
+
 //buggy fornow
 // .group-ghost {
 //     transition: transform 0.18s ease;
@@ -366,16 +367,23 @@
     section {
         margin-top: 2px;
     }
-.checklist-preview{
-    width: 90px;
-    font-size: 12px;
-    margin: 0 8px;
-    
-}
-.success{
-    color: #61bd4f;
 
-}
+    .checklist-preview {
+        width: 90px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        margin: 0 4px 4px 0;
+        padding: 2px;
+
+    }
+
+    .success {
+        background-color: #61bd4f !important;
+
+    }
 }
 
 .preview-avatar-container {

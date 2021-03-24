@@ -43,8 +43,7 @@
 					rows="2"
 					cols="29"
 					class="task-preview add-task"
-					v-model="taskToAdd.title"
-					
+					v-model="taskToAdd.title"				
 				></textarea>
 				<button class="btn-success" @click="addTask($event, group.id)">Add task</button>
 				<span class="clickable" @click="closeAddTask">
@@ -56,7 +55,6 @@
 </template>
 
 <script>
-					// @focusout="addTask($event, group.id)"
 import taskPreview from "@/cmps/task/task-preview";
 import { boardService } from "../../services/board.service";
 import draggable from "vuedraggable";
@@ -93,7 +91,7 @@ export default {
 			this.isAddingTask = false;
 		},
 		async addTask(ev,groupId) {
-			if (this.taskToAdd.title === "" || (ev.key == 'Enter' && this.taskToAdd.title.length < 2 )) return;
+			if (!this.taskToAdd.title || (ev.key === 'Enter' && this.taskToAdd.title.length === 1)) return;
 			this.$emit("addTask", this.taskToAdd, groupId);
 			this.taskToAdd = boardService.getEmptyTask();
 			this.isAddingTask = true;
@@ -102,7 +100,6 @@ export default {
 		itemsDragged() {
 			this.$emit("taskDragged", this.board);
 		},
-
 		updatedDueDate(task) {
 			const group = JSON.parse(JSON.stringify(this.group));
 			const taskIdx = group.task.findIndex(groupTask => groupTask.id === task.id)
