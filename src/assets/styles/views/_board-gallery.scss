@@ -9,18 +9,29 @@
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         grid-auto-rows: 150px;
         gap: 15px;
+        position: relative;
 
+        .icons{
+            margin: 0 0 100px 225px;
+            opacity: 0;
+        }
     }
 
     .placeholder-preview {
-
+        background-color: whitesmoke;
+        height: 150px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
 
         &:hover {
             opacity: 80%;
             cursor: pointer;
+            .icons{
+                opacity: 100%;
+            }
         }
 
         .vertical {
@@ -40,7 +51,12 @@
                 background-color: lightblue;
             }
         }
+    }
 
+    h4 {
+        position: absolute;
+        left: 10px;
+        top: 0;
     }
 }
 
