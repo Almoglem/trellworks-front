@@ -232,23 +232,25 @@ export default {
     },
     async saveActivity(activityTitle,isComment = false) {
       try {
+      const activityTask = JSON.parse(JSON.stringify(this.currTask));
         const board = this.currBoard;
-        const group = {
-          id: this.currGroup.id,
-          title: this.currGroup.title
-        }
-        console.log(group);
         board.activities.unshift({
           byMember: this.loggedInUser || { fullname: "Guest" },
           title: activityTitle,
           createdAt: Date.now(),
-          group: {id:group.id,
-          title:group.title},
+          group:{
+          id: this.currGroup.id,
+          title: this.currGroup.title
+        },
           id: utilService.makeId(),
-          task: this.getTask(this.currBoard),
+          task: {
+            id:activityTask.id,
+            title:activityTask.title
+          },
           isComment
         });
         if(isComment)this.updateBoard(board)
+        console.log(board);
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
