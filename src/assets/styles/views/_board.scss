@@ -113,10 +113,13 @@
 
 .group {
     background-color: #EBECF0;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 0;
     padding: 0 3px 0 3px;
     width: 272px;
+    min-height: 78px;
     height: fit-content;
     max-height: 87vh;
     border-radius: 3px;
@@ -127,13 +130,34 @@
     .group-header {
         justify-content: space-between;
 
-        input {
+        &.add {
+            p {
+                color: white;
+            }
+        }
+
+        textarea {
             margin: 6px 0;
             font-family: Opensans;
             color: #2f528b;
+            width: 90%;
+            margin-left: 3px;
+            border-radius: 3px;
+            z-index: 10;
+            height: 10px;
         }
 
-        span {
+        p {
+            margin: 6px 0;
+            font-family: Opensans;
+            color: #2f528b;
+            width: 90%;
+            margin-left: 3px;
+            border-radius: 3px;
+            overflow-wrap: break-word;
+        }
+
+        .group-header-trash {
             cursor: pointer;
             position: absolute;
             right: 9px;
@@ -147,6 +171,8 @@
         font-size: .875rem;
         font-weight: 700;
         padding: 4px 8px;
+        color: #2f528b;
+        width: 100%;
     }
 
     .task-preview {
@@ -289,6 +315,7 @@
     transition: max-height 0.2s ease-out;
     margin: 0 10px;
     overflow: hidden;
+    min-height: unset;
 
     &:hover {
         background-color: hsla(0, 0%, 100%, .32);
@@ -470,9 +497,11 @@
     justify-content: center;
     padding: 4px;
 
+
     input {
         width: 100%;
         margin-top: 1px !important;
+        margin-bottom: 5px;
     }
 
     button {

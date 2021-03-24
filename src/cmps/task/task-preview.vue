@@ -19,10 +19,6 @@
     </div>
 
     <div class="task-preview-main" :class="setCoverFullTitle">
-      <!-- <div class="full-cover" v-if="task.cover.src && task.cover.type==='full'">
-			<div class="cover-color" v-if="!task.cover.isImg"> </div>
-			<div class="cover-img" v-if="task.cover.isImg"> </div>
-		</div> -->
       <div
         class="task-preview-labels"
         v-if="task.labelIds.length && currBoard && typeTop"
@@ -57,7 +53,7 @@
           v-if="task.checklists"
         >
           <i v-if="task.checklists.length" class="far fa-check-square"></i>
-          {{ getChecklsitString }}
+          {{ getChecklistString }}
         </span>
         <span class="flex preview-avatar-container">
           <span class="avatar" v-for="member in task.members" :key="member.id">
@@ -152,7 +148,7 @@ export default {
         return true;
       else return false;
     },
-    getChecklsitString() {
+    getChecklistString() {
       if (!this.task.checklists) {
         this.areTodosCompleted = false;
         return;

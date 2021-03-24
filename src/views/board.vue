@@ -36,7 +36,7 @@
 				</draggable>
 				<span>
 					<section @click="openGroupAdder" class="transition group group-add" :class="showAdd">
-						<section class="flex group-header">
+						<section class="flex group-header add">
 							<p v-if="!showGroupToAdd" class="group-title">
 								<i class="fas fa-plus"></i>Add another list
 							</p>
@@ -51,6 +51,7 @@
 		</div>
 		<router-view @updateBoardSocket="updateBoardSocket" />
 		<loader v-if="isLoading" />
+		<span class="textarea" role="textbox" contenteditable></span>
 	</section>
 </template>
 

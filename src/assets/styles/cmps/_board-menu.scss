@@ -172,19 +172,19 @@ hr {
 
 .board-header {
 
-    .pop-up-window {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        background-color: transparent;
-        z-index: 10;
-    }
-
+    
     .pop-up {
         top: 140px;
         left: 539px;
-
+        
     }
+}
+.pop-up-window {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 10;
 }

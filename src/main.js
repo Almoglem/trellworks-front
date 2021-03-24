@@ -7,7 +7,9 @@ import draggable from 'vuedraggable'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 import VueDragscroll from 'vue-dragscroll'
-
+import TextareaAutosize from 'vue-textarea-autosize'
+ 
+Vue.use(TextareaAutosize)
 Vue.use(VueDragscroll)
 Vue.use(ElementUI, { locale })
 

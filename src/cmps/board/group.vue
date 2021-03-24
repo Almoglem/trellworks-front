@@ -1,13 +1,24 @@
 <template>
 		<div class="group handle" v-if="group">
 			<section class="flex group-header transition"> 
-				<!-- <p class="group-title">{{ group.title }}</p> -->
-				<input
+				<!-- <input 
 					class="clean-input group-title"
 					type="text"
 					v-model="group.title"
 					@change="titleChange(group.id)"
-				/>
+				/> -->
+					<textarea-autosize
+					v-if="toggleTitleEdit"
+					class="clean-input group-title"
+					v-model="group.title"
+					rows="1"
+					:max-height="350"
+					ref="editTitle"
+					spellcheck="false"
+					@focusout.native="titleChange(group.id)"
+					@keypress.native="titleChangeByKey(group.id, $event)"
+					/>
+					<p @click="toggleEditter" class="clean-input group-title" v-else>{{group.title}}</p>
 				<span @click="removeGroup(group.id)" class="group-header-trash"
 					><i class="far fa-trash-alt transition"></i>
 				</span>
@@ -72,14 +83,22 @@ export default {
 		return {
 			isAddingTask: false,
 			taskToAdd: boardService.getEmptyTask(),
+			titleToEdit: false,
+			toggleTitleEdit: false
 		};
 	},
 	methods: {
 		removeGroup(groupId) {
 			this.$emit("removeGroup", groupId);
 		},
-		titleChange(groupId) {
-			this.$emit("titleChange", this.group.title, groupId);
+		titleChangeByKey(groupId, ev) {
+			if(ev.keyCode === 13) {
+				this.$emit("titleChange", this.group.title, groupId);
+				ev.target.blur()
+			} else return
+		},
+		titleChange(groupId){
+			this.$emit("titleChange", this.group.title, groupId);			
 		},
 		openAddTask() {
 			this.isAddingTask = true;
@@ -105,6 +124,15 @@ export default {
 			const taskIdx = group.task.findIndex(groupTask => groupTask.id === task.id)
 			group.task.splice(taskIdx, 1, task)
 			this.$emit('toggleTaskCompletion', group,task)
+		},
+		updateGroupTitle(ev){
+			this.group.title = ev.target.innerText
+		},
+		toggleEditter(){
+			this.toggleTitleEdit = true;
+			setTimeout(() => {
+				this.$refs.editTitle.$el.focus()				
+			}, 0);
 		}
 	},
 	components: {
