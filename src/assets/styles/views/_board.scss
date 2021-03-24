@@ -143,7 +143,6 @@
             width: 90%;
             margin-left: 3px;
             border-radius: 3px;
-            z-index: 10;
             height: 10px;
         }
 
@@ -285,23 +284,30 @@
         color: #516079;
         outline: none;
         border: none;
-        margin-bottom: 8px;
+        margin-bottom: 0;
+        padding: 5px;
+        font-size: 14px;
 
         &:hover {
             background-color: white;
         }
+
+    }
+
+    .add-task-footer {
+        height: 41px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 4px;
     }
 
     button {
-        margin-bottom: 8px;
         margin-left: 5px;
     }
 
-    span {
-        position: absolute;
-        font-size: 22px;
-        top: 52px;
-        left: 101px;
+    i {
+        font-size: 21px;
+        margin-left: 12px;
         color: #7688a5;
     }
 }

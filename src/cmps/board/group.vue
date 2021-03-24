@@ -47,19 +47,20 @@
 				Add another task</span
 			>
 			<div class="add-task-container" v-if="isAddingTask">
-				<textarea
-					@keyup.enter="addTask($event, group.id)"
+				<textarea-autosize
+					@keyup.native="addTaskByKey($event, group.id)"
 					ref="textarea"
 					placeholder="Your task title here..."
 					rows="2"
 					cols="29"
 					class="task-preview add-task"
-					v-model="taskToAdd.title"				
-				></textarea>
-				<button class="btn-success" @click="addTask($event, group.id)">Add task</button>
-				<span class="clickable" @click="closeAddTask">
-					<i class="fas fa-times"> </i
-				></span>
+					v-model="taskToAdd.title"
+					spellcheck="false"				
+				/>
+				<div class="add-task-footer">
+					<button class="btn-success" @click="addTask(group.id)">Add task</button>
+					<i class="fas fa-times clickable" @click="closeAddTask"> </i>
+				</div>
 			</div>
 		</div>
 
@@ -103,18 +104,28 @@ export default {
 		openAddTask() {
 			this.isAddingTask = true;
 			setTimeout(() => {
-				this.$refs.textarea.focus()
+				this.$refs.textarea.$el.focus()
 			}, 0)
 		},
 		closeAddTask() {
 			this.isAddingTask = false;
+			this.taskToAdd.title = ''
 		},
-		async addTask(ev,groupId) {
-			if (!this.taskToAdd.title || (ev.key === 'Enter' && this.taskToAdd.title.length === 1)) return;
+		async addTask(groupId) {
+			if (!this.taskToAdd.title) return;
 			this.$emit("addTask", this.taskToAdd, groupId);
 			this.taskToAdd = boardService.getEmptyTask();
 			this.isAddingTask = true;
-			this.$refs.textarea.focus()
+			this.$refs.textarea.$el.focus()
+		},
+		async addTaskByKey(ev, groupId){
+			if(ev.keyCode === 13 && this.taskToAdd.title.length <= 1) return
+			if(ev.keyCode === 13){
+				this.$emit("addTask", this.taskToAdd, groupId);
+				this.taskToAdd = boardService.getEmptyTask();
+				this.isAddingTask = true;
+				this.$refs.textarea.$el.focus()
+			}
 		},
 		itemsDragged() {
 			this.$emit("taskDragged", this.board);
