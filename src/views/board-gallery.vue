@@ -41,6 +41,9 @@ export default {
 		boards() {
 			//FIXME: no need to return whole board array with tasks inside. mini-boards array with titles and ids is enough
 			return this.$store.getters.boards
+		},
+		loggedInUser(){
+			return this.$store.getters.loggedinUser 
 		}
 	},
 	methods: {
@@ -67,8 +70,10 @@ export default {
 			}
 		},
 		async createBoard() {
+			const loggedUser = this.loggedInUser||  {fullname: 'Guest'}
 			await this.$store.dispatch({
-				type: 'newBoard'
+				type: 'newBoard',
+				loggedUser
 			})
 			this.loadBoards()
 		},

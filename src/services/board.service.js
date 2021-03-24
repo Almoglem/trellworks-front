@@ -34,8 +34,8 @@ async function remove(boardId) {
     return httpService.delete(`board/${boardId}`)
 }
 
-async function addBoard() {
-    await save(_getEmptyBoard())
+async function addBoard(loggedinUser) {
+    await save(_getEmptyBoard(loggedinUser))
 }
 
 async function save(board) {
@@ -48,7 +48,8 @@ async function save(board) {
     }
 }
 
-function _getEmptyBoard() {
+function _getEmptyBoard(loggedinUser) {
+    console.log(loggedinUser);
     return {
         title: 'My new board',
         createdAt: Date.now(),
@@ -62,9 +63,9 @@ function _getEmptyBoard() {
         activities: [
             {
                 id: utilService.makeId(),
-                title: 'This board was created',
+                title: 'created this board',
                 createdAt: Date.now(),
-                byMember:  { fullname: 'Guest' },
+                byMember:  loggedinUser,
                 task: { id: '', title: '' }
             }
         ],
