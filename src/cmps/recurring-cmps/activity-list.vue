@@ -12,7 +12,10 @@
           ><avatar :size="32" :username="activity.byMember.fullname"></avatar>
         </span>
         <span class="flex activity-details">
-          {{ renderTask(activity) }}
+          <span>
+            <span style="font-weight:bold">{{activity.byMember.fullname   }}   </span>   {{ activity.title }}
+          </span>
+          
           <span class="muted-txt activity-time">{{
             time(activity.createdAt)
           }}</span>
@@ -37,17 +40,6 @@ export default {
     },
     time(date) {
       return moment(date).fromNow();
-    },
-    renderTask(activity) {
-      switch (activity.title) {
-        case "This board was created": {
-          return `${activity.title}`;
-          break;
-        }
-        default: {
-          return `${activity.byMember.fullname} ${activity.title}`;
-        }
-      }
     },
   },
   components: { Avatar },
