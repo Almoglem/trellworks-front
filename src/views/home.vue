@@ -3,7 +3,7 @@
     <app-header />
     <img src="../assets/img/main.jpg" class="main-img" />
     <h5 class="text-center">Manage your tasks easily</h5>
-    <router-link to="/board/605a7b540b1ca43db471c282" class="action-call"
+    <router-link to="/board/605aea31ddfb1d346cc30260" class="action-call"
       >Try it now!</router-link
     >
   </section>
