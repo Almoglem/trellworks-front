@@ -13,7 +13,7 @@
           type="password"
           v-model="loginCred.password"
           placeholder="Password"
-        /><button>Login</button>
+        /><button type="submit">Login</button>
       </form>
       <span
         >Don't have an account?
@@ -37,7 +37,7 @@
           type="text"
           v-model="signupCred.username"
           placeholder="Username"
-        /><button>Signup</button>
+        /><button type="submit">Signup</button>
       </form>
       <span
         >Have an account?
@@ -87,7 +87,7 @@ export default {
 
   methods: {
     async doLogin() {
-      if (!this.loginCred.username) {
+      if (!this.loginCred.username || !this.loginCred.password) {
         this.msg = "Please enter username/password";
         return;
       }
