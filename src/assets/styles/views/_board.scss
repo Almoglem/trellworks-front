@@ -5,8 +5,7 @@
 .board {
     flex: 1;
     overflow: auto;
-    height:89%
-
+    height: 89%
 }
 
 .group-container {
@@ -16,12 +15,21 @@
 //buggy fornow
 .group-ghost {
     transition: transform 0.18s ease;
-    opacity: .2;
-    &:before { 
+    background-color: #5f5f5f34;
+    opacity: 0;
+    overflow: none;
+    transition: all .2s ease;
+
+    &:before {
         content: ' ';
-        background-color: #0000002c;
+        background-color: #bbbbbb;
         position: absolute;
-        top: 0; left: 0; right: 0; bottom: 10%;
+        border-radius: 3px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
     }
 }
 
