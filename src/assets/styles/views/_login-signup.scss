@@ -1,14 +1,9 @@
 .login-signup {
-    body {
+    .form-wrapper {
         text-align: center;
     }
 
-    form {
-        margin: auto;
-        text-align: center;
-
-        input {
-            margin: auto;
-        }
+    input {
+        margin: 5px auto;
     }
 }

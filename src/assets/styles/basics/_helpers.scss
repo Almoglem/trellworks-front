@@ -77,12 +77,16 @@
     cursor: pointer;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .clean-input {
     border: none;
     background-color: inherit;
     box-shadow: none;
 }
 
-.muted-txt{
+.muted-txt {
     color: rgb(146, 146, 146);
 }
