@@ -59,7 +59,8 @@ export default {
 			const activities = this.$store.getters.activityLog.filter((activity) => {
 				return !activity.isComment;
 			})
-			return activities
+			const activitiesToShow = activities.slice(0,25)
+			return activitiesToShow
 
 		},
 		menuToggler() {
