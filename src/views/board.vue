@@ -40,7 +40,7 @@
           class="transition group group-add"
           :class="showAdd"
         >
-          <section class="flex group-header add">
+          <section class="flex group-header">
             <p v-if="!showGroupToAdd" class="group-title">
               <i class="fas fa-plus"></i>Add another list
             </p>
@@ -86,7 +86,6 @@ export default {
       isLoading: false,
       showGroupToAdd: false,
       groupTitleToAdd: "",
-      currBoard: null,
     };
   },
   computed: {
@@ -98,6 +97,9 @@ export default {
     },
     showAdd() {
       return { "show-add": this.showGroupToAdd };
+    },
+    currBoard() {
+      return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     },
   },
   methods: {
@@ -290,7 +292,6 @@ export default {
   },
   async created() {
     await this.loadBoard();
-    this.currBoard = JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     socketService.setup();
     socketService.on("board updated", (board) => {
       this.updateBoard(board);
