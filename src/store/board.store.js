@@ -90,7 +90,7 @@ export const boardStore = {
                 throw err.message
             }
         },
-        async saveBoardChanges(context, { editedBoard }) {
+        async updateBoard(context, { editedBoard }) {
             try {
                 //FIXME: add reverting to previous board if an error is encountered
                 context.commit({ type: 'setBoard', board: editedBoard });

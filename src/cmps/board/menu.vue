@@ -90,7 +90,7 @@ export default {
 		setBoardColor(color) {
 			this.currBoard.styles.backgroundColor = color;
 			this.$store.dispatch({
-				type: "saveBoardChanges",
+				type: "updateBoard",
 				editedBoard: this.currBoard,
 			});
 			this.$emit('bgcChanged')

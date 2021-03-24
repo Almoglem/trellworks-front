@@ -106,7 +106,7 @@ export default {
     async updateBoard(board) {
       try {
         await this.$store.dispatch({
-          type: "saveBoardChanges",
+          type: "updateBoard",
           editedBoard: board,
         });
       } catch (err) {
