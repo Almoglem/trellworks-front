@@ -13,15 +13,16 @@
 }
 
 //buggy fornow
-// .group-ghost {
-//     transition: transform 0.18s ease;
-//     &:before { 
-//         content: ' ';
-//         background-color: #0000002c;
-//         position: absolute;
-//         top: 0; left: 0; right: 0; bottom: 10%;
-//     }
-// }
+.group-ghost {
+    transition: transform 0.18s ease;
+    opacity: .2;
+    &:before { 
+        content: ' ';
+        background-color: #0000002c;
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 10%;
+    }
+}
 
 .task-ghost {
     cursor: grabbing;

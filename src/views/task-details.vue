@@ -233,11 +233,17 @@ export default {
     async saveActivity(activityTitle,isComment = false) {
       try {
         const board = this.currBoard;
+        const group = {
+          id: this.currGroup.id,
+          title: this.currGroup.title
+        }
+        console.log(group);
         board.activities.unshift({
           byMember: this.loggedInUser || { fullname: "Guest" },
           title: activityTitle,
           createdAt: Date.now(),
-          group: this.currGroup,
+          group: {id:group.id,
+          title:group.title},
           id: utilService.makeId(),
           task: this.getTask(this.currBoard),
           isComment

@@ -100,9 +100,10 @@ export const boardStore = {
                 throw err.message
             }
         },
-        async newBoard({ commit }) {
+        async newBoard({ commit },payload) {
+            const user = payload.loggedUser
             try {
-            await boardService.addBoard()
+            await boardService.addBoard(user)
             }
             catch (err) {
                 console.log('Adding new board: Error', err);

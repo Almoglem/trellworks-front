@@ -132,8 +132,7 @@ export default {
 				board,
 				group
 			);
-			await this.updateBoard(board);
-			socketService.emit("board update", board);
+
 		},
 		async removeGroup(groupId) {
 			const board = this.currBoard;
@@ -146,8 +145,6 @@ export default {
 					board,
 					oldGroup
 				);
-				await this.updateBoard(board);
-				socketService.emit("board update", board);
 				Swal.fire({
 					position: "bottom-end",
 					title: "Removed successfully",
@@ -175,8 +172,7 @@ export default {
 				group,
 				task
 			);
-			await this.updateBoard(board);
-			socketService.emit("board update", board);
+
 		},
 		async saveActivity(
 			activityTitle,
@@ -195,6 +191,8 @@ export default {
 					title: task.title,
 				},
 			});
+      			await this.updateBoard(board);
+			socketService.emit("board update", board);
 		},
 
 		async bgcChanged() {
@@ -203,8 +201,7 @@ export default {
 				this.currBoard,
 				{}
 			);
-			await this.updateBoard(this.currBoard);
-			socketService.emit("board update", this.currBoard);
+
 		},
 		async draggingEnd() {
 			const board = this.currBoard;
@@ -222,14 +219,11 @@ export default {
 			const groupCopy = JSON.parse(JSON.stringify(group));
 			group.title = newTitle;
 			this.saveActivity(`renamed a group in the board`, board, groupCopy);
-			await this.updateBoard(board);
-			socketService.emit("board update", board);
 		},
 		async updateBoardTitle(newTitle) {
 			this.currBoard.title = newTitle;
 			this.saveActivity("changed this board`s name", this.currBoard, {});
-			await this.updateBoard(this.currBoard);
-			socketService.emit("board update", this.currBoard);
+
 		},
 		async toggleTaskCompleted(group, task) {
 			const board = this.currBoard;
@@ -243,8 +237,7 @@ export default {
 				group,
 				task
 			);
-			await this.updateBoard(board);
-			socketService.emit("board update", board);
+
 		},
 		async updateBoardSocket(board) {
 			try {
@@ -268,7 +261,8 @@ export default {
 	async created() {
 		await this.loadBoard();
 		socketService.setup();
-		socketService.on("board updated", board => this.updateBoard(board));
+		socketService.on("board updated", board => {
+      this.updateBoard(board)});
   },
 	destroyed() {
 		socketService.off('board updated', this.updateBoard);
