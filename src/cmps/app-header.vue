@@ -8,7 +8,7 @@
     <router-link to="/">
       <span class="main-logo" aria-label="logo">Trellworks</span>
     </router-link>
-    <div v-if="loggedInUser">
+    <div class="flex" v-if="loggedInUser">
       <avatar :size="30" :username="loggedInUser.fullname"></avatar>
       <button class="header-btn" @click="doLogout">Log Out</button>
     </div>

@@ -11,7 +11,11 @@
 					:to="'/board/' + starBoard._id"
 				>
 					<div class="placeholder-preview">
-							<i style="float:right" @click="deleteBoard(board._id)" class="far fa-trash-alt transition"></i>
+						<i
+							style="float: right"
+							@click.stop="removeBoard(board._id)"
+							class="far fa-trash-alt transition"
+						></i>
 						<div class="transition preview-header">
 							<h2>{{ starBoard.title }}</h2>
 						</div>
@@ -23,19 +27,17 @@
 				<div @click="createBoard" class="placeholder-preview add">
 					<div class="vertical"><div class="horizontal"></div></div>
 				</div>
-				<router-link
-					class="board-preview"
-					v-for="board in boards"
-					:key="board._id"
-					:to="'/board/' + board._id"
-				>
-					<div class="placeholder-preview">
-							<i style="float:right" @click="deleteBoard(board._id)" class="far fa-trash-alt transition"></i>
-						<div class="transition preview-header">
-							<h2>{{ board.title }}</h2>
+				<section v-for="board in allBoards" :key="board._id">
+					<router-link :to="'/board/' + board._id">
+						<div class="placeholder-preview">
+							<div class="transition preview-header">
+								<!-- <i style="float:right,z-index:3"  class="far fa-trash-alt transition"></i> -->
+								<h2>{{ board.title }}</h2>
+							</div>
 						</div>
-					</div>
-				</router-link>
+					</router-link>
+					<button @click.self="removeBoard(board._id)">Delete</button>
+				</section>
 			</div>
 		</div>
 		<loader v-if="isLoading" />
@@ -51,7 +53,8 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			starBoards: []
+			starBoards: [],
+			allBoards: []
 		}
 	},
 	computed: {
@@ -95,11 +98,23 @@ export default {
 		},
 		starredBoards() {
 			return this.boards.filter(board => board.isStarred)
+		},
+		getBoards() {
+			return this.boards.filter(board => !board.isStarred)
+		}
+		,
+		async removeBoard(boardId) {
+			await this.$store.dispatch({
+				type: 'removeBoard',
+				boardId
+			})
+			this.loadBoards()
 		}
 	},
 	async created() {
 		await this.loadBoards()
 		this.starBoards = this.starredBoards()
+		this.allBoards = this.getBoards()
 	},
 	components: {
 		appHeader,
