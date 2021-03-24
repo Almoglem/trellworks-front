@@ -5,7 +5,8 @@
 			@keypress.enter="editBoardTitle"
 			@focusout="editBoardTitle" />
 			<h2 @click="getInput" v-else>{{ boardTitle }}</h2>
-			<button class="header-btn star"><i class="far fa-star"></i></button>
+			<button  class="header-btn star" @click="starBoard"><i v-if="!currBoard.isStarred" class="far fa-star"></i><i v-else class="fas fa-star"></i></button>
+			
 			<ul class="flex avatars-show">
 				<span
 					v-for="member in boardMembers"
@@ -112,7 +113,6 @@ export default {
 				_id: user._id,
 				fullname: user.fullname
 			}
-
 			const foundIdx = this.currBoard.members.findIndex(member => member._id === user._id)
 			if(foundIdx !== -1) {
 				this.currBoard.members.splice(foundIdx, 1)
@@ -120,7 +120,11 @@ export default {
 			}
 			this.currBoard.members.push(userToAdd)
 			this.$emit('updateBoard', this.currBoard)
-		}	
+		}	,
+		starBoard(){
+			this.currBoard.isStarred = !this.currBoard.isStarred
+			this.$emit('updateBoard',this.currBoard)
+		}
 	},
 	async created() { 
 		await this.loadUsers()
