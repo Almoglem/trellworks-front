@@ -4,7 +4,7 @@
 		:style="{ backgroundColor: currBoard.styles.backgroundColor }"
 		v-if="currBoard"
 		:board="currBoard"
-	>
+	>	
 		<app-header />
 		<board-header
 			:boardTitle="currBoard.title"
@@ -35,13 +35,18 @@
 					/>
 				</draggable>
 				<span>
-				<section @click="addGroup" class="transition group group-add">
-					<section class="flex group-header">
-						<p class="group-title">
-							<i class="fas fa-plus"></i>Add another list
-						</p>
+					<section @click="openGroupAdder" class="transition group group-add" :class="showAdd">
+						<section class="flex group-header">
+							<p v-if="!showGroupToAdd" class="group-title">
+								<i class="fas fa-plus"></i>Add another list
+							</p>
+							<section class="add-group-title"  :class="{'transition-add-group':showGroupToAdd}" v-else>
+								<input type="text" ref="groupAddTxt" @keypress.enter="addGroup" v-model="groupTitleToAdd" placeholder="Enter list title...">
+								<button @click="addGroup" class="btn-success">Add list</button>
+								<i @mouseup="showGroupToAdd = false" class="fas fa-times"></i>
+							</section>
+						</section>
 					</section>
-				</section>
 				</span>
 		</div>
 		<router-view @updateBoardSocket="updateBoardSocket" />
@@ -65,6 +70,8 @@ export default {
 	data() {
 		return {
 			isLoading: false,
+			showGroupToAdd: false,
+			groupTitleToAdd: ''
 		};
 	},
 	computed: {
@@ -77,6 +84,9 @@ export default {
 		loggedInUser() {
 			return this.$store.getters.loggedinUser;
 		},
+		showAdd(){
+			return {'show-add': this.showGroupToAdd}
+		}
 	},
 	methods: {
 		async updateBoard(board) {
@@ -123,15 +133,25 @@ export default {
 				});
 			}
 		},
-		async addGroup() {
+		openGroupAdder(){
+			this.showGroupToAdd = true;
+			setTimeout(() => {
+				this.$refs.groupAddTxt.focus()
+			}, 0);
+		},
+		async addGroup(ev) {
+			console.log(this.groupTitleToAdd.length);
+			if (!this.groupTitleToAdd || (ev.key === 'Enter' && this.groupTitleToAdd.length <=1)) return;
 			const board = this.currBoard;
 			const group = await boardService.getEmptyGroup();
+			group.title = this.groupTitleToAdd;
 			board.groups.push(group);
 			this.saveActivity(
 				`added the group "${group.title}" to the board`,
 				board,
 				group
 			);
+			this.groupTitleToAdd = ''
 
 		},
 		async removeGroup(groupId) {
