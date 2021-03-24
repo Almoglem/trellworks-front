@@ -7,7 +7,6 @@
   >
     <app-header />
     <board-header
-      :boardTitle="currBoard.title"
       @boardTitleUpdated="updateBoardTitle"
       @changeBgc="bgcChanged"
       @updateBoard="updateBoard"

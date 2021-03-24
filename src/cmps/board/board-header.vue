@@ -9,7 +9,7 @@
         @keypress.enter="editBoardTitle"
         @focusout="editBoardTitle"
       />
-      <h2 @click="getInput" v-else>{{ boardTitle }}</h2>
+      <h2 @click="getInput" v-else>{{ titleToEdit }}</h2>
       <button class="header-btn star" @click="starBoard">
         <i v-if="!currBoard.isStarred" class="far fa-star"></i
         ><i v-else class="fas fa-star"></i>
@@ -70,16 +70,10 @@ import memberProfile from "../recurring-cmps/user-miniprofile.vue";
 import Avatar from "vue-avatar";
 
 export default {
-  props: {
-    boardTitle: {
-      type: String,
-      required: true,
-    },
-  },
   data() {
     return {
       menuShown: false,
-      titleToEdit: this.boardTitle,
+      titleToEdit: null,
       isEditing: false,
       showMemberProfile: false,
       currMember: null,
@@ -146,6 +140,7 @@ export default {
   },
   async created() {
     await this.loadUsers();
+    this.titleToEdit = this.currBoard.title;
   },
   components: { boardMenu, Avatar, memberProfile },
 };
