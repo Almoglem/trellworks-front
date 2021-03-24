@@ -19,6 +19,9 @@
     .image-name {
         font-weight: 700;
         margin-bottom: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100px;
     }
 
     .image-details {

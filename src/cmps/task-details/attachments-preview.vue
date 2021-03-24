@@ -11,10 +11,9 @@
           <p class="image-name">{{ img.name }}</p>
           <small
             >Added {{ attachmentTimestamp(img.createdAt) }} -
-            <span class="image-info">Comment</span> -
             <span class="image-info" @click="removeImg(img)">Delete</span> -
             <span @click="toggleEdit(true, img)" class="image-info edit"
-              >Edit
+              >Rename
             </span>
           </small>
           <small class="image-info cover-maker" @click="setCover(img)">{{
@@ -24,7 +23,7 @@
       </div>
       <div class="edit-window pop-up-header" v-if="editToggler">
         <i class="fas fa-times clickable" @click="editToggler = false"> </i>
-        <h3>Edit attachment</h3>
+        <h3>Rename</h3>
         <hr />
         <h3 class="edit-window-title">Link Name</h3>
         <input type="text" class="pop-up-input" v-model="txtToEdit" />
