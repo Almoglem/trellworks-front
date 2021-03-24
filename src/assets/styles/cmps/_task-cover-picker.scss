@@ -1,0 +1,112 @@
+.task-cover-picker {
+
+    .cover-type {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 4px;
+        margin: 0 -4px;
+
+
+        .cover-top {
+            height: 64px;
+            border-radius: 3px 3px 0 0;
+            margin: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            cursor: pointer;
+            background: #fff;
+            border-radius: 3px;
+            position: relative;
+            width: 134px;
+            border: 1px solid rgba(9, 30, 66, .08);
+
+            .color {
+                height: 28px;
+                border-radius: 3px 3px 0 0;
+            }
+
+            .line-preview {
+                padding: 6px 4px 4px 6px;
+                position: relative;
+
+                .row1 {
+                    background: #6b778c;
+                    height: 4px;
+                    border-radius: 2px;
+                    width: 122px;
+                }
+
+                .row2 {
+                    width: 98px;
+                    margin-top: 4px;
+                    background: #6b778c;
+                    height: 4px;
+                    border-radius: 2px;
+                }
+
+                .row3 {
+                    display: flex;
+                    margin-top: 6px;
+
+                    .a {
+                        width: 16px;
+                        height: 6px;
+                        background: #6b778c;
+                        border-radius: 2px;
+                        margin-right: 2px;
+                    }
+
+                }
+
+                .dot {
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    right: 4px;
+                    bottom: 4px;
+                    background: #6b778c;
+                    border-radius: 5px;
+                }
+            }
+        }
+
+        .cover-full {
+            margin: 0;
+            width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            cursor: pointer;
+            background: #fff;
+            border-radius: 3px;
+            width: 134px;
+            position: relative;
+            border: 1px solid rgba(9, 30, 66, .08);
+            height: 64px;
+
+            .line-preview {
+                position: absolute;
+                bottom: 4px;
+                padding: 6px 4px 4px 6px;
+
+                .row1 {
+                    width: 116px;
+                    background: rgba(9, 30, 66, .6);
+                    height: 4px;
+                    border-radius: 2px;
+                }
+
+                .row2 {
+                    width: 92px;
+                    background: rgba(9, 30, 66, .6);
+                    margin-top: 4px;
+                    height: 4px;
+                    border-radius: 2px;
+                }
+            }
+
+        }
+    }
+}

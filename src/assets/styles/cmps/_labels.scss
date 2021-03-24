@@ -1,0 +1,101 @@
+
+.task-labels {
+    .labels-list {
+        padding-right: 36px;
+        position: relative;
+
+        .edit-pen {
+            right: -33px;
+            position: absolute;
+
+            &:hover {
+                background-color: rgba(9, 30, 66, .08);
+
+            }
+        }
+
+        .label {
+            color: white;
+
+            i {
+                color: #42526e;
+            }
+        }
+
+    }
+
+    button {
+        background-color: rgba(9, 30, 66, .06);
+        box-shadow: none;
+        border: none;
+        box-sizing: border-box;
+        border-radius: 3px;
+        border: none;
+        display: inline-block;
+        line-height: 20px;
+        margin: 10px 4px 0 0;
+        padding: 6px 12px;
+        text-decoration: none;
+        position: relative;
+        width: 100%;
+        font-size: 14px;
+        color: #172b4d;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .08);
+        }
+    }
+
+    .label {
+        border-radius: 3px;
+        cursor: pointer;
+        font-weight: 700;
+        margin: 0 0 4px;
+        min-height: 32px;
+        padding: 6px 12px;
+        position: relative;
+    }
+}
+
+
+.label-edit {
+    position: relative;
+
+    i {
+        position: absolute;
+        top: -64px;
+        cursor: pointer;
+    }
+}
+
+.labels-preview {
+    flex-direction: column;
+    margin-top: 17px;
+
+    .label-preview {
+        border-radius: 3px;
+        box-sizing: border-box;
+        display: block;
+        float: left;
+        font-weight: 600;
+        height: 32px;
+        line-height: 32px;
+        margin: 0 4px 4px 0;
+        min-width: 40px;
+        padding: 0 12px;
+        width: auto;
+        color: white;
+    }
+
+    span {
+        flex-wrap: wrap;
+    }
+}
+
+
+
+.label-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
