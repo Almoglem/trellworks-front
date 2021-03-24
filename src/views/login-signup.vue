@@ -2,28 +2,16 @@
   <div class="login-signup">
     <appHeader />
     <p>{{ msg }}</p>
-
-    <div v-if="loggedinUser">
-      <h3>
-        Loggedin User:
-        {{ loggedinUser.username }}
-        <button @click="doLogout">Logout</button>
-      </h3>
-    </div>
-    <div v-else>
-      <h2>Login</h2>
+    <div>
       <form @submit.prevent="doLogin">
-        <!-- <select v-model="loginCred.username">
-          <option value="">Select User</option>
-          <option v-for="user in users" :key="user._id" :value="user.username">{{user.fullname}}</option>
-        </select> -->
+        <h2>Login</h2>
         <input
           type="text"
           v-model="loginCred.username"
           placeholder="User name"
         />
         <input
-          type="text"
+          type="password"
           v-model="loginCred.password"
           placeholder="Password"
         />
@@ -38,7 +26,7 @@
           placeholder="Your full name"
         />
         <input
-          type="text"
+          type="password"
           v-model="signupCred.password"
           placeholder="Password"
         />
@@ -50,18 +38,6 @@
         <button>Signup</button>
       </form>
     </div>
-    <hr />
-    <!-- <details>
-      <summary>
-        Admin Section
-      </summary>
-      <ul>
-        <li v-for="user in users" :key="user._id">
-          <pre>{{ user }}</pre>
-          <button @click="removeUser(user._id)">x</button>
-        </li>
-      </ul>
-    </details> -->
   </div>
 </template>
 
@@ -103,9 +79,6 @@ export default {
         console.log(err);
         this.msg = "Failed to log in.";
       }
-    },
-    doLogout() {
-      this.$store.dispatch({ type: "logout" });
     },
     async doSignup() {
       if (
