@@ -22,7 +22,6 @@
           v-model="taskToEdit.description"
           ref="descriptionEdit"
           autofocus
-          @focusout="setDescription"
           class="description-input clean-input"
           placeholder="Add a more detailed description..."
         ></textarea>
@@ -30,7 +29,7 @@
           <button type="submit" class="btn-success">Save</button>
           <i
             class="fas fa-times clickable close-desc"
-            @click="isEditing = false"
+            @click="closeEdit"
           >
           </i>
         </div>
@@ -48,7 +47,7 @@ export default {
   data() {
     return {
       isEditing: false,
-      
+      descBeforeUpdate: null
     };
   },
   computed: {
@@ -63,11 +62,19 @@ export default {
         this.$refs.descriptionEdit.focus();
       }, 0);
     },
+    closeEdit(){
+      this.isEditing = false;
+      this.taskToEdit.description = this.descBeforeUpdate
+    },
     setDescription() {
-      this.$emit("changeMade", `changed the description of "${this.task.title}"`);
       this.$emit("updateTask", this.taskToEdit);
+      this.$emit("changeMade", `changed the description of "${this.task.title}"`);
+      this.descBeforeUpdate = this.taskToEdit.description;
       this.isEditing = false;
     },
+  },
+  created(){
+    this.descBeforeUpdate = this.taskToEdit.description
   },
 };
 </script>

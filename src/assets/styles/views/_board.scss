@@ -368,26 +368,31 @@
     }
 
     .checklist-preview {
-        width: 90px;
         font-size: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 3px;
-        margin: 0 4px 4px 0;
         padding: 2px;
+        width: 90px;
+        border-radius: 3px;
+        padding: 2px;
+        margin: 0 4px;
+        letter-spacing: 0.7px;
 
-    }
-
-    .success {
-        background-color: #61bd4f !important;
-        // margin: 0 8px;
-
+        i {
+            margin-right: 3px;
+        }
     }
 
     .checklist-success {
-        color: #61bd4f;
+        background-color: #61bd4f;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100% !important;
+        max-width: 47px;
+    }
 
+    .desc-preview {
+        margin: 0 8px;
     }
 }
 

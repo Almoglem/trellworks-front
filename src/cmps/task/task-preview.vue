@@ -45,7 +45,7 @@
           :task="task"
           @dueDateUpdated="updateDueDate"
         />
-        <i v-if="task.description" class="fas fa-align-left fa-sm"></i>
+        <i v-if="task.description" class="fas fa-align-left fa-sm desc-preview"></i>
         <i
           v-if="isEditPenShown"
           :class="penToggler"
