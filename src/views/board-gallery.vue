@@ -94,7 +94,7 @@ export default {
 				type: 'newBoard',
 				loggedUser
 			})
-			this.loadBoards()
+			await this.loadBoards()
 		},
 		starredBoards() {
 			return this.boards.filter(board => board.isStarred)
@@ -108,7 +108,7 @@ export default {
 				type: 'removeBoard',
 				boardId
 			})
-			this.loadBoards()
+			await this.loadBoards()
 		}
 	},
 	async created() {
