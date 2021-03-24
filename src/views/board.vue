@@ -34,6 +34,7 @@
 						@toggleTaskCompletion="toggleTaskCompleted"
 					/>
 				</draggable>
+				<span>
 				<section @click="addGroup" class="transition group group-add">
 					<section class="flex group-header">
 						<p class="group-title">
@@ -41,6 +42,7 @@
 						</p>
 					</section>
 				</section>
+				</span>
 		</div>
 		<router-view @updateBoardSocket="updateBoardSocket" />
 		<loader v-if="isLoading" />
