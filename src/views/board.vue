@@ -127,13 +127,13 @@ export default {
       const board = this.currBoard;
       const group = await boardService.getEmptyGroup();
       board.groups.push(group);
-      await this.updateBoard(board);
-      socketService.emit("board update", board);
       this.saveActivity(
         `added the group "${group.title}" to the board`,
         board,
         group
       );
+      await this.updateBoard(board);
+      socketService.emit("board update", board);
     },
     async removeGroup(groupId) {
       const board = this.currBoard;
@@ -141,6 +141,11 @@ export default {
       const oldGroup = JSON.parse(JSON.stringify(board.groups[groupIdx]));
       board.groups.splice(groupIdx, 1);
       try {
+         this.saveActivity(
+          `removed the group "${oldGroup.title}" from the board`,
+          board,
+          oldGroup
+        );
         await this.updateBoard(board);
         socketService.emit("board update", board);
         Swal.fire({
@@ -155,11 +160,7 @@ export default {
           toast: true,
           animation: true,
         });
-        this.saveActivity(
-          `removed the group "${oldGroup.title}" from the board`,
-          board,
-          oldGroup
-        );
+       
       } catch (err) {
         console.log("hi", err);
       }
@@ -168,14 +169,14 @@ export default {
       const board = this.currBoard;
       const group = board.groups.find((group) => group.id === groupId);
       group.task.push(task);
-      await this.updateBoard(board);
-      socketService.emit("board update", board);
       this.saveActivity(
         `added the task "${task.title}" in "${group.title}"`,
         board,
         group,
         task
       );
+      await this.updateBoard(board);
+      socketService.emit("board update", board);
     },
     async saveActivity(
       activityTitle,
@@ -183,8 +184,7 @@ export default {
       group,
       task = { title: "", id: "" }
     ) {
-      const boardCopy = JSON.parse(JSON.stringify(board));
-      boardCopy.activities.unshift({
+      board.activities.unshift({
         byMember: this.loggedInUser || { fullname: "Guest" },
         title: activityTitle,
         createdAt: Date.now(),
@@ -195,18 +195,16 @@ export default {
           title: task.title,
         },
       });
-      await this.updateBoard(boardCopy);
-      socketService.emit("board update", boardCopy);
     },
 
     async bgcChanged() {
-      await this.updateBoard(this.currBoard);
-      socketService.emit("board update", board);
       this.saveActivity(
         "changed this board`s background color",
         this.currBoard,
         {}
       );
+      await this.updateBoard(this.currBoard);
+      socketService.emit("board update", this.currBoard);
     },
     async draggingEnd() {
       const board = this.currBoard;
@@ -223,15 +221,15 @@ export default {
       const group = board.groups.find((group) => group.id === groupId);
       const groupCopy = JSON.parse(JSON.stringify(group));
       group.title = newTitle;
+      this.saveActivity(`renamed a group in the board`, board, groupCopy);
       await this.updateBoard(board);
       socketService.emit("board update", board);
-      this.saveActivity(`renamed a group in the board`, board, groupCopy);
     },
     async updateBoardTitle(newTitle) {
       this.currBoard.title = newTitle;
+      this.saveActivity("changed this board`s name", this.currBoard, {});
       await this.updateBoard(this.currBoard);
       socketService.emit("board update", this.currBoard);
-      this.saveActivity("changed this board`s name", this.currBoard, {});
     },
     async toggleTaskCompleted(group, task) {
       const board = this.currBoard;
@@ -239,14 +237,14 @@ export default {
         (foundGroup) => group.id === foundGroup.id
       );
       board.groups.splice(groupIdx, 1, group);
-      await this.updateBoard(board);
-      socketService.emit("board update", board);
       this.saveActivity(
         `marked the task "${task.title}" as completed`,
         board,
         group,
         task
       );
+        await this.updateBoard(board);
+        socketService.emit("board update", board);
     },
     async updateBoardSocket(board) {
       try {

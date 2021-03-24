@@ -240,8 +240,9 @@ export default {
           group: this.currGroup,
           id: utilService.makeId(),
           task: this.getTask(this.currBoard),
-          isComment:isComment
+          isComment
         });
+        if(isComment)this.updateBoard(board)
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
