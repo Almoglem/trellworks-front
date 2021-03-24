@@ -97,7 +97,6 @@ export default {
       this.newLabel.colorName = colorName
     },
     async addLabelToBoard(){
-      console.log(this.currBoard,'before');
       if(!this.newLabel.id){
         this.newLabel.id = utilService.makeId()
         this.labelIds.push(this.newLabel.id);

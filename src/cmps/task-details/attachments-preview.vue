@@ -12,7 +12,7 @@
           <small
             >Added {{ attachmentTimestamp(img.createdAt) }} -
             <span class="image-info">Comment</span> -
-            <span class="image-info" @click="removeImg(img.id)">Delete</span> -
+            <span class="image-info" @click="removeImg(img)">Delete</span> -
             <span @click="toggleEdit(true, img)" class="image-info edit"
               >Edit
             </span>
@@ -66,8 +66,8 @@ export default {
         `changed an attachment in "${this.taskToEdit.title}"`
       );
     },
-    removeImg(imgId) {
-      this.$emit("removeImg", imgId);
+    removeImg(img) {
+      this.$emit("removeImg", img);
       this.$emit(
         "logActivity",
         `removed an attachment from "${this.taskToEdit.title}"`

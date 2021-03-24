@@ -274,6 +274,12 @@ export default {
       this.updateBoard(board);
     });
   },
+  destroyed(){
+    socketService.off('board updated',  (board) => {
+      this.updateBoard(board);
+    });
+    socketService.terminate();
+  },
   components: {
     boardHeader,
     group,

@@ -50,13 +50,13 @@ export default {
           this.taskToEdit.cover.isImg = true;
         }
         this.taskToEdit.imgs.unshift(img);
-        this.$emit("updateTask", this.taskToEdit);
-        this.$emit("close");
-        this.$emit("toggleLoader", false);
         this.$emit(
           "logActivity",
           `added an attachment to "${this.taskToEdit.title}"`
         );
+        this.$emit("updateTask", this.taskToEdit);
+        this.$emit("close");
+        this.$emit("toggleLoader", false);
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
@@ -89,12 +89,12 @@ export default {
             this.taskToEdit.isImg = true;
           }
           this.taskToEdit.imgs.unshift(img);
-          this.$emit("updateTask", this.taskToEdit);
-          this.$emit("close");
           this.$emit(
             "logActivity",
             `added an attachment to "${this.taskToEdit.title}"`
           );
+          this.$emit("updateTask", this.taskToEdit);
+          this.$emit("close");
         }, 200);
       } catch (err) {
         Swal.fire({

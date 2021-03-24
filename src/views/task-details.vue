@@ -74,7 +74,7 @@
             <task-description
               :task="currTask"
               @updateTask="updateTask"
-              @changeMade="changeTaskDetails"
+              @logActivity="saveActivity"
             />
             <attachments-preview
               v-if="currTask.imgs.length"
@@ -91,7 +91,6 @@
                 :checklist="checklist"
                 :task="currTask"
                 @updateTask="updateTask"
-                @changeMade="changeTaskDetails"
                 @removeChecklist="removeChecklist"
                 @logActivity="saveActivity"
               />
@@ -121,7 +120,6 @@
                   :is="currAction.type"
                   @updateBoard="updateBoard"
                   @updateTask="updateTask"
-                  @changeMade="changeTaskDetails"
                   @logActivity="saveActivity"
                   @close="togglePopUp(false)"
                   :task="currTask"
@@ -244,8 +242,6 @@ export default {
           task: this.getTask(this.currBoard),
           isComment:isComment
         });
-        await this.updateBoard(board);
-        socketService.emit("board update", board);
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
@@ -353,9 +349,6 @@ export default {
       );
       return filteredActivities;
     },
-    changeTaskDetails(activityTitle) {
-      this.saveActivity(activityTitle);
-    },
     showProfile(member) {
       this.currMember = member;
       this.showMemberProfile = true;
@@ -384,11 +377,16 @@ export default {
         animation: true,
       });
     },
-    removeImg(imgId) {
+    removeImg(img) {
       const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
-      const foundIdx = taskToEdit.imgs.findIndex((img) => img.id === imgId);
+      const foundIdx = taskToEdit.imgs.findIndex((img) => img.id === img.id);
       if (foundIdx < 0) return console.log("couldnt find idx");
       taskToEdit.imgs.splice(foundIdx, 1);
+      if(img.src === taskToEdit.cover.src) taskToEdit.cover = {
+          src: '',
+          type: "top",
+          isImg: false
+      }
       this.updateTask(taskToEdit);
       Swal.fire({
         position: "bottom-end",

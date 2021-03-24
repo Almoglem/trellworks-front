@@ -67,8 +67,8 @@ export default {
       this.taskToEdit.description = this.descBeforeUpdate
     },
     setDescription() {
+      this.$emit("logActivity", `changed the description of "${this.task.title}"`);
       this.$emit("updateTask", this.taskToEdit);
-      this.$emit("changeMade", `changed the description of "${this.task.title}"`);
       this.descBeforeUpdate = this.taskToEdit.description;
       this.isEditing = false;
     },

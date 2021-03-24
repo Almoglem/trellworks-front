@@ -54,8 +54,8 @@ export default ({
 		toggleComlpetion() {
 			this.isDone = !this.isDone
 			this.taskToEdit.isCompleted = !this.taskToEdit.isCompleted
-			this.$emit('updateTask', this.taskToEdit)
 			if(this.taskToEdit.isCompleted)this.$emit('logActivity',`marked the task "${this.task.title}" as completed`)
+			this.$emit('updateTask', this.taskToEdit)
 		}
 	}, created() {
 		this.deteremineDate()

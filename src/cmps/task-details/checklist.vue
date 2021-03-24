@@ -77,13 +77,13 @@ export default {
         1,
         this.checklistToEdit
       );
-      this.$emit("updateTask", this.taskToEdit);
       this.updateProgress();
       if (this.completed !== "0%") {
         this.$emit(
           "logActivity",
           `has completed ${this.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
         );
+        this.$emit("updateTask", this.taskToEdit);
         if (this.completed === "100%") {
           Swal.fire({
             position: "bottom-end",
@@ -125,23 +125,23 @@ export default {
       this.isAddingItem = false;
       this.todoToAdd.id = utilService.makeId();
       this.checklistToEdit.todos.push(this.todoToAdd);
-      this.updateTask();
-      this.todoToAdd = { title: "", isDone: false };
-      this.isAddingItem = true;
-      this.$refs.taskadd.focus();
       this.$emit(
         "logActivity",
         `added items in the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
       );
+      this.updateTask();
+      this.todoToAdd = { title: "", isDone: false };
+      this.isAddingItem = true;
+      this.$refs.taskadd.focus();
     },
     removeTodo(todoId) {
       const idx = this.getTodoIdx(todoId);
       this.checklistToEdit.todos.splice(idx, 1);
-      this.updateTask();
       this.$emit(
         "logActivity",
         `removed items from the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
       );
+      this.updateTask();
     },
     updateTodo(updatedTodo) {
       const idx = this.getTodoIdx(updatedTodo.id);
