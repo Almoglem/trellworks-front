@@ -12,8 +12,7 @@
 			@changeBgc="bgcChanged"
 			@updateBoard="updateBoard"
 		/>
-		<div class="flex board">
-			<div class="flex group-container">
+		<div class="flex board group-container" v-dragscroll:firstchilddrag>
 				<draggable
 					v-model="currBoard.groups"
 					class="flex"
@@ -42,7 +41,6 @@
 						</p>
 					</section>
 				</section>
-			</div>
 		</div>
 		<router-view @updateBoardSocket="updateBoardSocket" />
 		<loader v-if="isLoading" />
