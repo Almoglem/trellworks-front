@@ -131,7 +131,8 @@
             <ul>
               <h3 class="uppercase-title">Actions</h3>
               <li class="action" @click="removeTask()">
-                <i class="far fa-trash-alt"></i> Delete Task
+                <i class="far fa-trash-alt"></i>
+                <span class="action-txt"> Delete Task</span>
               </li>
             </ul>
           </div>
