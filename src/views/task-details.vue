@@ -96,6 +96,9 @@
                 @logActivity="saveActivity"
               />
             </div>
+            <i class="far fa-comment"></i>
+            <h1 class="details-title">Post a Comment</h1>
+            <comments @postComment="logComment"/>
             <activityLog
               class="task-details-activity"
               :activities="getTaskActivity()"
@@ -150,6 +153,7 @@ import taskCover from "@/cmps/task/edit-cmps/cover-picker";
 import activityLog from "@/cmps/recurring-cmps/activity-list";
 import popUp from "@/cmps/task/pop-up";
 import attachmentsPreview from "@/cmps/task-details/attachments-preview.vue";
+import comments from "@/cmps/task-details/comments.vue";
 import dueDateDetails from "@/cmps/task-details/due-date-details.vue";
 import labelsPreview from "../cmps/task-details/labels-preview.vue";
 import taskDescription from "../cmps/task-details/task-description.vue";
@@ -218,9 +222,9 @@ export default {
     taskId() {
       return this.$route.params.taskId;
     },
-        		loggedInUser() {
-			return this.$store.getters.loggedinUser
-		}
+    loggedInUser() {
+      return this.$store.getters.loggedinUser;
+    },
   },
   methods: {
     removeChecklist(idx) {
@@ -228,16 +232,17 @@ export default {
       task.checklists.splice(idx, 1);
       this.updateTask(task);
     },
-    async saveActivity(activityTitle) {
+    async saveActivity(activityTitle,isComment = false) {
       try {
         const board = this.currBoard;
         board.activities.unshift({
-        byMember: this.loggedInUser || {fullname:'Guest'},
+          byMember: this.loggedInUser || { fullname: "Guest" },
           title: activityTitle,
           createdAt: Date.now(),
           group: this.currGroup,
           id: utilService.makeId(),
           task: this.getTask(this.currBoard),
+          isComment:isComment
         });
         await this.updateBoard(board);
         socketService.emit("board update", board);
@@ -295,14 +300,13 @@ export default {
       this.currAction = actionType;
     },
     async removeTask() {
+      /// do in try and catch
       this.isLoading = true;
       const board = JSON.parse(JSON.stringify(this.currBoard));
       const taskIdx = this.getTask(board, true);
+      const oldTask = JSON.parse(JSON.stringify(this.getTask(board)));
       const group = board.groups.find(
         (group) => group.id === this.currGroup.id
-      );
-      this.saveActivity(
-        `removed the task "${group.task[taskIdx].title}" from "${group.title}"`
       );
       group.task.splice(taskIdx, 1);
       await this.updateBoard(board);
@@ -321,8 +325,12 @@ export default {
         toast: true,
         animation: true,
       });
+      this.saveActivity(
+        `removed the task "${oldTask.title}" from "${group.title}"`
+      );
     },
     async updateTask(task) {
+      const oldTask = JSON.parse(JSON.stringify(this.currTask));
       const updatedTask = JSON.parse(JSON.stringify(task));
       const board = this.currBoard;
       const group = board.groups.find(
@@ -330,9 +338,9 @@ export default {
       );
       const taskIdx = this.getTask(board, true);
       group.task.splice(taskIdx, 1, updatedTask);
-      if (this.currTask.title !== updatedTask.title)
+      if (oldTask.title !== updatedTask.title)
         this.saveActivity(
-          `changed the task "${this.currTask.title}" to "${updatedTask.title}"`
+          `changed the task "${oldTask.title}" to "${updatedTask.title}"`
         );
       await this.updateBoard(board);
       this.updateBoardSocket(board);
@@ -340,7 +348,7 @@ export default {
     getTaskActivity() {
       const filteredActivities = this.currBoard.activities.filter(
         (activity) => {
-          return activity.task.id === this.currTask.id;
+          return activity.task && activity.task.id === this.currTask.id || activity.task && activity.task.id === this.currTask.id && activity.isComment;
         }
       );
       return filteredActivities;
@@ -408,6 +416,9 @@ export default {
     toggleLoader(condition) {
       this.isLoading = condition;
     },
+    logComment(commentTxt){
+      this.saveActivity(commentTxt,true)
+    }
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
@@ -434,6 +445,7 @@ export default {
     attachmentsPreview,
     dueDateDetails,
     loader,
+    comments
   },
 };
 </script>
