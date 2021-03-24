@@ -97,7 +97,7 @@
             </div>
             <i class="far fa-comment"></i>
             <h1 class="details-title">Post a Comment</h1>
-            <comments @postComment="logComment"/>
+            <comments @postComment="logComment" />
             <activityLog
               class="task-details-activity"
               :activities="getTaskActivity()"
@@ -112,7 +112,8 @@
                 @click.stop="togglePopUp(true, action)"
                 class="action"
               >
-                <i :class="action.iconClass"></i> {{ action.txt }}
+                <i :class="action.iconClass"></i>
+                <span class="action-txt"> {{ action.txt }}</span>
               </li>
               <pop-up @closePopUp="togglePopUp" v-if="openPopUp">
                 <template v-slot:header>{{ currAction.txt }}</template>
@@ -230,26 +231,26 @@ export default {
       task.checklists.splice(idx, 1);
       this.updateTask(task);
     },
-    async saveActivity(activityTitle,isComment = false) {
+    async saveActivity(activityTitle, isComment = false) {
       try {
-      const activityTask = JSON.parse(JSON.stringify(this.currTask));
+        const activityTask = JSON.parse(JSON.stringify(this.currTask));
         const board = this.currBoard;
         board.activities.unshift({
           byMember: this.loggedInUser || { fullname: "Guest" },
           title: activityTitle,
           createdAt: Date.now(),
-          group:{
-          id: this.currGroup.id,
-          title: this.currGroup.title
-        },
+          group: {
+            id: this.currGroup.id,
+            title: this.currGroup.title,
+          },
           id: utilService.makeId(),
           task: {
-            id:activityTask.id,
-            title:activityTask.title
+            id: activityTask.id,
+            title: activityTask.title,
           },
-          isComment
+          isComment,
         });
-        if(isComment)this.updateBoard(board)
+        if (isComment) this.updateBoard(board);
         console.log(board);
       } catch (err) {
         Swal.fire({
@@ -353,7 +354,12 @@ export default {
     getTaskActivity() {
       const filteredActivities = this.currBoard.activities.filter(
         (activity) => {
-          return activity.task && activity.task.id === this.currTask.id || activity.task && activity.task.id === this.currTask.id && activity.isComment;
+          return (
+            (activity.task && activity.task.id === this.currTask.id) ||
+            (activity.task &&
+              activity.task.id === this.currTask.id &&
+              activity.isComment)
+          );
         }
       );
       return filteredActivities;
@@ -391,11 +397,12 @@ export default {
       const foundIdx = taskToEdit.imgs.findIndex((img) => img.id === img.id);
       if (foundIdx < 0) return console.log("couldnt find idx");
       taskToEdit.imgs.splice(foundIdx, 1);
-      if(img.src === taskToEdit.cover.src) taskToEdit.cover = {
-          src: '',
+      if (img.src === taskToEdit.cover.src)
+        taskToEdit.cover = {
+          src: "",
           type: "top",
-          isImg: false
-      }
+          isImg: false,
+        };
       this.updateTask(taskToEdit);
       Swal.fire({
         position: "bottom-end",
@@ -423,9 +430,9 @@ export default {
     toggleLoader(condition) {
       this.isLoading = condition;
     },
-    logComment(commentTxt){
-      this.saveActivity(commentTxt,true)
-    }
+    logComment(commentTxt) {
+      this.saveActivity(commentTxt, true);
+    },
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
@@ -452,7 +459,7 @@ export default {
     attachmentsPreview,
     dueDateDetails,
     loader,
-    comments
+    comments,
   },
 };
 </script>
