@@ -103,7 +103,8 @@ export const boardStore = {
         async newBoard({ commit }, payload) {
             const user = payload.loggedUser
             try {
-                await boardService.addBoard(user)
+                const boards = await boardService.addBoard(user)
+                commit({type:'setBoards',boards})
             }
             catch (err) {
                 console.log('Adding new board: Error', err);
@@ -112,7 +113,8 @@ export const boardStore = {
         },
         async removeBoard({ commit }, payload) {
             try {
-                await boardService.remove(payload.boardId)
+                const boards = await boardService.remove(payload.boardId)
+                commit({type:'setBoards',boards})
             }
             catch (err) {
                 throw err.message
