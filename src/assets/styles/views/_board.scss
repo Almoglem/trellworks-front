@@ -370,14 +370,15 @@
     .checklist-preview {
         font-size: 12px;
         padding: 2px;
-        width: 90px;
+        width: 100%;
+        max-width: 47px;
         border-radius: 3px;
         padding: 2px;
         margin: 0 4px;
         letter-spacing: 0.7px;
 
         i {
-            margin-right: 3px;
+            margin-right: 1px;
         }
     }
 
@@ -389,6 +390,10 @@
         justify-content: center;
         width: 100% !important;
         max-width: 47px;
+
+        i {
+            margin-right: 3px;
+        }
     }
 
     .desc-preview {
