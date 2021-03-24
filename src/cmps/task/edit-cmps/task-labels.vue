@@ -60,6 +60,9 @@ export default {
     currBoard(){
       return JSON.parse(JSON.stringify(this.$store.getters.currBoard))
     },
+    currGroup(){
+      return this.$store.getters.currGroup
+    },
     labelIds(){
       return this.taskToEdit.labelIds
     },
@@ -71,6 +74,15 @@ export default {
     }
   },
   methods: {
+    getTask(board, isIdx) {
+      const group = board.groups.find(
+        (group) => group.id === this.currGroup.id
+      );
+      let res;
+      if (isIdx) res = group.task.findIndex((task) => task.id === this.taskId);
+      else res = group.task.find((task) => task.id === this.task.id);
+      return res;
+    },
     addLabel(labelId) {
       for (let i = 0; i < this.labelIds.length; i++) {
         if (labelId === this.labelIds[i]) {
@@ -97,24 +109,24 @@ export default {
       this.newLabel.colorName = colorName
     },
     async addLabelToBoard(){
+      const taskToEdit = this.getTask(this.currBoard)
       if(!this.newLabel.id){
+        console.log('creating');
         this.newLabel.id = utilService.makeId()
         this.labelIds.push(this.newLabel.id);
-        this.taskToEdit.labelIds = this.labelIds;
-        this.$emit('updateTask', this.taskToEdit)
+        taskToEdit.labelIds = this.labelIds;
         this.currBoard.labels.push(this.newLabel)
       } else {
-        const foundIdx = this.labels.findIndex(label => label.id === this.newLabel.id);
-        if(foundIdx<0) return 'couldnt find id for board';
+        const foundIdx = this.currBoard.labels.findIndex(label => label.id === this.newLabel.id);
+        if(foundIdx===-1) return console.log('couldnt find id for board');
         this.currBoard.labels.splice(foundIdx, 1, this.newLabel)
       }
       this.labelEditToggler.isOpen = false;
       await this.$emit('updateBoard', this.currBoard)
-      console.log(this.currBoard,'after');
       this.newLabel = boardService.getEmptyLabel()
     },
     removeLabelFromBoard(){
-      const foundIdx = this.currBoard.labels.findIndex(label => label.id === this.newLabel.id);
+      const foundIdx = this.labels.findIndex(label => label.id === this.newLabel.id);
       this.currBoard.labels.splice(foundIdx,1)
       this.labelEditToggler.isOpen = false;
       this.$emit('updateBoard', this.currBoard)
