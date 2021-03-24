@@ -37,7 +37,7 @@ export const boardStore = {
             })
             // return labelsForShow.sort((label1, label2) => label1.colorName.localeCompare(label2.colorName))
         },
-        boardMembersForShow(state){
+        boardMembersForShow(state) {
             const membersForShow = JSON.parse(JSON.stringify(state.currBoard.members))
             if (!state.membersFilter) return membersForShow
             return membersForShow.filter(member => {
@@ -76,7 +76,7 @@ export const boardStore = {
             try {
                 const foundBoards = await boardService.query();
                 commit({ type: 'setBoards', foundBoards })
-            } catch(err) {
+            } catch (err) {
                 console.log('Error loading boards');
                 throw err.message
             }
@@ -95,18 +95,30 @@ export const boardStore = {
                 //FIXME: add reverting to previous board if an error is encountered
                 context.commit({ type: 'setBoard', board: editedBoard });
                 await boardService.save(editedBoard)
-            } catch(err) {
+            } catch (err) {
                 console.log('error saving board changes', err.message);
                 throw err.message
             }
         },
-        async newBoard({ commit },payload) {
+        async newBoard({ commit }, payload) {
             const user = payload.loggedUser
             try {
-            await boardService.addBoard(user)
+                await boardService.addBoard(user)
+                const boards = await boardService.query();
+                commit({ type: 'setBoards', boards })
             }
             catch (err) {
                 console.log('Adding new board: Error', err);
+                throw err.message
+            }
+        },
+        async removeBoard({ commit }, payload) {
+            try {
+                await boardService.remove(payload.boardId)
+                const boards = await boardService.query();
+                commit({ type: 'setBoards', boards })
+            }
+            catch (err) {
                 throw err.message
             }
         }
