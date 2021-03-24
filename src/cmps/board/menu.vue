@@ -104,7 +104,6 @@ export default {
 					return !activity.isComment;
 				}
 			);
-			console.log(filteredActivities);
 			return filteredActivities;
 		}
 	},
