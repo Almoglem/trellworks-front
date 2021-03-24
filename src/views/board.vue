@@ -40,7 +40,7 @@
           class="transition group group-add"
           :class="showAdd"
         >
-          <section class="flex group-header">
+          <section class="flex group-header add">
             <p v-if="!showGroupToAdd" class="group-title">
               <i class="fas fa-plus"></i>Add another list
             </p>
