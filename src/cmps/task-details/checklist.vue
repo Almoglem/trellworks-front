@@ -83,22 +83,22 @@ export default {
           "logActivity",
           `has completed ${this.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
         );
-        this.$emit("updateTask", this.taskToEdit);
-        if (this.completed === "100%") {
-          Swal.fire({
-            position: "bottom-end",
-            title: "You have finished all of your to-do list!",
-            showConfirmButton: false,
-            timer: 1500,
-            customClass: {
-              title: "success",
-              popup: "success",
-            },
-            toast: true,
-            animation: true,
-          });
-        }
       }
+      if (this.completed === "100%") {
+        Swal.fire({
+          position: "bottom-end",
+          title: "You have finished all of your to-do list!",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "success",
+            popup: "success",
+          },
+          toast: true,
+          animation: true,
+        });
+      }
+      this.$emit("updateTask", this.taskToEdit);
     },
     updateProgress() {
       const todosLength = this.checklistToEdit.todos.length;
