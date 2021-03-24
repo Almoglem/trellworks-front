@@ -49,7 +49,6 @@ async function save(board) {
 }
 
 function _getEmptyBoard(loggedinUser) {
-    console.log(loggedinUser);
     return {
         title: 'My new board',
         createdAt: Date.now(),
@@ -69,7 +68,7 @@ function _getEmptyBoard(loggedinUser) {
                 task: { id: '', title: '' }
             }
         ],
-
+        isStarrted:false
     }
 }
 
