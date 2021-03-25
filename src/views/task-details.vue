@@ -1,7 +1,11 @@
 <template>
   <section @mousedown.self="closeModal" class="task-details-modal">
     <div @click="togglePopUp(false)" class="task-details">
-      <i class="fas fa-times details-close clickable" :class="closeBtn" @click="closeModal"></i>
+      <i
+        class="fas fa-times details-close clickable"
+        :class="closeBtn"
+        @click="closeModal"
+      ></i>
       <div
         class="cover"
         :style="{ backgroundColor: currTask.cover.src }"
@@ -119,7 +123,11 @@
                 <i :class="action.iconClass"></i>
                 <span class="action-txt"> {{ action.txt }}</span>
               </li>
-              <pop-up @closePopUp="togglePopUp" :style="setCurrPos" v-if="openPopUp">
+              <pop-up
+                @closePopUp="togglePopUp"
+                :style="setCurrPos"
+                v-if="openPopUp"
+              >
                 <template v-slot:header>{{ currAction.txt }}</template>
                 <component
                   :is="currAction.type"
@@ -211,8 +219,8 @@ export default {
       openPopUp: false,
       taskCopy: null,
       isLoading: false,
-      setPos: {x: 0, y: 0},
-      currClientWidth: 0
+      setPos: { x: 0, y: 0 },
+      currClientWidth: 0,
     };
   },
   computed: {
@@ -231,12 +239,12 @@ export default {
     loggedInUser() {
       return this.$store.getters.loggedinUser;
     },
-    closeBtn(){
-      return {'close-btn-details': this.currTask.cover.src}
+    closeBtn() {
+      return { "close-btn-details": this.currTask.cover.src };
     },
-    setCurrPos(){
-      return {left: this.setPos.x + 'px', top: this.setPos.y + 'px'}
-    }
+    setCurrPos() {
+      return { left: this.setPos.x + "px", top: this.setPos.y + "px" };
+    },
   },
   methods: {
     removeChecklist(idx) {
@@ -313,29 +321,29 @@ export default {
     closeModal() {
       this.$router.push(`/board/${this.$route.params.boardId}`);
     },
-    calcPos(ev){
-      if(this.setPos.x) {
-        this.setPos.y = ev.clientY + ev.offsetY - 100
+    calcPos(ev) {
+      if (this.setPos.x) {
+        this.setPos.y = ev.clientY + ev.offsetY - 100;
       } else {
-        if(this.currClientWidth !== ev.view.innerWidth) {
-          this.setPos.x = ev.pageX / 2 - 504
+        if (this.currClientWidth !== ev.view.innerWidth) {
+          this.setPos.x = ev.pageX / 2 - 504;
         }
-          this.setPos.y = ev.clientY + ev.offsetY - 100
-          // this.setPos.x = (ev.view.innerWidth - ev.clientX) - ev.clientX / 6 - 304
-          this.setPos.x = ev.pageX / 2 - 504
-          this.currClientWidth = ev.view.innerWidth
+        this.setPos.y = ev.clientY + ev.offsetY - 100;
+        // this.setPos.x = (ev.view.innerWidth - ev.clientX) - ev.clientX / 6 - 304
+        this.setPos.x = ev.pageX / 2 - 504;
+        this.currClientWidth = ev.view.innerWidth;
       }
-      console.log(ev.pageX/4);
+      console.log(ev.pageX / 4);
     },
     togglePopUp(boolean, actionType, ev) {
       this.openPopUp = boolean;
       this.currAction = actionType;
-      if(boolean) {
-        this.calcPos(ev)
+      if (boolean) {
+        this.calcPos(ev);
       }
     },
     async removeTask() {
-      try{
+      try {
         this.isLoading = true;
         const board = JSON.parse(JSON.stringify(this.currBoard));
         const taskIdx = this.getTask(board, true);
@@ -363,7 +371,7 @@ export default {
         this.saveActivity(
           `removed the task "${oldTask.title}" from "${group.title}"`
         );
-      } catch(err) {
+      } catch (err) {
         Swal.fire({
           position: "bottom-end",
           title: "Task removed successfully",
@@ -376,29 +384,26 @@ export default {
           toast: true,
           animation: true,
         });
-
       }
     },
     async updateTask(task) {
       const oldTask = JSON.parse(JSON.stringify(this.currTask));
-      const updatedTask = JSON.parse(JSON.stringify(task));
-      const board = this.currBoard;
-      const group = board.groups.find(
+      const group = this.currBoard.groups.find(
         (group) => group.id === this.currGroup.id
       );
-      const taskIdx = this.getTask(board, true);
-      group.task.splice(taskIdx, 1, updatedTask);
-      if (oldTask.title !== updatedTask.title)
+      const taskIdx = this.getTask(this.currBoard, true);
+      group.task.splice(taskIdx, 1, task);
+      if (oldTask.title !== task.title)
         this.saveActivity(
-          `changed the task "${oldTask.title}" to "${updatedTask.title}"`
+          `changed the task "${oldTask.title}" to "${task.title}"`
         );
-      await this.updateBoard(board);
-      this.updateBoardSocket(board);
+      await this.updateBoard(this.currBoard);
+      this.updateBoardSocket(this.currBoard);
     },
-    updateTaskByKey(ev, task){
-      if(ev.keyCode === 13) {
-        this.updateTask(task)
-        return this.$refs.taskTitle.$el.blur()
+    updateTaskByKey(ev, task) {
+      if (ev.keyCode === 13) {
+        this.updateTask(task);
+        return this.$refs.taskTitle.$el.blur();
       }
     },
     getTaskActivity() {
@@ -489,6 +494,7 @@ export default {
     this.taskCopy = this.currTask;
     socketService.setup();
     socketService.on("board updated", (board) => {
+      console.log("got board", board);
       this.updateBoard(board);
     });
   },

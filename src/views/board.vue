@@ -296,7 +296,6 @@ export default {
     await this.loadBoard();
     socketService.setup();
     socketService.on("board updated", (board) => {
-      console.log('socket board', board)
       this.updateBoard(board);
     });
   },
