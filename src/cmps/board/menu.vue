@@ -93,7 +93,6 @@ export default {
 				type: "updateBoard",
 				editedBoard: this.currBoard,
 			});
-			this.$emit('bgcChanged')
 		},
 		closeMenu() {
 			this.$emit("closeMenu");

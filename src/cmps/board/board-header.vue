@@ -42,7 +42,6 @@
         class="board-menu"
         v-if="menuShown"
         @closeMenu="menuShown = !menuShown"
-        @bgcChanged="changeBgc"
       ></boardMenu>
     </transition>
     <div
@@ -105,9 +104,6 @@ export default {
     },
     hideProfile() {
       this.showMemberProfile = false;
-    },
-    changeBgc() {
-      this.$emit("changeBgc");
     },
     getInput() {
       this.isEditing = !this.isEditing;
