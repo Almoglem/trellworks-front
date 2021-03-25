@@ -22,10 +22,10 @@
         stop-propagation="true"
       >
         <group
-          v-for="group in currBoard.groups"
+          v-for="group in board.groups"
           :key="group.id"
           :group="group"
-          :board="currBoard"
+          :board="board"
           @taskDragged="draggedTask"
           @removeGroup="removeGroup"
           @addTask="addTask"
@@ -99,6 +99,9 @@ export default {
     },
     currBoard() {
       return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+    },
+    board() {
+      return this.$store.getters.currBoard;
     },
   },
   methods: {
@@ -293,6 +296,7 @@ export default {
     await this.loadBoard();
     socketService.setup();
     socketService.on("board updated", (board) => {
+      console.log('socket board', board)
       this.updateBoard(board);
     });
   },
