@@ -29,7 +29,7 @@
 				<section v-for="board in regularBoards" :key="board._id">
 					<span @click="getBoard(board._id)">
 						<div
-							:style="{ backgroundColor: board.styles.backgroundColor }"
+							:style="{ backgroundColor: board.styles.backgroundColor,backgroundImage: board.styles.backgroundGradient }"
 							class="transition placeholder-preview"
 						>
 							<h4>{{ board.title }}</h4>
