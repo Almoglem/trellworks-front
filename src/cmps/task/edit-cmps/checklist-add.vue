@@ -21,6 +21,7 @@ export default {
       checklist: {
         title: "",
         todos: [],
+        completed: null,
       },
     };
   },

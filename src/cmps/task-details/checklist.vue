@@ -8,7 +8,7 @@
       <button class="btn-gray" @click="removeChecklist">Delete</button>
     </div>
     <div class="progress-container flex">
-      <span>{{ completed }}</span>
+      <span>{{ checklist.completed }}</span>
       <div class="progress-bar">
         <div class="progress-done" ref="progress"></div>
       </div>
@@ -32,11 +32,7 @@
         v-model="todoToAdd.title"
       />
       <button type="submit" class="btn-success">Add</button>
-      <i
-        class="fas fa-times clickable close-desc"
-        @click="closeTodoInput"
-      >
-      </i>
+      <i class="fas fa-times clickable close-desc" @click="closeTodoInput"> </i>
     </form>
   </section>
 </template>
@@ -56,10 +52,8 @@ export default {
   data() {
     return {
       isAddingItem: false,
-      taskToEdit: null,
-      checklistToEdit: null,
+      taskToEdit: JSON.parse(JSON.stringify(this.task)),
       todoToAdd: { title: "", isDone: false },
-      completed: 0,
     };
   },
   computed: {
@@ -72,19 +66,15 @@ export default {
   methods: {
     /// updates
     updateTask() {
-      this.taskToEdit.checklists.splice(
-        this.checklistIdx,
-        1,
-        this.checklistToEdit
-      );
+      this.taskToEdit.checklists.splice(this.checklistIdx, 1, this.checklist);
       this.updateProgress();
-      if (this.completed !== "0%") {
+      if (this.checklist.completed !== "0%") {
         this.$emit(
           "logActivity",
-          `has completed ${this.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
+          `has completed ${this.checklist.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
         );
       }
-      if (this.completed === "100%") {
+      if (this.checklist.completed === "100%") {
         Swal.fire({
           position: "bottom-end",
           title: "You have finished all of your to-do list!",
@@ -101,13 +91,15 @@ export default {
       this.$emit("updateTask", this.taskToEdit);
     },
     updateProgress() {
-      const todosLength = this.checklistToEdit.todos.length;
-      const doneLength = this.checklistToEdit.todos.filter(
+      const todosLength = this.checklist.todos.length;
+      const doneLength = this.checklist.todos.filter(
         (todo) => todo.isDone === true
       ).length;
-      if (!todosLength) this.completed = "0%";
-      else this.completed = Math.round((doneLength / todosLength) * 100) + "%";
-      this.$refs.progress.style.width = this.completed;
+      if (!todosLength) this.checklist.completed = "0%";
+      else
+        this.checklist.completed =
+          Math.round((doneLength / todosLength) * 100) + "%";
+      this.$refs.progress.style.width = this.checklist.completed;
       this.$refs.progress.style.background =
         doneLength / todosLength === 1 ? "#64916a" : "#0079bf";
     },
@@ -119,34 +111,36 @@ export default {
         `removed a checklist in "${this.taskToEdit.title}"`
       );
     },
-    addTodoInput(){
-      this.isAddingItem = true
+    addTodoInput() {
+      this.isAddingItem = true;
       setTimeout(() => {
         this.$refs.taskadd.focus();
       }, 0);
     },
-    closeTodoInput(){
-      this.isAddingItem = false
-      this.todoToAdd.title = ''
+    closeTodoInput() {
+      this.isAddingItem = false;
+      this.todoToAdd.title = "";
     },
-    /// actions coming from todo emits
     addTodo() {
       if (!this.todoToAdd.title) return;
       this.isAddingItem = false;
       this.todoToAdd.id = utilService.makeId();
-      this.checklistToEdit.todos.push(this.todoToAdd);
+      this.checklist.todos.push(this.todoToAdd);
+      console.log("before emit");
       this.$emit(
         "logActivity",
-        `added items in the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
+        `added item "${this.todoToAdd.title}" in the checklist "${this.checklist.title}"`
       );
+      console.log("after emit");
       this.updateTask();
       this.todoToAdd = { title: "", isDone: false };
       this.isAddingItem = true;
       this.$refs.taskadd.focus();
     },
+    /// actions coming from todo emits
     removeTodo(todoId) {
       const idx = this.getTodoIdx(todoId);
-      this.checklistToEdit.todos.splice(idx, 1);
+      this.checklist.todos.splice(idx, 1);
       this.$emit(
         "logActivity",
         `removed items from the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
@@ -155,21 +149,22 @@ export default {
     },
     updateTodo(updatedTodo) {
       const idx = this.getTodoIdx(updatedTodo.id);
-      this.checklistToEdit.todos.splice(idx, 1, updatedTodo);
+      this.checklist.todos.splice(idx, 1, updatedTodo);
       this.updateTask();
     },
     /// helpers
     getTodoIdx(todoId) {
-      return this.checklistToEdit.todos.findIndex((todo) => todo.id === todoId);
+      return this.checklist.todos.findIndex((todo) => todo.id === todoId);
     },
     getChecklistIdx() {},
   },
-  created() {
-    this.taskToEdit = JSON.parse(JSON.stringify(this.task));
-    this.checklistToEdit = JSON.parse(JSON.stringify(this.checklist));
-  },
   mounted() {
     this.updateProgress();
+  },
+  watch: {
+    checklist() {
+      this.updateProgress();
+    },
   },
   components: { todoItem },
 };

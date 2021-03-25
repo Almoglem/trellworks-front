@@ -24,13 +24,6 @@ export default {
       todoToEdit: JSON.parse(JSON.stringify(this.todo)),
     };
   },
-  computed: {
-    // isDoneClass(element) {
-    //   if (element === "checkbox")
-    //     return this.todo.isDone ? "far fa-check-square" : "far fa-square";
-    //   if (element === "title") return this.todo.isDone ? "line-through" : "";
-    // },
-  },
   methods: {
     toggleDone() {
       this.todoToEdit.isDone = !this.todoToEdit.isDone;
