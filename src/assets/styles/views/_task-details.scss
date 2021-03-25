@@ -189,7 +189,7 @@
         &:focus {
             background-color: white;
         }
-    }   
+    }
 
     .description-show {
         background-color: rgba(9, 30, 66, .04);
@@ -200,7 +200,7 @@
         min-height: 40px;
         padding: 8px 12px;
         max-width: unset;
-
+        overflow-wrap: break-word;
     }
 }
 
@@ -240,7 +240,7 @@
 .comment-add {
     margin-bottom: 21px;
 
-    
+
     input {
         width: 98%;
     }
