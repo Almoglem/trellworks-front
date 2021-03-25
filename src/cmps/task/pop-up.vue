@@ -12,11 +12,20 @@
 
 <script>
 export default {
+    props: {
+        setPos: Object
+    },
+    computed: {
+
+    },
     methods: {
         closePopUp(boolean){
             if(boolean) return
             this.$emit('closePopUp', boolean)
         }
+    },
+    created(){
+        console.log(this.setPos);
     }
 }
 </script>

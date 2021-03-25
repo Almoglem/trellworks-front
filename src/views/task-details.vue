@@ -113,13 +113,13 @@
               <li
                 v-for="(action, idx) in actions"
                 :key="idx"
-                @click.stop="togglePopUp(true, action)"
+                @click.stop="togglePopUp(true, action, $event)"
                 class="action transition"
               >
                 <i :class="action.iconClass"></i>
                 <span class="action-txt"> {{ action.txt }}</span>
               </li>
-              <pop-up @closePopUp="togglePopUp" v-if="openPopUp">
+              <pop-up @closePopUp="togglePopUp" :style="setCurrPos" v-if="openPopUp">
                 <template v-slot:header>{{ currAction.txt }}</template>
                 <component
                   :is="currAction.type"
@@ -211,6 +211,8 @@ export default {
       openPopUp: false,
       taskCopy: null,
       isLoading: false,
+      setPos: {x: 0, y: 0},
+      currClientWidth: 0
     };
   },
   computed: {
@@ -231,6 +233,9 @@ export default {
     },
     closeBtn(){
       return {'close-btn-details': this.currTask.cover.src}
+    },
+    setCurrPos(){
+      return {right: this.setPos.x + 'px', top: this.setPos.y + 'px'}
     }
   },
   methods: {
@@ -308,9 +313,24 @@ export default {
     closeModal() {
       this.$router.push(`/board/${this.$route.params.boardId}`);
     },
-    togglePopUp(boolean, actionType) {
+    calcPos(ev){
+      if(this.setPos.x) {
+        this.setPos.y = ev.clientY + ev.offsetY - 50
+      } else {
+        if(this.currClientWidth !== ev.view.innerWidth) {
+          this.setPos.x = (ev.view.innerWidth - ev.clientX) - 400
+        }
+          this.setPos.y = ev.clientY + ev.offsetY - 50
+          this.setPos.x = (ev.view.innerWidth - ev.clientX) - 400
+          this.currClientWidth = ev.view.innerWidth
+      }
+    },
+    togglePopUp(boolean, actionType, ev) {
       this.openPopUp = boolean;
       this.currAction = actionType;
+      if(boolean) {
+        this.calcPos(ev)
+      }
     },
     async removeTask() {
       try{
