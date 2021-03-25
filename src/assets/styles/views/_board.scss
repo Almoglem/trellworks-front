@@ -1,5 +1,7 @@
 .board-main {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .board {
@@ -71,9 +73,10 @@
     height: 52px;
     background-color: transparent;
     padding: 10px 10px;
-.search-members{
-    justify-content: space-between;
-}
+
+    .search-members {
+        justify-content: space-between;
+    }
 
     .header-container {
         align-items: center;

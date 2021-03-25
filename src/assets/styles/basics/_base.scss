@@ -21,14 +21,8 @@ body {
 }
 
 #app {
-  background-color: #e3ebe0;
-}
-
-html,
-body,
-#app,
-.board-main {
-  height: 100%;
+  background-color: $main-bgc;
+  height: 100vh;
 }
 
 main,
