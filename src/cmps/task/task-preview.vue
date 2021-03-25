@@ -2,7 +2,7 @@
   <section
     @mouseover="toggleEditPen(true)"
     @mouseleave="toggleEditPen(false)"
-    @contextmenu.prevent="showEdit = !showEdit"
+   
     @click="getDetails"
     class="task-preview clickable"
     :style="bgcToShow"
@@ -38,11 +38,12 @@
         v-if="typeTop && footerIsShown"
       >
         <dueDatePreview
+          :style="{marginRight: '8px'}"
           v-if="task.dueDate"
           :task="task"
           @dueDateUpdated="updateDueDate"
         />
-        <i v-if="task.description" class="fas fa-align-left fa-sm desc-preview"></i>
+        <i v-if="task.description" :style="{marginRight: '8px'}" class="fas fa-align-left fa-sm desc-preview"></i>
         <i
           v-if="isEditPenShown"
           :class="penToggler"
