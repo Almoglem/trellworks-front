@@ -37,12 +37,12 @@
 					<li
 						class="color-preview clickable"
 						@click="setBoardColor(color.color)"
-						v-for="(color, idx) in colorList"
-						:key="color.color"
+						v-for="(image, idx) in 9"
+						:key="idx"
 					>
 						
-							<img :src="'@/assets/img/template'+idx+'jpg'">
-						
+					<img :src="require('../../assets/img/template'+ idx + '.jpg')">
+						<!-- <img :src="require(`הדרך`)"/> -->
 					</li>
 				</div>
 			</div>
@@ -121,6 +121,9 @@ export default {
 				}
 			);
 			return filteredActivities;
+		},
+		getImg(idx){
+			return require()
 		}
 	},
 	components: { activityLog },
