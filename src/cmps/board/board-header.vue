@@ -46,7 +46,7 @@
 		</transition>
 		<div
 			:class="{ 'pop-up-window': userWindow }"
-			@click.self="userWindow = !userWindow"
+			@mousedown.self="userWindow = !userWindow"
 		>
 			<div v-if="userWindow" class="pop-up">
 				<h3 class="pop-up-title">Invite to board</h3>
