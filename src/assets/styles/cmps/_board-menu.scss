@@ -16,7 +16,7 @@
         margin: 0;
     }
 
-    .activity-details{
+    .activity-details {
         span {
             width: 245px;
         }
@@ -24,8 +24,9 @@
 
 
     .menu-close {
-        position: absolute;
-        right: 10px;
+        position: fixed;
+        right: 19px;
+        z-index: 5;
     }
 }
 
@@ -179,13 +180,14 @@ hr {
 
 .board-header {
 
-    
+
     .pop-up {
         top: 140px;
         left: 539px;
-        
+
     }
 }
+
 .pop-up-window {
     position: fixed;
     top: 0;

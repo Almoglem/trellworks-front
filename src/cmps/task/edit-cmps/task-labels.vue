@@ -11,7 +11,7 @@
         @click="addLabel(label.id)"
       >
         {{ label.title }}
-        <!-- <i class="fas fa-check"></i> -->
+        <i v-if="isLabelSet(label.id)" class="fas fa-check"></i>
         <i @click.stop="setEditToggler(true, label)" class="fas fa-pencil-alt edit-pen"></i>
       </li>
     </ul>
@@ -82,6 +82,11 @@ export default {
       if (isIdx) res = group.task.findIndex((task) => task.id === this.taskId);
       else res = group.task.find((task) => task.id === this.task.id);
       return res;
+    },
+    isLabelSet(labelId){
+      const label = this.labelIds.find(label => label === labelId)
+      if(label) return true
+      else return false
     },
     addLabel(labelId) {
       for (let i = 0; i < this.labelIds.length; i++) {
