@@ -21,11 +21,11 @@
         <div class="details-header">
           <textarea-autosize
             spellcheck="false"
-            v-model="taskCopy.title"
+            v-model="currTask.title"
             rows="1"
             ref="taskTitle"
-            @keypress.native="updateTaskByKey($event, taskCopy)"
-            @change.native="updateTask(taskCopy)"
+            @keypress.native="updateTaskByKey($event, currTask)"
+            @change.native="updateTask(currTask)"
             class="clean-input main-title"
           />
           <p class="sub-title">
@@ -218,7 +218,6 @@ export default {
       ],
       currAction: null,
       openPopUp: false,
-      taskCopy: null,
       isLoading: false,
       setPos: { x: 0, y: 0 },
       currClientWidth: 0,
@@ -492,7 +491,6 @@ export default {
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
-    this.taskCopy = this.currTask;
     socketService.setup();
     socketService.on("board updated", (board) => {
       console.log("got board", board);
