@@ -15,9 +15,12 @@
       </div>
       <div class="task-details-main">
         <div class="details-header">
-          <input
+          <textarea-autosize
             v-model="taskCopy.title"
-            @change="updateTask(taskCopy)"
+            rows="1"
+            ref="taskTitle"
+            @keypress.native="updateTaskByKey($event, taskCopy)"
+            @change.native="updateTask(taskCopy)"
             class="clean-input main-title"
           />
           <p class="sub-title">
@@ -252,7 +255,6 @@ export default {
           isComment,
         });
         if (isComment) this.updateBoard(board);
-        console.log(board);
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
@@ -351,6 +353,12 @@ export default {
         );
       await this.updateBoard(board);
       this.updateBoardSocket(board);
+    },
+    updateTaskByKey(ev, task){
+      if(ev.keyCode === 13) {
+        this.updateTask(task)
+        return this.$refs.taskTitle.$el.blur()
+      }
     },
     getTaskActivity() {
       const filteredActivities = this.currBoard.activities.filter(
