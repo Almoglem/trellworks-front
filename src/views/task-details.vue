@@ -235,7 +235,7 @@ export default {
       return {'close-btn-details': this.currTask.cover.src}
     },
     setCurrPos(){
-      return {right: this.setPos.x + 'px', top: this.setPos.y + 'px'}
+      return {left: this.setPos.x + 'px', top: this.setPos.y + 'px'}
     }
   },
   methods: {
@@ -318,12 +318,14 @@ export default {
         this.setPos.y = ev.clientY + ev.offsetY - 50
       } else {
         if(this.currClientWidth !== ev.view.innerWidth) {
-          this.setPos.x = (ev.view.innerWidth - ev.clientX) - 400
+          this.setPos.x = ev.pageX / 2 - 504
         }
           this.setPos.y = ev.clientY + ev.offsetY - 50
-          this.setPos.x = (ev.view.innerWidth - ev.clientX) - 400
+          // this.setPos.x = (ev.view.innerWidth - ev.clientX) - ev.clientX / 6 - 304
+          this.setPos.x = ev.pageX / 2 - 504
           this.currClientWidth = ev.view.innerWidth
       }
+      console.log(ev.pageX/4);
     },
     togglePopUp(boolean, actionType, ev) {
       this.openPopUp = boolean;
