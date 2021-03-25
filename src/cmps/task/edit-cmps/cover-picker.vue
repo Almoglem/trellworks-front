@@ -54,10 +54,10 @@ export default {
       else return '#d9d9da'
     },
     selectedTypeTop(){
-      return {'active-top': this.taskToEdit.cover.type === 'top'}
+      return {'active-top': this.taskToEdit.cover.type === 'top' && this.taskToEdit.cover.src}
     },
     selectedTypeFull(){
-      return {'active-full': this.taskToEdit.cover.type === 'full'}
+      return {'active-full': this.taskToEdit.cover.type === 'full' && this.taskToEdit.cover.src}
     },
   },
   methods: {

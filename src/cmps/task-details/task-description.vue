@@ -18,13 +18,15 @@
     </div>
     <div v-if="isEditing" class="description-edit">
       <form @submit.prevent="setDescription">
-        <textarea
+        <textarea-autosize
+          spellcheck="false"
           v-model="taskToEdit.description"
           ref="descriptionEdit"
-          autofocus
+          rows="4"
+          @change.native="setDescription"
           class="description-input clean-input"
           placeholder="Add a more detailed description..."
-        ></textarea>
+        />
         <div>
           <button type="submit" class="btn-success">Save</button>
           <i
@@ -35,7 +37,7 @@
         </div>
       </form>
     </div>
-    <p v-else @click="openEdit">{{ taskToEdit.description }}</p>
+    <p class="description-show" v-else-if="!isEditing && taskToEdit.description" @click="openEdit">{{ taskToEdit.description }}</p>
   </div>
 </template>
 
@@ -59,7 +61,7 @@ export default {
     openEdit() {
       this.isEditing = true;
       setTimeout(() => {
-        this.$refs.descriptionEdit.focus();
+        this.$refs.descriptionEdit.$el.focus();
       }, 0);
     },
     closeEdit(){

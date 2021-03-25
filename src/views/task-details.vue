@@ -1,7 +1,7 @@
 <template>
   <section @mousedown.self="closeModal" class="task-details-modal">
     <div @click="togglePopUp(false)" class="task-details">
-      <i class="fas fa-times details-close clickable" @click="closeModal"></i>
+      <i class="fas fa-times details-close clickable" :class="closeBtn" @click="closeModal"></i>
       <div
         class="cover"
         :style="{ backgroundColor: currTask.cover.src }"
@@ -16,6 +16,7 @@
       <div class="task-details-main">
         <div class="details-header">
           <textarea-autosize
+            spellcheck="false"
             v-model="taskCopy.title"
             rows="1"
             ref="taskTitle"
@@ -113,7 +114,7 @@
                 v-for="(action, idx) in actions"
                 :key="idx"
                 @click.stop="togglePopUp(true, action)"
-                class="action"
+                class="action transition"
               >
                 <i :class="action.iconClass"></i>
                 <span class="action-txt"> {{ action.txt }}</span>
@@ -228,6 +229,9 @@ export default {
     loggedInUser() {
       return this.$store.getters.loggedinUser;
     },
+    closeBtn(){
+      return {'close-btn-details': this.currTask.cover.src}
+    }
   },
   methods: {
     removeChecklist(idx) {
@@ -309,34 +313,49 @@ export default {
       this.currAction = actionType;
     },
     async removeTask() {
-      /// do in try and catch
-      this.isLoading = true;
-      const board = JSON.parse(JSON.stringify(this.currBoard));
-      const taskIdx = this.getTask(board, true);
-      const oldTask = JSON.parse(JSON.stringify(this.getTask(board)));
-      const group = board.groups.find(
-        (group) => group.id === this.currGroup.id
-      );
-      group.task.splice(taskIdx, 1);
-      await this.updateBoard(board);
-      this.isLoading = false;
-      this.updateBoardSocket(board);
-      this.$router.push("../");
-      Swal.fire({
-        position: "bottom-end",
-        title: "Task removed successfully",
-        showConfirmButton: false,
-        timer: 1500,
-        customClass: {
-          title: "success",
-          popup: "success",
-        },
-        toast: true,
-        animation: true,
-      });
-      this.saveActivity(
-        `removed the task "${oldTask.title}" from "${group.title}"`
-      );
+      try{
+        this.isLoading = true;
+        const board = JSON.parse(JSON.stringify(this.currBoard));
+        const taskIdx = this.getTask(board, true);
+        const oldTask = JSON.parse(JSON.stringify(this.getTask(board)));
+        const group = board.groups.find(
+          (group) => group.id === this.currGroup.id
+        );
+        group.task.splice(taskIdx, 1);
+        await this.updateBoard(board);
+        this.isLoading = false;
+        this.updateBoardSocket(board);
+        this.$router.push("../");
+        Swal.fire({
+          position: "bottom-end",
+          title: "Task removed successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "success",
+            popup: "success",
+          },
+          toast: true,
+          animation: true,
+        });
+        this.saveActivity(
+          `removed the task "${oldTask.title}" from "${group.title}"`
+        );
+      } catch(err) {
+        Swal.fire({
+          position: "bottom-end",
+          title: "Task removed successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "error",
+            popup: "error",
+          },
+          toast: true,
+          animation: true,
+        });
+
+      }
     },
     async updateTask(task) {
       const oldTask = JSON.parse(JSON.stringify(this.currTask));

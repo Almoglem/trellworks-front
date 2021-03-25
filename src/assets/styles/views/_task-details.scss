@@ -42,7 +42,22 @@
             position: absolute;
             right: 23px;
             top: 18px;
+
+            &.close-btn-details {
+                background-color: rgba(0, 0, 0, .08);
+                z-index: 5;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: whitesmoke;
+                top: 10px;
+                right: 10px;
+            }
         }
+
 
         .task-details-main {
             padding: 20px 7px 20px 33px;
@@ -144,13 +159,16 @@
         border: none;
         border-radius: 3px;
         cursor: pointer;
-
         height: 32px;
         margin-top: 8px;
         max-width: 300px;
         overflow: hidden;
         padding: 6px 12px;
         width: 168px;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .08);
+        }
 
         .action-txt {
             padding-left: 10px;
@@ -159,15 +177,30 @@
     }
 }
 
+.description {
 
-.description-input {
-    background-color: $lightgray;
-    width: 90%;
-    padding: 10px 0 30px 10px;
-    margin-bottom: 10px;
+    .description-input {
+        background-color: $lightgray;
+        width: 98%;
+        padding: 10px 0 30px 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
 
-    &:focus {
-        background-color: white;
+        &:focus {
+            background-color: white;
+        }
+    }   
+
+    .description-show {
+        background-color: rgba(9, 30, 66, .04);
+        box-shadow: none;
+        border: none;
+        border-radius: 3px;
+        display: block;
+        min-height: 40px;
+        padding: 8px 12px;
+        max-width: unset;
+
     }
 }
 
@@ -205,8 +238,11 @@
 }
 
 .comment-add {
+    margin-bottom: 21px;
+
+    
     input {
-        width: 90%;
+        width: 98%;
     }
 }
 

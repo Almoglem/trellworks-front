@@ -2,6 +2,7 @@
   <section
     @mouseover="toggleEditPen(true)"
     @mouseleave="toggleEditPen(false)"
+    @contextmenu.prevent="showEdit = !showEdit"
     @click="getDetails"
     class="task-preview clickable"
     :style="bgcToShow"
@@ -66,7 +67,7 @@
         </span>
       </div>
     </div>
-    <!-- <quick-edit @toggleEdit="toggleEdit" v-if="showEdit"/> -->
+    <quick-edit @toggleEdit="toggleEdit" v-if="showEdit"/>
   </section>
 </template>
 

@@ -1,7 +1,17 @@
 <template>
-  <section class="quick-edit">
-      edit will be here
-      <div v-if="showModal" @click.stop="closeEdit" class="quick-edit-modal"></div>
+    <section v-if="showModal" @click.stop="closeEdit" class="quick-edit"> 
+        <input type="text">
+        <div class="quick-edit-menu">
+            <ul>
+                <li>archive</li>
+                <li>archive</li>
+                <li>archive</li>
+                <li>archive</li>
+            </ul>
+        </div>
+        
+         <section class="quick-edit-modal">
+        </section>
   </section>
 </template>
 
