@@ -33,7 +33,7 @@
           @toggleTaskCompletion="toggleTaskCompleted"
         />
       </draggable>
-      <span>
+      <span v-dragscroll>
         <section
           @click="openGroupAdder"
           class="transition group group-add"

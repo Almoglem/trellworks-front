@@ -1,6 +1,6 @@
 .board-menu {
     background-color: whitesmoke;
-    height: 95vh;
+    height: 96vh;
     width: 339px;
     position: absolute;
     right: 0;
@@ -9,10 +9,17 @@
     overflow-y: auto;
     z-index: 1;
     overflow: scroll;
+    overflow-x: hidden;
 
     h1 {
         text-align: center;
         margin: 0;
+    }
+
+    .activity-details{
+        span {
+            width: 245px;
+        }
     }
 
 
