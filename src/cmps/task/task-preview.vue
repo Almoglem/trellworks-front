@@ -58,6 +58,9 @@
           <i v-if="task.checklists.length" class="far fa-check-square"></i>
           {{ getChecklistString }}
         </span>
+        <span class="flex" v-if="task.imgs">
+          <i class="far fa-file-image"></i>   {{task.imgs.length}}
+        </span>
         <span class="flex preview-avatar-container">
           <span class="avatar" v-for="member in task.members" :key="member.id">
             <avatar
@@ -145,7 +148,8 @@ export default {
         this.task.dueDate ||
         this.task.description ||
         this.task.members.length ||
-        this.task.checklists.length
+        this.task.checklists.length||
+        this.task.imgs.length
       )
         return true;
       else return false;

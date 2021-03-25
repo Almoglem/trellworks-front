@@ -16,7 +16,8 @@ export const boardService = {
     getEmptyLabel,
     getDefaultLabels,
     getLabelColorById,
-    getAllColors
+    getAllColors,
+    getAllGradients
 }
 
 async function query() {
@@ -58,17 +59,17 @@ function _getEmptyBoard(loggedinUser) {
             backgroundColor: '#61bd4f'
         },
         members: [
-            ],
+        ],
         activities: [
             {
                 id: utilService.makeId(),
                 title: 'created this board',
                 createdAt: Date.now(),
-                byMember:  loggedinUser,
+                byMember: loggedinUser,
                 task: { id: '', title: '' }
             }
         ],
-        isStarrted:false
+        isStarrted: false
     }
 }
 
@@ -146,7 +147,24 @@ function getDefaultLabels() {
         return getEmptyLabel(color.color, color.colorName, color.id)
     })
 }
-
+function getAllGradients() {
+    return [{
+        color: `linear-gradient(to left,#856368,#796f9e)`,
+        colorName: 'gradient-1',
+    },
+    {
+        color: 'linear-gradient(to left, #b2b58c, #c7809b )',
+        colorName: 'gradient-2'
+    },
+    {
+        color: 'linear-gradient(to left,   #b1c5b5, #5c8f95 )',
+        colorName: 'gradient-3'
+    },
+    {
+        color: 'linear-gradient(to left,#f1cdd4,#c35432)',
+        colorName: 'gradient-4'
+    }]
+}
 function getAllColors() {
     return [{
         color: '#61bd4f',

@@ -1,7 +1,7 @@
 <template>
 	<section
-		class="board-main"
-		:style="{ backgroundColor: currBoard.styles.backgroundColor }"
+		class="board-main transition"
+		:style="{  backgroundColor: board.styles.backgroundColor,backgroundImage: board.styles.backgroundGradient }"
 		v-if="currBoard"
 		:board="currBoard"
 	>
