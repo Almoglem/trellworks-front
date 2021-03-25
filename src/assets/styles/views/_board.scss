@@ -529,7 +529,13 @@
         color: #5f6d84;
     }
 }
-
+.quickmenu-popup{
+    font-size: 14px;
+ .menu-item{
+    width: 80%;
+    align-items: baseline;
+    justify-content: space-between;
+}}
 
 
 @keyframes fadeInFromNone {

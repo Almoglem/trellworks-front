@@ -86,6 +86,7 @@ function getEmptyTask() {
     //// add more properties later here such as: description, etc. as we go!////
     return {
         id: utilService.makeId(),
+        createdAt: Date.now(),
         title: '',
         dueDate: '',
         isCompleted: false,
