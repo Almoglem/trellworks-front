@@ -71,23 +71,31 @@
 		>
 			<template v-slot:header>Options</template>
 			<section v-if="sortVisible">
-				<i @click="sortVisible = false" class="fas fa-angle-left"></i>
-				<p @click="sortGroup('alphabetically')">Card Name (Alphabetically)</p>
-				<p @click="sortGroup('timeNewest')">Time Created (Newest First)</p>
-				<p @click="sortGroup('timeOldest')">Time Created (Oldest First)</p>
+				<i  @click="sortVisible = false" class="fas fa-angle-left clickable"></i>
+				<p  class="clickable" @click="sortGroup('alphabetically')">Card Name (Alphabetically)</p>
+				<p  class="clickable" @click="sortGroup('timeNewest')">Time Created (Newest First)</p>
+				<p  class="clickable" @click="sortGroup('timeOldest')">Time Created (Oldest First)</p>
 			</section>
 			<section v-else>
-				<span class="flex menu-item" @click="removeGroup(group.id)"
+				<span class="flex menu-item transition clickable" @click="removeGroup(group.id)"
 					><i class="far fa-trash-alt"></i>
 					<p>Delete Board</p></span
 				>
 				<span
 					v-if="group.task.length > 1"
-					class="flex menu-item"
+					class="flex menu-item transition clickable"
 					@click="sortVisible = true"
 					><i class="fas fa-sort"></i>
 					<p>Sort</p></span
 				>
+				<span class="flex menu-item transition clickable">
+					<i class="fas fa-plus"></i>
+					<p @click="openAddTask">Add Task</p>
+				</span>
+				<span class="flex menu-item transition clickable">
+					<i class="fas fa-pencil-alt"></i>
+					<p @click="toggleEditter">Edit Title</p>
+				</span>
 			</section>
 		</popUp>
 	</section>
@@ -139,6 +147,7 @@ export default {
 			this.$emit("titleChange", this.group.title, groupId);
 		},
 		openAddTask() {
+			this.openPopUp = false
 			this.isAddingTask = true;
 			setTimeout(() => {
 				this.$refs.textarea.$el.focus()
@@ -177,6 +186,7 @@ export default {
 			this.group.title = ev.target.innerText
 		},
 		toggleEditter() {
+			this.openPopUp = false
 			this.toggleTitleEdit = true;
 			setTimeout(() => {
 				this.$refs.editTitle.$el.focus()
@@ -202,7 +212,7 @@ export default {
 		},
 		sortGroup(sortBy) {
 			let groupCopy = JSON.parse(JSON.stringify(this.group))
-			let tasksCopy=groupCopy.task
+			let tasksCopy = groupCopy.task
 			if (sortBy === 'timeOldest')
 				tasksCopy = (tasksCopy.sort((a, b) => { return a.createdAt - b.createdAt }));
 			else if (sortBy === 'timeNewest')
@@ -218,7 +228,7 @@ export default {
 				}
 				return 0;
 			}))
-this.$emit('sortGroup',groupCopy)
+			this.$emit('sortGroup', groupCopy)
 		}
 	},
 	components: {
