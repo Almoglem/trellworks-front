@@ -60,10 +60,12 @@
 					v-for="user in filteredMembers"
 					@click="toggleBoardMember(user)"
 					:key="user._id"
-					class="flex"
+					class="search-members flex"
 				>
-					<i v-if="isUserInBoard(user)" class="fas fa-check"></i>
+        <span class=" flex">
 					<avatar :size="30" :username="user.fullname"></avatar>
+					<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
+          </span>
 					{{ user.fullname }}
 				</li>
 			</div>
@@ -147,15 +149,20 @@ export default {
 			this.currBoard.isStarred = !this.currBoard.isStarred;
 			this.$emit("updateBoard", this.currBoard);
 		},
-		isUserInBoard(user) {
-			const boardUser = this.currBoard.members.find(boardUser => boardUser._id === user._id)
-			if (boardUser) return true
+		isUserInBoard(userId) {
+			const user = this.currBoard.members.find(boardUser => boardUser._id === userId)
+			if (user) return true
 			else return false
 		},
+		},
 		async created() {
+			console.log('hii');
 			await this.loadUsers();
 			this.titleToEdit = this.currBoard.title;
-  }},
-		
-	components: { boardMenu, Avatar, memberProfile },}
+			console.log(this.users);
+			console.log('hiiiiiiiii');
+	},
+
+	components: { boardMenu, Avatar, memberProfile }
+}
 </script>
