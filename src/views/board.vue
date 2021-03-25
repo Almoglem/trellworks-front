@@ -292,9 +292,9 @@ export default {
   async created() {
     await this.loadBoard();
     socketService.setup();
-    socketService.on("board updated", (board) => {
-      this.updateBoard(board);
-    });
+    // socketService.on("board updated", (board) => {
+    //   this.updateBoard(board);
+    // });
   },
   destroyed() {
     socketService.off("board updated", this.updateBoard);
