@@ -22,7 +22,7 @@
       />
     </div>
 
-    <button v-if="!isAddingItem" class="btn-gray" @click="isAddingItem = true">
+    <button v-if="!isAddingItem" class="btn-gray" @click="addTodoInput">
       Add an item
     </button>
     <form v-if="isAddingItem" @submit.prevent="addTodo">
@@ -34,7 +34,7 @@
       <button type="submit" class="btn-success">Add</button>
       <i
         class="fas fa-times clickable close-desc"
-        @click="isAddingItem = false"
+        @click="closeTodoInput"
       >
       </i>
     </form>
@@ -118,6 +118,16 @@ export default {
         "logActivity",
         `removed a checklist in "${this.taskToEdit.title}"`
       );
+    },
+    addTodoInput(){
+      this.isAddingItem = true
+      setTimeout(() => {
+        this.$refs.taskadd.focus();
+      }, 0);
+    },
+    closeTodoInput(){
+      this.isAddingItem = false
+      this.todoToAdd.title = ''
     },
     /// actions coming from todo emits
     addTodo() {
