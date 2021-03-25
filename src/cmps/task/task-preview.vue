@@ -198,6 +198,7 @@ export default {
     Avatar,
     dueDatePreview,
   },
+  
 };
 </script>
 
