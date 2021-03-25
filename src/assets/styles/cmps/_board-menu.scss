@@ -145,27 +145,31 @@
 
     }
 
-    .color-list {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
+}
+.color-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 
-        .color-preview {
-            width: 50%;
-            padding: 0 4px;
-            list-style: none;
+    .color-preview {
+        width: 50%;
+        padding: 0 4px;
+        list-style: none;
 
-            &:hover {
-                opacity: .7;
-            }
-
-            div {
-                margin-bottom: 8px;
-                border-radius: 8px;
-                width: 100%;
-                height: 96px;
-            }
+        &:hover {
+            opacity: .7;
         }
+
+        div {
+            margin-bottom: 8px;
+            border-radius: 8px;
+            width: 100%;
+            height: 96px;
+        }
+    }
+
+    .img-container {
+        width: ;
     }
 }
 
