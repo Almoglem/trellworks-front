@@ -1,16 +1,15 @@
 <template>
-    <section v-if="showModal" @click.stop="closeEdit" class="quick-edit"> 
-        <input type="text">
-        <div class="quick-edit-menu">
-            <ul>
-                <li>archive</li>
-                <li>archive</li>
-                <li>archive</li>
-                <li>archive</li>
-            </ul>
-        </div>
-        
-         <section class="quick-edit-modal">
+    <section v-if="showModal"  class="quick-edit-modal"> 
+         <section class="quick-edit">
+            <input type="text">
+            <div class="quick-edit-menu">
+                <ul>
+                    <li>archive</li>
+                    <li>archive</li>
+                    <li>archive</li>
+                    <li>archive</li>
+                </ul>
+            </div>
         </section>
   </section>
 </template>

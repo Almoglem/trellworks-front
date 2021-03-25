@@ -12,25 +12,39 @@
 			<activityLog :activities="activities" />
 		</section>
 		<section v-else class="color-menu">
-			<div class="background-options" v-if="!colorPicker">
-				<div class="templates">
+			<div class="background-options"  v-if="!colorPicker">
+				<div @click="toggleColorList(true)"  class="templates">
 					<div class="templates-image"></div>
 					<div class="templates-title">Photos</div>
 				</div>
-				<div @click="toggleColorList(true)" class="colors">
+				<div @click="toggleColorList(false)"  class="colors">
 					<div class="colors-image"></div>
 					<div class="colors-title">Colors</div>
 				</div>
-			</div>
-			<div class="color-list" v-else>
-				<li
-					class="color-preview clickable"
-					@click="setBoardColor(color.color)"
-					v-for="color in colorList"
-					:key="color.color"
-				>
-					<div :style="{ backgroundColor: color.color }"></div>
-				</li>
+			</div >
+			<div :style="{width: '100%'}" v-else>
+				<div v-if="!isTemplates" class="color-list">
+					<li
+						class="color-preview clickable"
+						@click="setBoardColor(color.color)"
+						v-for="color in colorList"
+						:key="color.color"
+					>
+						<div :style="{ backgroundColor: color.color }"></div>
+					</li>
+				</div>
+				<div v-else class="color-list">
+					<li
+						class="color-preview clickable"
+						@click="setBoardColor(color.color)"
+						v-for="(color, idx) in colorList"
+						:key="color.color"
+					>
+						
+							<img :src="'@/assets/img/template'+idx+'jpg'">
+						
+					</li>
+				</div>
 			</div>
 		</section>
 		<i
@@ -52,6 +66,7 @@ export default {
 			},
 			colorPicker: false,
 			colorList: boardService.getAllColors(),
+			isTemplates: false
 		};
 	},
 	computed: {
@@ -85,7 +100,9 @@ export default {
 			this.colorPicker = false;
 		},
 		toggleColorList(colorListToggler) {
-			this.colorPicker = colorListToggler;
+			this.colorPicker = true;
+			this.isTemplates = colorListToggler;
+			console.log('colorpicker', this.colorPicker, 'istemplates', this.isTemplates, 'openmenu', this.openMenu.colorMenu);
 		},
 		setBoardColor(color) {
 			this.currBoard.styles.backgroundColor = color;

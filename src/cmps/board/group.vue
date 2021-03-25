@@ -1,12 +1,6 @@
 <template>
 		<div class="group handle" v-if="group">
 			<section class="flex group-header transition"> 
-				<!-- <input 
-					class="clean-input group-title"
-					type="text"
-					v-model="group.title"
-					@change="titleChange(group.id)"
-				/> -->
 					<textarea-autosize
 					v-if="toggleTitleEdit"
 					class="clean-input group-title"

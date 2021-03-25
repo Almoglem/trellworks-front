@@ -1,22 +1,25 @@
-.quick-edit {
-    position: absolute;
+.quick-edit-modal {
+    background: rgba(0, 0, 0, .6);
+    bottom: 0;
+    color: #fff;
+    left: 0;
+    position: fixed;
+    right: 0;
     top: 0;
-    background: white;
-    z-index: 5;
-    
-    .quick-edit-menu {
+    z-index: 10;
+
+    .quick-edit {
         position: absolute;
-        right: -61px;
+        width: 256px;
         top: 0;
-        z-index: 5;
-    }
-    .quick-edit-modal {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.3);
-        z-index: 2;
+        background: white;
+        z-index: 11;
+
+        .quick-edit-menu {
+            position: absolute;
+            right: -61px;
+            top: 0;
+            z-index: 11;
+        }
     }
 }
