@@ -77,6 +77,7 @@ export default {
         setTimeout(() => {
           if (!this.urlToUpload.includes("http"))
             return console.log("not a valid link");
+          this.$emit("toggleLoader", true);
           const img = {
             id: utilService.makeId(),
             src: this.urlToUpload,
@@ -84,17 +85,19 @@ export default {
             createdAt: Date.now(),
           };
           if (!this.taskToEdit.cover.src) {
-            this.taskToEdit.src = img.src;
-            this.taskToEdit.type = "top";
-            this.taskToEdit.isImg = true;
+            this.taskToEdit.cover.src = img.src;
+            this.taskToEdit.cover.type = "top";
+            this.taskToEdit.cover.isImg = true;
           }
           this.taskToEdit.imgs.unshift(img);
+          console.log(this.taskToEdit, 'from attachmetn');
           this.$emit(
             "logActivity",
             `added an attachment to "${this.taskToEdit.title}"`
           );
           this.$emit("updateTask", this.taskToEdit);
           this.$emit("close");
+          this.$emit("toggleLoader", false);
         }, 200);
       } catch (err) {
         Swal.fire({
