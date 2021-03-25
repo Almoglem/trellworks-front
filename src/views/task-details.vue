@@ -315,12 +315,12 @@ export default {
     },
     calcPos(ev){
       if(this.setPos.x) {
-        this.setPos.y = ev.clientY + ev.offsetY - 50
+        this.setPos.y = ev.clientY + ev.offsetY - 100
       } else {
         if(this.currClientWidth !== ev.view.innerWidth) {
           this.setPos.x = ev.pageX / 2 - 504
         }
-          this.setPos.y = ev.clientY + ev.offsetY - 50
+          this.setPos.y = ev.clientY + ev.offsetY - 100
           // this.setPos.x = (ev.view.innerWidth - ev.clientX) - ev.clientX / 6 - 304
           this.setPos.x = ev.pageX / 2 - 504
           this.currClientWidth = ev.view.innerWidth
@@ -486,7 +486,7 @@ export default {
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
-    this.taskCopy = JSON.parse(JSON.stringify(this.currTask));
+    this.taskCopy = this.currTask;
     socketService.setup();
     socketService.on("board updated", (board) => {
       this.updateBoard(board);

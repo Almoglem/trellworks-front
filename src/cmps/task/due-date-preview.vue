@@ -26,9 +26,13 @@ export default ({
 	data() {
 		return {
 			dueClass: '',
-			taskToEdit: JSON.parse(JSON.stringify(this.task)),
-			isDone: false,
+			// isDone: false,
 			showClock: true
+		}
+	},
+	computed:{
+		isDone(){
+			return this.task.isCompleted
 		}
 	},
 	methods: {
@@ -47,9 +51,10 @@ export default ({
 			else this.dueClass = "months"
 		},
 		toggleComlpetion() {
-			const task = JSON.parse(JSON.stringify(this.taskToEdit))
-			this.isDone = !this.isDone
+			const task = JSON.parse(JSON.stringify(this.task))
+			// this.isDone = !this.isDone
 			task.isCompleted = !task.isCompleted
+			console.log(task.isCompleted, 'isCompleted')
 			this.$emit('dueDateUpdated', task)
 			if (this.isDone) {this.$emit('logActivity', `marked the task "${task.title}" as completed`)
 					Swal.fire({
@@ -64,7 +69,7 @@ export default ({
 		}
 	}, created() {
 		this.deteremineDate()
-		this.isDone = this.task.isCompleted
+		// this.isDone = this.task.isCompleted
 	}
 })
 </script>
