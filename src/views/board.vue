@@ -116,7 +116,8 @@ export default {
 		},
 		backgroundImg(){
 			return {'board-image': this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0}
-		}
+		},
+		
 	},
 	methods: {
 		async updateBoard(board) {

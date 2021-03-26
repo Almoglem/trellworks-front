@@ -77,10 +77,10 @@
 				<p  class="clickable" @click="sortGroup('timeOldest')">Time Created (Oldest First)</p>
 			</section>
 			<section v-else>
-				<span class="flex menu-item transition clickable" @click="removeGroup(group.id)"
-					><i class="far fa-trash-alt"></i>
-					<p>Delete Board</p></span
-				>
+				<span class="flex menu-item transition clickable">
+					<i class="fas fa-pencil-alt"></i>
+					<p @click="toggleEditter">Edit Title</p>
+				</span>
 				<span
 					v-if="group.task.length > 1"
 					class="flex menu-item transition clickable"
@@ -92,10 +92,10 @@
 					<i class="fas fa-plus"></i>
 					<p @click="openAddTask">Add Task</p>
 				</span>
-				<span class="flex menu-item transition clickable">
-					<i class="fas fa-pencil-alt"></i>
-					<p @click="toggleEditter">Edit Title</p>
-				</span>
+				<span class="flex menu-item transition clickable" @click="removeGroup(group.id)"
+					><i class="far fa-trash-alt"></i>
+					<p>Delete List</p></span
+				>
 			</section>
 		</popUp>
 	</section>

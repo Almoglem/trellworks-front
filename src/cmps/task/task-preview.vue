@@ -3,7 +3,7 @@
     @mouseover="toggleEditPen(true)"
     @mouseleave="toggleEditPen(false)"
     @contextmenu.prevent="showEdit = !showEdit"
-    @mousedown="getDetails"
+    @click="getDetails"
     class="task-preview clickable"
     :style="bgcToShow"
     :class="setCoverImgFull"
