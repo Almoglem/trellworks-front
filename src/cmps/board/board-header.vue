@@ -79,92 +79,101 @@ import memberProfile from "../recurring-cmps/user-miniprofile.vue";
 import Avatar from "vue-avatar";
 
 export default {
-  //   props: {
-  //     boardTitle: String,
-  //   },
-  data() {
-    return {
-      menuShown: false,
-      // titleToEdit: boardTitle,
-      isEditing: false,
-      showMemberProfile: false,
-      currMember: null,
-      userWindow: false,
-      searchTxt: "",
-    };
-  },
-  computed: {
-    boardMembers() {
-      return this.$store.getters.currBoardMembers;
-    },
-    users() {
-      return this.$store.getters.users;
-    },
-    currBoard() {
-      return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
-    },
-    filteredMembers() {
-      if (!this.searchTxt) return this.users;
-      return this.users.filter((user) =>
-        user.fullname.toLowerCase().includes(this.searchTxt.toLowerCase())
-      );
-    },
-  },
-  methods: {
-    async loadUsers() {
-      await this.$store.dispatch({ type: "loadUsers" });
-    },
-    editBoardTitle() {
-      this.isEditing = !this.isEditing;
-      this.$emit("boardTitleUpdated", this.currBoard.title);
-    },
-    showProfile(member) {
-      this.currMember = member;
-      this.showMemberProfile = true;
-    },
-    hideProfile() {
-      this.showMemberProfile = false;
-    },
-    getInput() {
-      this.isEditing = !this.isEditing;
-      setTimeout(() => {
-        this.$refs.titleInput.focus();
-      }, 0);
-    },
-    showUsers() {
-      this.userWindow = !this.userWindow;
-    },
-    toggleBoardMember(user) {
-      const userToAdd = {
-        _id: user._id,
-        fullname: user.fullname,
-      };
-      const foundIdx = this.currBoard.members.findIndex(
-        (member) => member._id === user._id
-      );
-      if (foundIdx !== -1) {
-        this.currBoard.members.splice(foundIdx, 1);
-        return this.$emit("updateBoard", this.currBoard);
-      }
-      this.currBoard.members.push(userToAdd);
-      this.$emit("updateBoard", this.currBoard);
-    },
-    starBoard() {
-      this.currBoard.isStarred = !this.currBoard.isStarred;
-      this.$emit("updateBoard", this.currBoard);
-    },
-    isUserInBoard(userId) {
-      const user = this.currBoard.members.find(
-        (boardUser) => boardUser._id === userId
-      );
-      if (user) return true;
-      else return false;
-    },
-  },
-  async created() {
-    this.loadUsers();
-  },
+	//   props: {
+	//     boardTitle: String,
+	//   },
+	data() {
+		return {
+			menuShown: false,
+			// titleToEdit: boardTitle,
+			isEditing: false,
+			showMemberProfile: false,
+			currMember: null,
+			userWindow: false,
+			memberSearchTxt: "",
+			searchTxt: ''
+		};
+	},
+	computed: {
+		boardMembers() {
+			return this.$store.getters.currBoardMembers;
+		},
+		users() {
+			return this.$store.getters.users;
+		},
+		currBoard() {
+			return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
+		},
+		filteredMembers() {
+			if (!this.memberSearchTxt) return this.users;
+			return this.users.filter((user) =>
+				user.fullname.toLowerCase().includes(this.memberSearchTxt.toLowerCase())
+			);
+		},
+	},
+	methods: {
+		async loadUsers() {
+			await this.$store.dispatch({ type: "loadUsers" });
+		},
+		editBoardTitle() {
+			this.isEditing = !this.isEditing;
+			this.$emit("boardTitleUpdated", this.currBoard.title);
+		},
+		showProfile(member) {
+			this.currMember = member;
+			this.showMemberProfile = true;
+		},
+		hideProfile() {
+			this.showMemberProfile = false;
+		},
+		getInput() {
+			this.isEditing = !this.isEditing;
+			setTimeout(() => {
+				this.$refs.titleInput.focus();
+			}, 0);
+		},
+		showUsers() {
+			this.userWindow = !this.userWindow;
+		},
+		toggleBoardMember(user) {
+			const userToAdd = {
+				_id: user._id,
+				fullname: user.fullname,
+			};
+			const foundIdx = this.currBoard.members.findIndex(
+				(member) => member._id === user._id
+			);
+			if (foundIdx !== -1) {
+				this.currBoard.members.splice(foundIdx, 1);
+				return this.$emit("updateBoard", this.currBoard);
+			}
+			this.currBoard.members.push(userToAdd);
+			this.$emit("updateBoard", this.currBoard);
+		},
+		starBoard() {
+			this.currBoard.isStarred = !this.currBoard.isStarred;
+			this.$emit("updateBoard", this.currBoard);
+		},
+		isUserInBoard(userId) {
+			const user = this.currBoard.members.find(
+				(boardUser) => boardUser._id === userId
+			);
+			if (user) return true;
+			else return false;
+		},
+		searchBoard() {
+			if (!this.searchTxt) this.$emit('filterBoard',this.currBoard.groups)
+			else {const groupsToShow =  this.currBoard.groups.filter((group) =>
+				{group.task.filter(task=>task.title.toLowerCase().includes(this.searchTxt.toLowerCase()))}
+			);
+      this.$emit('filterBoard',groupsToShow)}
+		},
+	},
+	async created() {
+		this.loadUsers();
+    this.searchBoard()
+	},
 
-  components: { boardMenu, Avatar, memberProfile },
+	components: { boardMenu, Avatar, memberProfile },
 };
 </script>

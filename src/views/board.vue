@@ -11,6 +11,7 @@
 			@boardTitleUpdated="updateBoardTitle"
 			@changeBgc="bgcChanged"
 			@updateBoard="updateBoard"
+			@filterBoard="changeGroupsToShow"
 		/>
 		<div class="flex board group-container" v-dragscroll:firstchilddrag>
 			<draggable
@@ -23,7 +24,7 @@
 				stop-propagation="true"
 			>
 				<group
-					v-for="group in board.groups"
+					v-for="group in currBoard.groups"
 					:key="group.id"
 					:group="group"
 					:board="board"
@@ -87,6 +88,7 @@ export default {
 			isLoading: false,
 			showGroupToAdd: false,
 			groupTitleToAdd: "",
+			groupsToShow: [],
 			menuToggler: false
 		};
 	},
@@ -106,16 +108,16 @@ export default {
 		board() {
 			return this.$store.getters.currBoard;
 		},
-		backgroundToShow(){
-			if(this.currBoard.styles.backgroundColor) return {backgroundColor: this.currBoard.styles.backgroundColor}
-			else if(this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0) 
-			return {backgroundImage: 'url(' + require(`@/assets/img/template${this.currBoard.styles.backgroundImage}.jpg`) + ')'}
-			else return {backgroundImage: this.currBoard.styles.backgroundGradient}
+		backgroundToShow() {
+			if (this.currBoard.styles.backgroundColor) return { backgroundColor: this.currBoard.styles.backgroundColor }
+			else if (this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0)
+				return { backgroundImage: 'url(' + require(`@/assets/img/template${this.currBoard.styles.backgroundImage}.jpg`) + ')' }
+			else return { backgroundImage: this.currBoard.styles.backgroundGradient }
 		},
-		backgroundImg(){
-			return {'board-image': this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0}
+		backgroundImg() {
+			return { 'board-image': this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0 }
 		},
-		
+
 	},
 	methods: {
 		async updateBoard(board) {
@@ -303,33 +305,37 @@ export default {
 			}
 		},
 		saveGroupSort(groupCopy) {
-			const board= this.currBoard
-      const idx = board.groups.findIndex(group => group.id === groupCopy.id)
-    board.groups.splice(idx,1,groupCopy)
-    this.updateBoard(board)
-    },
-	setMenuToggler(boolean){
-		this.menuToggler = boolean
-	}
+			const board = this.currBoard
+			const idx = board.groups.findIndex(group => group.id === groupCopy.id)
+			board.groups.splice(idx, 1, groupCopy)
+			this.updateBoard(board)
+		},
+		changeGroupsToShow(groupsToShow) {
+			this.groupsToShow = groupsToShow
+		}
+		,
+		setMenuToggler(boolean) {
+			this.menuToggler = boolean
+		}
 	},
-	async created() {
-		// document.addEventListener("mousedown", (ev) => {
-      	// 	if(!ev.target.closest(".quickmenu-popup")){
-		// 		  this.menuToggler = false
-		// 	  }
- 		//  }) 
-		await this.loadBoard();
-		socketService.setup();
-		socketService.on("board updated", (board) => {
-			this.updateBoard(board);
-		});
-	},
-	destroyed() {
-		socketService.off("board updated", this.updateBoard);
-		socketService.terminate();
-	},
-	components: {
-		boardHeader,
+async created() {
+	// document.addEventListener("mousedown", (ev) => {
+	// 	if (!ev.target.closest(".quickmenu-popup")) {
+	// 		this.menuToggler = false
+	// 	}
+	// })
+	await this.loadBoard();
+	socketService.setup();
+	socketService.on("board updated", (board) => {
+		this.updateBoard(board);
+	});
+},
+destroyed() {
+	socketService.off("board updated", this.updateBoard);
+	socketService.terminate();
+},
+components: {
+	boardHeader,
 		group,
 		draggable,
 		appHeader,
