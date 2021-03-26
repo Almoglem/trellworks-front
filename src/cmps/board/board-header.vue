@@ -17,20 +17,20 @@
 
 			<ul class="flex avatars-show" v-if="boardMembers.length">
 				<span
-					v-for="member in boardMembers"
-					:key="member._id"
+					v-for="user in boardMembers"
+					:key="user._id"
 					class="clickable transition board-header-avatar"
-					@click="showProfile(member)"
+					@click="showProfile(user)"
 				>
-					<span @click="currMember = member">
-					<img
-							v-if="member.profileImg"
+					<span @click="currMember = user">
+						<img
+							v-if="user.profileImg"
 							class="user-profileimg"
-							:src="member.profileImg"
+							:src="user.profileImg"
 							alt=""
 						/>
-						<avatar v-else :size="30" :username="member.fullname"></avatar>
-          </span>
+						<avatar v-else :size="30" :username="user.fullname"></avatar>
+					</span>
 				</span>
 				<memberProfile
 					:currMember="currMember"
@@ -89,7 +89,7 @@
 					class="search-members flex"
 				>
 					<span class="flex">
-            	<img
+						<img
 							v-if="user.profileImg"
 							class="user-profileimg"
 							:src="user.profileImg"
@@ -166,10 +166,6 @@ export default {
 			this.userWindow = !this.userWindow;
 		},
 		toggleBoardMember(user) {
-			const userToAdd = {
-				_id: user._id,
-				fullname: user.fullname,
-			};
 			const foundIdx = this.currBoard.members.findIndex(
 				(member) => member._id === user._id
 			);
@@ -177,7 +173,7 @@ export default {
 				this.currBoard.members.splice(foundIdx, 1);
 				return this.$emit("updateBoard", this.currBoard);
 			}
-			this.currBoard.members.push(userToAdd);
+			this.currBoard.members.push(user);
 			this.$emit("updateBoard", this.currBoard);
 		},
 		starBoard() {
@@ -193,7 +189,8 @@ export default {
 		},
 	},
 	async created() {
-		this.loadUsers();
+		await this.loadUsers();
+		console.log(this.currBoard.members);
 	},
 	destroyed() { this.memberSearchTxt = "" },
 	components: { boardMenu, Avatar, memberProfile },

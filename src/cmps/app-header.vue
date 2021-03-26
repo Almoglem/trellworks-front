@@ -7,13 +7,13 @@
       <span class="main-logo" aria-label="logo">Trellworks</span>
     </router-link>
     <div class="flex" v-if="loggedInUser">
-      <avatar
-        @click.native="togglePopUp(true)"
-        :style="{ marginRight: '8px' }"
-        :size="30"
-        class="clickable"
-        :username="loggedInUser.fullname"
-      ></avatar>
+           		<img
+				v-if="loggedInUser.profileImg"
+				class="user-profileimg"
+				:src="loggedInUser.profileImg"
+				alt=""
+			/>
+			<avatar v-else :size="30" :username="loggedInUser.fullname"></avatar>
       <button class="header-btn" @click="doLogout">Log Out</button>
     </div>
     <section v-else class="nav-side-buttons header-btn transition">
@@ -25,7 +25,13 @@
       <ul class="about-user">
         <li class="profile">
           <div>
-            <avatar :size="40" :username="loggedInUser.fullname"></avatar>
+            		<img
+				v-if="loggedInUser.profileImg"
+				class="user-profileimg"
+				:src="loggedInUser.profileImg"
+				alt=""
+			/>
+			<avatar v-else :size="30" :username="loggedInUser.fullname"></avatar>
             <label for="file-upload"><small>Edit profile image</small></label>
             <input
               type="file"
@@ -85,6 +91,8 @@ export default {
     },
   },
   components: { Avatar },
-  created() {},
+  created() {
+    console.log(this.loggedInUser);
+  },
 };
 </script>

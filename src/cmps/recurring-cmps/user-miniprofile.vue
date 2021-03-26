@@ -1,9 +1,16 @@
 <template>
 	<div class="member-miniprofile">
-        <h3 class="details-title">Board Member</h3>
+		<h3 class="pop-up-title">Board Member</h3>
 		<i class="fas fa-times details-close clickable" @click="closeProfile"></i>
+		<hr>
 		<section class="flex">
-			<avatar :size="40" :username="currMember.fullname"></avatar>
+			<img
+				v-if="currMember.profileImg"
+				class="user-profileimg"
+				:src="currMember.profileImg"
+				alt=""
+			/>
+			<avatar v-else :size="30" :username="currMember.fullname"></avatar>
 			<h5>{{ currMember.fullname }}</h5>
 		</section>
 	</div>
