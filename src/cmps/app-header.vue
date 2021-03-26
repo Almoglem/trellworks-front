@@ -6,14 +6,21 @@
     <router-link to="/">
       <span class="main-logo" aria-label="logo">Trellworks</span>
     </router-link>
-    <div class="flex" v-if="loggedInUser" @click="togglePopUp(true)">
+    <div class="flex" v-if="loggedInUser">
       <img
         v-if="loggedInUser.profileImg"
+        @click="togglePopUp(true)"
         class="user-profileimg"
         :src="loggedInUser.profileImg"
         alt=""
       />
-      <avatar v-else :size="30" :username="loggedInUser.fullname"></avatar>
+      <avatar
+        v-else
+        @click.native="togglePopUp(true)"
+        :size="30"
+        :username="loggedInUser.fullname"
+      ></avatar>
+
       <button class="header-btn" @click="doLogout">Log Out</button>
     </div>
     <section v-else class="nav-side-buttons header-btn transition">
@@ -79,6 +86,7 @@ export default {
       this.$store.dispatch({ type: "logout" });
     },
     togglePopUp(toggler) {
+      console.log("hi");
       this.popUpToggle = toggler;
     },
     async updateProfileImage(ev) {
