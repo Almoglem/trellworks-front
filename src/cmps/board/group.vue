@@ -202,14 +202,15 @@ export default {
 			}
 		},
 		calcPos(ev) {
+			console.log('hey');
 			if (this.setPos.x) {
-				this.setPos.y = ev.clientY + ev.offsetY - 5;
+				this.setPos.y = ev.pageY;
 			} else {
 				if (this.currClientWidth !== ev.view.innerWidth) {
-					this.setPos.x = ev.pageX + 75
+					this.setPos.x = ev.pageX
 				}
-				this.setPos.y = ev.clientY + ev.offsetY - 5
-				this.setPos.x = ev.pageX + 75
+				this.setPos.y = ev.pageY
+				this.setPos.x = ev.pageX
 				this.currClientWidth = ev.view.innerWidth;
 			}
 		},

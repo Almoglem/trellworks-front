@@ -127,6 +127,7 @@
                 @closePopUp="togglePopUp"
                 :style="setCurrPos"
                 v-if="openPopUp"
+                @setHeight="setHeight"
               >
                 <template v-slot:header>{{ currAction.txt }}</template>
                 <component
@@ -220,6 +221,7 @@ export default {
       isLoading: false,
       setPos: { x: 0, y: 0 },
       currClientWidth: 0,
+      popUpHeight: 0,
     };
   },
   computed: {
@@ -286,6 +288,11 @@ export default {
         });
       }
     },
+    setHeight(popUpHeight){
+      this.popUpHeight = popUpHeight
+      console.log(popUpHeight,'popupheight from setheight');
+      this.setPos.y += popUpHeight / 2
+    },
     getTask(board, isIdx) {
       const group = board.groups.find(
         (group) => group.id === this.currGroup.id
@@ -320,20 +327,19 @@ export default {
     closeModal() {
       this.$router.push(`/board/${this.$route.params.boardId}`);
     },
-    calcPos(ev) {
-      if (this.setPos.x) {
-        this.setPos.y = ev.clientY + ev.offsetY - 100;
-      } else {
-        if (this.currClientWidth !== ev.view.innerWidth) {
-          this.setPos.x = ev.pageX / 2 - 504;
-        }
-        this.setPos.y = ev.clientY + ev.offsetY - 100;
-        // this.setPos.x = (ev.view.innerWidth - ev.clientX) - ev.clientX / 6 - 304
-        this.setPos.x = ev.pageX / 2 - 504;
-        this.currClientWidth = ev.view.innerWidth;
-      }
-      console.log(ev.pageX / 4);
-    },
+		calcPos(ev) {
+			console.log('hey', ev.pageY);
+			if (this.setPos.x) {
+				this.setPos.y = ev.pageY
+			} else {
+				if (this.currClientWidth !== ev.view.innerWidth) {
+					this.setPos.x = ev.pageX - 100
+				}
+				this.setPos.y = ev.pageY
+				this.setPos.x = ev.pageX - 100
+				this.currClientWidth = ev.view.innerWidth;
+			}
+		},
     togglePopUp(boolean, actionType, ev) {
       this.openPopUp = boolean;
       this.currAction = actionType;
@@ -487,6 +493,11 @@ export default {
     logComment(commentTxt) {
       this.saveActivity(commentTxt, true);
     },
+  },
+  watch: {
+    'this.setPos.y'(){
+      this.setHeight(this.popUpHeight)
+    }
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });

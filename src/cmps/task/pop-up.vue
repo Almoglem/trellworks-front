@@ -1,5 +1,5 @@
 <template>
-    <section class="pop-up" @click.stop="closePopUp(true)">
+    <section class="pop-up" ref="popUp" @click.stop="closePopUp(true)">
         <div class="pop-up-header">
             <slot name="header">  </slot><i class="fas fa-times" @click.stop="closePopUp(false)"></i>
         </div>
@@ -13,7 +13,12 @@
 <script>
 export default {
     props: {
-        setPos: Object
+        setPopUpHeight: Boolean
+    },  
+    data(){
+        return {
+            popUpHeight: 0
+        }
     },
     computed: {
 
@@ -22,10 +27,19 @@ export default {
         closePopUp(boolean){
             if(boolean) return
             this.$emit('closePopUp', boolean)
+        },
+        setHeight(){
+            this.popUpHeight = this.$refs.popUp.clientHeight;
+
         }
     },
-    created(){
-
+    // watch: {
+    //     'this.$refs.popUp.clientHeight'
+    // },
+    mounted(){
+        // this.$emit('setHeight')
+        this.setHeight()
+        this.$emit('setHeight', this.popUpHeight)
     }
 }
 </script>
