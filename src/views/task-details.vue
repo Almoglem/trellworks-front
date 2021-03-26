@@ -325,6 +325,7 @@ export default {
     setHeight(popUpHeight){
       this.popUpHeight = popUpHeight
       if((this.currClientHeight - this.setPos.y) < this.popUpHeight) this.setPos.y -= popUpHeight / 2
+      if((this.currClientHeight - this.setPos.y) < this.popUpHeight && (this.currClientHeight + this.setPos.y) > this.popUpHeight) return
       else this.setPos.y += popUpHeight / 2
     },
 		calcPos(ev) {
