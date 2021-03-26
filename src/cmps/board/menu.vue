@@ -22,15 +22,16 @@
 				@input="searchTasks"
 			/>
 			<ul class="action-bar">
-				<li
+				<section
 					@click="getDetails(task)"
-					style="width: 90%"
-					class="action transition"
+					
+					class="action transition search-task-item flex column"
 					v-for="task in tasksToShow"
 					:key="task.id"
 				>
-					{{ task.title }}
-				</li>
+				<h4>{{ task.title }}</h4>
+				<p class="flex column">Created by {{getTaskActivity(task.id).byMember.fullname}} in "{{getTaskActivity(task.id).group.title || getTaskActivity(task.id).group}}"<span class="muted-txt">{{time(getTaskActivity(task.id).createdAt)}}</span>  </p>
+				</section>
 			</ul>
 		</section>
 		<section v-if="openMenu.colorMenu" class="color-menu">
@@ -92,6 +93,7 @@
 <script>
 import { boardService } from "@/services/board.service.js";
 import activityLog from "../recurring-cmps/activity-list.vue";
+import moment from "moment";
 export default {
 	data() {
 		return {
@@ -125,8 +127,13 @@ export default {
 		currBoard() {
 			return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
 		},
+
 	},
 	methods: {
+					getTaskActivity(taskId){
+			const activity=(this.currBoard.activities.filter(activity=> activity.task.id===taskId)); 
+			return activity[0]
+	},
 		moment: function () {
 			return moment();
 		},

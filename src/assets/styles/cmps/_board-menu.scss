@@ -81,6 +81,17 @@
         position: absolute;
         top: 15px;
     }
+    .search-task-item{
+        width: 90%;
+        height:95px;
+        flex-direction: column;
+        h4{
+            margin: 8px 0;
+        }
+        p{
+            font-size: 14px;
+        }
+    }
 }
 
 .color-menu {
