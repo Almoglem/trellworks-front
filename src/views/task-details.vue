@@ -220,7 +220,7 @@ export default {
       openPopUp: false,
       isLoading: false,
       setPos: { x: 0, y: 0 },
-      currClientWidth: 0,
+      currClientHeight: 0,
       popUpHeight: 0,
     };
   },
@@ -324,10 +324,12 @@ export default {
     },
     setHeight(popUpHeight){
       this.popUpHeight = popUpHeight
-
-      this.setPos.y += popUpHeight / 2
+      if((this.currClientHeight - this.setPos.y) < this.popUpHeight) this.setPos.y -= popUpHeight / 2
+      if((this.currClientHeight - this.setPos.y) < this.popUpHeight && (this.currClientHeight + this.setPos.y) > this.popUpHeight) return
+      else this.setPos.y += popUpHeight / 2
     },
 		calcPos(ev) {
+      this.currClientHeight = ev.view.innerHeight
 			if (this.setPos.x) {
         this.setPos.y = ev.pageY
 			} else {
@@ -337,7 +339,7 @@ export default {
 				this.setPos.y = ev.pageY
 				this.setPos.x = ev.pageX - 100
 				this.currClientWidth = ev.view.innerWidth;
-			}
+			} 
 		},
     togglePopUp(boolean, actionType, ev) {
       this.openPopUp = false

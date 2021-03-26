@@ -2,8 +2,15 @@
     background-color: $main-bgc;
     padding-bottom: 50px;
 
-    h1 {
-        color: white;
+    .board-header {
+        height: 20%;
+        background-color: #00000059;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .board-title {
+        color: whitesmoke;
     }
 
     .board-list {
