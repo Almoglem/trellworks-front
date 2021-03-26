@@ -7,7 +7,8 @@
 				<section v-for="board in starredBoards" :key="board._id">
 					<span @click="getBoard(board._id)">
 						<div
-							:style="{ backgroundColor: board.styles.backgroundColor,backgroundImage: board.styles.backgroundGradient }"
+							:style="backgroundToShow(board)"
+							
 							class="transition placeholder-preview"
 						>
 							<h4>{{ board.title }}</h4>
@@ -29,7 +30,8 @@
 				<section v-for="board in regularBoards" :key="board._id">
 					<span @click="getBoard(board._id)">
 						<div
-							:style="{ backgroundColor: board.styles.backgroundColor,backgroundImage: board.styles.backgroundGradient }"
+							:style="backgroundToShow"
+							
 							class="transition placeholder-preview"
 						>
 							<h4>{{ board.title }}</h4>
@@ -68,11 +70,26 @@ export default {
 		loggedInUser() {
 			return this.$store.getters.loggedinUser;
 		},
+		// backgroundToShow(){
+		// 	if(this.currBoard.styles.backgroundColor) return {backgroundColor: this.currBoard.styles.backgroundColor}
+		// 	else if(this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0) 
+		// 	return {backgroundImage: 'url(' + require(`@/assets/img/template${this.currBoard.styles.backgroundImage}.jpg`) + ')'}
+		// 	else return {backgroundImage: this.currBoard.styles.backgroundGradient}
+		// },
+		backgroundImg(){
+			return {'board-image': this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0}
+		}
 	},
 	methods: {
 		setBoards() {
 			this.starredBoards = this.boards.filter((board) => board.isStarred);
 			this.regularBoards = this.boards.filter((board) => !board.isStarred);
+		},
+		backgroundToShow(board){
+			if(board.styles.backgroundColor) return {backgroundColor: board.styles.backgroundColor}
+			else if(board.styles.backgroundImage || board.styles.backgroundImage === 0) 
+			return {backgroundImage: 'url(' + require(`@/assets/img/template${board.styles.backgroundImage}.jpg`) + ')'}
+			else return {backgroundImage: board.styles.backgroundGradient}
 		},
 		async loadBoards() {
 			try {

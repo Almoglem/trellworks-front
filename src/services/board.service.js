@@ -164,8 +164,26 @@ function getAllGradients() {
     {
         color: 'linear-gradient(to left,#f1cdd4,#c35432)',
         colorName: 'gradient-4'
-    }]
+    },
+    {
+        color: 'linear-gradient(to right top, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68)',
+        colorName: 'gradient-5'
+    },
+    {
+        color: 'linear-gradient(to right top, #6d327c, #485DA6, #00a1ba, #00BF98, #36C486)',
+        colorName: 'gradient-6'
+    },
+    {
+        color: 'linear-gradient(to right top, #0bff00, #ddc700, #ff7500, #ff0072, #eb12cf)',
+        colorName: 'gradient-7'
+    },
+    {
+        color: 'linear-gradient(to left bottom, #03c1c9, #00d8bc, #3aeb98, #93f962, #e9ff00)',
+        colorName: 'gradient-8'
+    },
+]
 }
+
 function getAllColors() {
     return [{
         color: '#61bd4f',

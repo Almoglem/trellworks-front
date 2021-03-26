@@ -105,7 +105,6 @@ export default {
 		board() {
 			return this.$store.getters.currBoard;
 		},
-		// 'url(' + require('@/assets/img/template0.jpg') + ')'
 		backgroundToShow(){
 			if(this.currBoard.styles.backgroundColor) return {backgroundColor: this.currBoard.styles.backgroundColor}
 			else if(this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0) 

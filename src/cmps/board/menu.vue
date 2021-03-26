@@ -126,7 +126,6 @@ export default {
 			});
 		},
 		setBoardTemplate(idx){
-			console.log(idx);
 			this.currBoard.styles.backgroundImage = idx
 			this.currBoard.styles.backgroundColor = '';
 			this.currBoard.styles.backgroundGradient= ''
@@ -136,6 +135,7 @@ export default {
 			});
 		},
 		setBoardGradient(gradient){
+			console.log(gradient);
 			this.currBoard.styles.backgroundColor = '';
 			this.currBoard.styles.backgroundGradient=gradient
 			this.currBoard.styles.backgroundImage = ''
