@@ -21,7 +21,7 @@
 				v-model="taskSearchTxt"
 				@input="searchTasks"
 			/>
-			<ul class="action-bar">
+			<ul class="action-bar flex column">
 				<section
 					@click="getDetails(task)"
 					

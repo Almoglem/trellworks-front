@@ -1,6 +1,6 @@
 <template>
 	<section
-		class="board-main transition"
+		class="board-main transition flex column"
 		:class="backgroundImg"
 		:style="backgroundToShow"
 		v-if="currBoard"
@@ -47,7 +47,7 @@
 							<i class="fas fa-plus"></i>Add another list
 						</p>
 						<section
-							class="add-group-title"
+							class="add-group-title flex column"
 							:class="{ 'transition-add-group': showGroupToAdd }"
 							v-else
 						>
