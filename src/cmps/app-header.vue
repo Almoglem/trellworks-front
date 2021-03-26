@@ -21,16 +21,21 @@
     </section>
     <section v-if="popUpToggle" class="pop-up">
       <h3 class="pop-up-title">User profile</h3>
-      <hr>
+      <hr />
       <ul class="about-user">
         <li class="profile">
           <div>
             <avatar :size="40" :username="loggedInUser.fullname"></avatar>
             <label for="file-upload"><small>Edit profile image</small></label>
-            <input type="file" id="file-upload" :style="{display: 'none'}" @change="updateProfileImage">
+            <input
+              type="file"
+              id="file-upload"
+              :style="{ display: 'none' }"
+              @change="updateProfileImage"
+            />
           </div>
           <div class="name-profile">
-            <span>{{loggedInUser.fullname}}</span>
+            <span>{{ loggedInUser.fullname }}</span>
             <small>Created at: </small>
           </div>
         </li>
@@ -46,7 +51,7 @@
 </template>
 <script>
 import Avatar from "vue-avatar";
-import { uploadImg } from "@/services/img-upload.service"
+import { uploadImg } from "@/services/img-upload.service";
 
 export default {
   data() {
@@ -63,18 +68,23 @@ export default {
     doLogout() {
       this.$store.dispatch({ type: "logout" });
     },
-    togglePopUp(toggler){
-      this.popUpToggle = toggler
+    togglePopUp(toggler) {
+      this.popUpToggle = toggler;
     },
-    async updateProfileImage(ev){
-      const imgUploaded = await uploadImg(ev);
-      this.loggedInUser.profileImg = imgUploaded.url
-      this.$store.dispatch({type: 'updateUser', user: this.loggedInUser})
-    }
+    async updateProfileImage(ev) {
+      try {
+        const imgUploaded = await uploadImg(ev);
+        this.loggedInUser.profileImg = imgUploaded.url;
+        this.$store.dispatch({
+          type: "updateUser",
+          user: this.loggedInUser,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   components: { Avatar },
-  created(){
-
-  }
+  created() {},
 };
 </script>
