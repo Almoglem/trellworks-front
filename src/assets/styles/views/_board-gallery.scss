@@ -20,12 +20,12 @@
     }
 
     .placeholder-preview {
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
         background-color: whitesmoke;
         height: 150px;
         border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         position: relative;
 
         &:hover {
@@ -37,23 +37,6 @@
             }
         }
 
-        .vertical {
-            height: 141px;
-            width: 40px;
-            border-radius: 1em;
-            background-color: lightblue;
-            position: relative;
-
-            .horizontal {
-                position: absolute;
-                width: 152px;
-                top: 50px;
-                left: -57px;
-                height: 40px;
-                border-radius: 1em;
-                background-color: lightblue;
-            }
-        }
     }
 
     h4 {
