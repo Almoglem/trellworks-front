@@ -15,7 +15,7 @@
         ><i v-else class="fas fa-star"></i>
       </button>
 
-      <ul class="flex avatars-show">
+      <ul class="flex avatars-show" v-if="boardMembers.length">
         <span
           v-for="member in boardMembers"
           :key="member._id"
