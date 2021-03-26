@@ -30,10 +30,7 @@
         >
           <h4>{{ task.title }}</h4>
           <p class="flex column">
-            Created by {{ getTaskActivity(task.id).byMember.fullname }} in "{{
-              getTaskActivity(task.id).group.title ||
-              getTaskActivity(task.id).group
-            }}"<span class="muted-txt">{{
+            Created by {{ getTaskActivity(task.id).byMember.fullname }}<span class="muted-txt">{{
               time(getTaskActivity(task.id).createdAt)
             }}</span>
           </p>
