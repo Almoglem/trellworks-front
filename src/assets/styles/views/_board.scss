@@ -1,8 +1,8 @@
 .board-main {
     height: 100vh;
     animation: fadeInFromNone 1s ease-out;
-        
-        &.board-image {
+
+    &.board-image {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -116,13 +116,14 @@
             cursor: pointer;
         }
     }
-    
+
 }
-.user-profileimg { 
+
+.user-profileimg {
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    
+
 }
 
 .group {
@@ -561,4 +562,10 @@
             margin-left: 8px;
         }
     }
+
+}
+.search-users-list {
+    max-height: 55vh;
+    overflow-y: auto;
+    width: 90%;
 }
