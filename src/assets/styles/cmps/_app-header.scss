@@ -12,4 +12,15 @@ header {
         font-family: 'Megrim-Regular';
         font-size: 2rem;
     }
+
+    .header-avatar {
+        position: relative;
+    }
+
+    .pop-up {
+        position: fixed;
+        right: -44px;
+        top: 55px;
+        z-index: 11;
+    }
 }
