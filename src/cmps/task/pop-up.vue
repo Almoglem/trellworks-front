@@ -33,11 +33,13 @@ export default {
 
         }
     },
-    // watch: {
-    //     'this.$refs.popUp.clientHeight'
-    // },
+    watch: {
+        '$refs.popUp.clientHeight'(){
+            console.log('watch from clientheight');
+        }
+    },
     mounted(){
-        // this.$emit('setHeight')
+        console.log('hey');
         this.setHeight()
         this.$emit('setHeight', this.popUpHeight)
     }

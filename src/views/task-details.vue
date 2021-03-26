@@ -288,11 +288,6 @@ export default {
         });
       }
     },
-    setHeight(popUpHeight){
-      this.popUpHeight = popUpHeight
-      console.log(popUpHeight,'popupheight from setheight');
-      this.setPos.y += popUpHeight / 2
-    },
     getTask(board, isIdx) {
       const group = board.groups.find(
         (group) => group.id === this.currGroup.id
@@ -327,13 +322,17 @@ export default {
     closeModal() {
       this.$router.push(`/board/${this.$route.params.boardId}`);
     },
+    setHeight(popUpHeight){
+      this.popUpHeight = popUpHeight
+
+      this.setPos.y += popUpHeight / 2
+    },
 		calcPos(ev) {
-			console.log('hey', ev.pageY);
 			if (this.setPos.x) {
-				this.setPos.y = ev.pageY
+        this.setPos.y = ev.pageY
 			} else {
-				if (this.currClientWidth !== ev.view.innerWidth) {
-					this.setPos.x = ev.pageX - 100
+        if (this.currClientWidth !== ev.view.innerWidth) {
+          this.setPos.x = ev.pageX - 100
 				}
 				this.setPos.y = ev.pageY
 				this.setPos.x = ev.pageX - 100
@@ -341,7 +340,10 @@ export default {
 			}
 		},
     togglePopUp(boolean, actionType, ev) {
-      this.openPopUp = boolean;
+      this.openPopUp = false
+      setTimeout(() => { 
+        this.openPopUp = boolean;
+      }, 0);
       this.currAction = actionType;
       if (boolean) {
         this.calcPos(ev);
@@ -493,11 +495,6 @@ export default {
     logComment(commentTxt) {
       this.saveActivity(commentTxt, true);
     },
-  },
-  watch: {
-    'this.setPos.y'(){
-      this.setHeight(this.popUpHeight)
-    }
   },
   created() {
     this.$store.commit({ type: "setTask", taskId: this.taskId });
