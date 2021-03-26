@@ -36,13 +36,13 @@
 				<div v-else class="color-list">
 					<li
 						class="color-preview clickable"
-						@click="setBoardColor(color.color)"
 						v-for="(image, idx) in 9"
 						:key="idx"
+						@click="setBoardTemplate(idx)"
 					>
-						
-					<img :src="require('../../assets/img/template'+ idx + '.jpg')">
-						<!-- <img :src="require(`הדרך`)"/> -->
+						<div class="img-container">
+							<img :src="require('../../assets/img/template'+ idx + '.jpg')">
+						</div>
 					</li>
 				</div>
 			</div>
@@ -106,6 +106,16 @@ export default {
 		},
 		setBoardColor(color) {
 			this.currBoard.styles.backgroundColor = color;
+			this.currBoard.styles.backgroundImage = ''
+			this.$store.dispatch({
+				type: "updateBoard",
+				editedBoard: this.currBoard,
+			});
+		},
+		setBoardTemplate(idx){
+			this.currBoard.styles.backgroundImage = '../img/template'+ idx + '.jpg'
+			this.currBoard.styles.backgroundColor = '';
+			console.log(this.currBoard);
 			this.$store.dispatch({
 				type: "updateBoard",
 				editedBoard: this.currBoard,
@@ -122,9 +132,7 @@ export default {
 			);
 			return filteredActivities;
 		},
-		getImg(idx){
-			return require()
-		}
+	
 	},
 	components: { activityLog },
 	created() {

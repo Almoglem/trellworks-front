@@ -1,7 +1,7 @@
 <template>
   <section
     class="board-main"
-    :style="{ backgroundColor: currBoard.styles.backgroundColor }"
+    :style="{backgroundImage: 'url('+'~@assets/img/template0.jpg'+')'}"
     v-if="currBoard"
     :board="currBoard"
   >
@@ -102,6 +102,10 @@ export default {
     },
     board() {
       return this.$store.getters.currBoard;
+    },
+    setBackground(){
+      if(this.currBoard.styles.backgroundColor) return {backgroundColor: this.currBoard.styles.backgroundColor}
+      else return { backgroundImage: 'url('+this.currBoard.styles.backgroundImage+')' }
     },
   },
   methods: {

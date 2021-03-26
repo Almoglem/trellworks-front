@@ -146,6 +146,7 @@
     }
 
 }
+
 .color-list {
     display: flex;
     flex-wrap: wrap;
@@ -168,7 +169,13 @@
         }
     }
 
+    .img-container {
+        @include aspect-ratio(1, 1);
 
+        img {
+            width: 100%;
+        }
+    }
 }
 
 hr {
@@ -182,7 +189,8 @@ hr {
 
 .board-header {
 
-padding: 5px;
+    padding: 5px;
+
     .pop-up {
         top: 140px;
         left: 539px;
