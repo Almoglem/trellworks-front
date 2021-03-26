@@ -33,6 +33,8 @@
 					@titleChange="changeTitle"
 					@toggleTaskCompletion="toggleTaskCompleted"
 					@sortGroup="saveGroupSort"
+					@setToggler="setMenuToggler"
+					:menuToggler="menuToggler"
 				/>
 			</draggable>
 			<span>
@@ -87,6 +89,7 @@ export default {
 			isLoading: false,
 			showGroupToAdd: false,
 			groupTitleToAdd: "",
+			menuToggler: false
 		};
 	},
 	computed: {
@@ -305,11 +308,18 @@ export default {
       const idx = board.groups.findIndex(group => group.id === groupCopy.id)
     board.groups.splice(idx,1,groupCopy)
     this.updateBoard(board)
-    }
+    },
+	setMenuToggler(boolean){
+		this.menuToggler = boolean
+	}
 	},
 	async created() {
+		document.addEventListener("mousedown", (ev) => {
+      		if(!ev.target.closest(".quickmenu-popup")){
+				  this.menuToggler = false
+			  }
+ 		 }) 
 		await this.loadBoard();
-		console.log(this.currBoard.styles);
 		socketService.setup();
 		socketService.on("board updated", (board) => {
 			this.updateBoard(board);

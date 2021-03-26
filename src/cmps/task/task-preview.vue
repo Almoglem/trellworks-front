@@ -3,7 +3,7 @@
     @mouseover="toggleEditPen(true)"
     @mouseleave="toggleEditPen(false)"
     @contextmenu.prevent="showEdit = !showEdit"
-    @mouseup="getDetails"
+    @mousedown="getDetails"
     class="task-preview clickable"
     :style="bgcToShow"
     :class="setCoverImgFull"
@@ -35,41 +35,45 @@
       <p class="task-preview-title" :style="typeFullFont">{{ task.title }}</p>
       <div
         class="preview-footer-container flex"
-        style="align-items: baseline"
         v-if="typeTop && footerIsShown"
       >
-        <dueDatePreview
-          :style="{marginRight: '8px'}"
-          v-if="task.dueDate"
-          :task="task"
-          @dueDateUpdated="updateDueDate"
-        />
-        <i v-if="task.description" :style="{marginRight: '8px'}" class="fas fa-align-left fa-sm desc-preview"></i>
+        <div class="left">
+          <dueDatePreview
+            :style="{marginRight: '8px'}"
+            v-if="task.dueDate"
+            :task="task"
+            @dueDateUpdated="updateDueDate"
+          />
+          <i v-if="task.description" :style="{marginRight: '8px'}" class="fas fa-align-left fa-sm desc-preview"></i>
+          <span class="flex" v-if="task.imgs.length">
+            <i class="far fa-file-image"></i>  <span> {{task.imgs.length}}</span>
+          </span>
+          <span
+            class="checklist-preview"
+            :class="{ 'checklist-success': areTodosCompleted }"
+            v-if="task.checklists.length"
+          >
+            <i v-if="task.checklists.length" class="far fa-check-square"></i>
+            {{ getChecklistString }}
+          </span>
+
+        </div>
+        <div class="right">
+          <span class="flex preview-avatar-container">
+            <span class="avatar" v-for="member in task.members" :key="member.id">
+              <avatar
+                v-if="task.members.length"
+                :size="20"
+                :username="member.fullname"
+              ></avatar>
+            </span>
+          </span>
+        </div>
         <i
           v-if="isEditPenShown"
           :class="penToggler"
           @click.stop="toggleEdit(true)"
         ></i>
-        <span
-          class="checklist-preview"
-          :class="{ 'checklist-success': areTodosCompleted }"
-          v-if="task.checklists"
-        >
-          <i v-if="task.checklists.length" class="far fa-check-square"></i>
-          {{ getChecklistString }}
-        </span>
-        <span class="flex" v-if="task.imgs">
-          <i class="far fa-file-image"></i>   {{task.imgs.length}}
-        </span>
-        <span class="flex preview-avatar-container">
-          <span class="avatar" v-for="member in task.members" :key="member.id">
-            <avatar
-              v-if="task.members.length"
-              :size="20"
-              :username="member.fullname"
-            ></avatar>
-          </span>
-        </span>
       </div>
     </div>
   </section>
