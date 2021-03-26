@@ -117,8 +117,7 @@ export default {
 			console.log('colorpicker', this.colorPicker, 'istemplates', this.isTemplates, 'openmenu', this.openMenu.colorMenu);
 		},
 		setBoardColor(color) {
-						this.currBoard.styles.backgroundGradient=null
-
+			this.currBoard.styles.backgroundGradient= ''
 			this.currBoard.styles.backgroundColor = color;
 			this.currBoard.styles.backgroundImage = ''
 			this.$store.dispatch({
@@ -127,17 +126,19 @@ export default {
 			});
 		},
 		setBoardTemplate(idx){
-			this.currBoard.styles.backgroundImage = '../img/template'+ idx + '.jpg'
+			console.log(idx);
+			this.currBoard.styles.backgroundImage = idx
 			this.currBoard.styles.backgroundColor = '';
-			console.log(this.currBoard);
+			this.currBoard.styles.backgroundGradient= ''
 			this.$store.dispatch({
 				type: "updateBoard",
 				editedBoard: this.currBoard,
 			});
 		},
 		setBoardGradient(gradient){
-			this.currBoard.styles.backgroundColor = null;
+			this.currBoard.styles.backgroundColor = '';
 			this.currBoard.styles.backgroundGradient=gradient
+			this.currBoard.styles.backgroundImage = ''
 				this.$store.dispatch({
 				type: "updateBoard",
 				editedBoard: this.currBoard,

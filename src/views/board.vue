@@ -1,7 +1,8 @@
 <template>
 	<section
 		class="board-main transition"
-		:style="{  backgroundColor: board.styles.backgroundColor,backgroundImage: board.styles.backgroundGradient }"
+		:class="backgroundImg"
+		:style="backgroundToShow"
 		v-if="currBoard"
 		:board="currBoard"
 	>
@@ -104,6 +105,16 @@ export default {
 		board() {
 			return this.$store.getters.currBoard;
 		},
+		// 'url(' + require('@/assets/img/template0.jpg') + ')'
+		backgroundToShow(){
+			if(this.currBoard.styles.backgroundColor) return {backgroundColor: this.currBoard.styles.backgroundColor}
+			else if(this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0) 
+			return {backgroundImage: 'url(' + require(`@/assets/img/template${this.currBoard.styles.backgroundImage}.jpg`) + ')'}
+			else return {backgroundImage: this.currBoard.styles.backgroundGradient}
+		},
+		backgroundImg(){
+			return {'board-image': this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0}
+		}
 	},
 	methods: {
 		async updateBoard(board) {
@@ -299,6 +310,7 @@ export default {
 	},
 	async created() {
 		await this.loadBoard();
+		console.log(this.currBoard.styles);
 		socketService.setup();
 		socketService.on("board updated", (board) => {
 			this.updateBoard(board);

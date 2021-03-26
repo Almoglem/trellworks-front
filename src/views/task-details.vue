@@ -30,7 +30,6 @@
           />
           <p class="sub-title">
             In list <span>{{ currGroup.title }}</span>
-            <span>HIIII</span>
           </p>
         </div>
         <main class="details-body">
