@@ -111,7 +111,7 @@
               :activities="getTaskActivity()"
             />
           </section>
-          <div class="action-bar">
+          <div class="action-bar flex column">
             <ul>
               <h3 class="uppercase-title">add to task</h3>
               <li

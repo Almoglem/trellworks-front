@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<div class="pop-up-window" v-if="openPopUp" @click="openPopUp = false"></div>
-		<div class="group handle" v-if="group">
+		<div class="group handle flex column" v-if="group">
 			<section class="flex group-header transition">
 				<textarea-autosize
 					v-if="toggleTitleEdit"
