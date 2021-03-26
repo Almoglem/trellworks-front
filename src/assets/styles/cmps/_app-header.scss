@@ -13,4 +13,15 @@ header {
         font-size: 2rem;
         font-weight: bold;
     }
+
+    .header-avatar {
+        position: relative;
+    }
+
+    .pop-up {
+        position: fixed;
+        right: -44px;
+        top: 55px;
+        z-index: 11;
+    }
 }
