@@ -7,13 +7,6 @@
       <span class="main-logo" aria-label="logo">Trellworks</span>
     </router-link>
     <div class="flex" v-if="loggedInUser">
-      <<<<<<< HEAD
-      <avatar
-        :style="{ marginRight: '8px' }"
-        :size="30"
-        :username="loggedInUser.fullname"
-      ></avatar>
-      =======
       <avatar
         @click.native="togglePopUp(true)"
         :style="{ marginRight: '8px' }"
@@ -21,7 +14,6 @@
         class="clickable"
         :username="loggedInUser.fullname"
       ></avatar>
-      >>>>>>> 48df47e6b2456203591f69eaf346781bf1a1ac13
       <button class="header-btn" @click="doLogout">Log Out</button>
     </div>
     <section v-else class="nav-side-buttons header-btn transition">
