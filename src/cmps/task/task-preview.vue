@@ -2,7 +2,7 @@
   <section
     @mouseover="toggleEditPen(true)"
     @mouseleave="toggleEditPen(false)"
-    @contextmenu.prevent="showEdit = !showEdit"
+    @contextmenu.prevent="showEdit = true"
     @click="getDetails"
     class="task-preview clickable"
     :style="bgcToShow"
