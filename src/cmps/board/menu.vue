@@ -13,25 +13,36 @@
 		</section>
 		<section v-else class="color-menu">
 			<div class="background-options"  v-if="!colorPicker">
-				<div @click="toggleColorList(true)"  class="templates">
+				<div @click="toggleColorList(true)"  class="transition templates">
 					<div class="templates-image"></div>
 					<div class="templates-title">Photos</div>
 				</div>
-				<div @click="toggleColorList(false)"  class="colors">
+				<div @click="toggleColorList(false)"  class="transition colors">
 					<div class="colors-image"></div>
 					<div class="colors-title">Colors</div>
 				</div>
 			</div >
 			<div :style="{width: '100%'}" v-else>
 				<div v-if="!isTemplates" class="color-list">
+					<li 
+					class="color-preview clickable"
+					@click="setBoardGradient(gradient.color)"
+					v-for="gradient in gradientList"
+					:key="gradient.colorName">
+					<div  :style="{backgroundImage: gradient.color}">
+						
+					</div>
+					</li>
 					<li
 						class="color-preview clickable"
 						@click="setBoardColor(color.color)"
 						v-for="color in colorList"
 						:key="color.color"
 					>
+					
 						<div :style="{ backgroundColor: color.color }"></div>
 					</li>
+					
 				</div>
 				<div v-else class="color-list">
 					<li
@@ -66,6 +77,7 @@ export default {
 			},
 			colorPicker: false,
 			colorList: boardService.getAllColors(),
+			gradientList: boardService.getAllGradients(),
 			isTemplates: false
 		};
 	},
@@ -105,6 +117,8 @@ export default {
 			console.log('colorpicker', this.colorPicker, 'istemplates', this.isTemplates, 'openmenu', this.openMenu.colorMenu);
 		},
 		setBoardColor(color) {
+						this.currBoard.styles.backgroundGradient=null
+
 			this.currBoard.styles.backgroundColor = color;
 			this.currBoard.styles.backgroundImage = ''
 			this.$store.dispatch({
@@ -117,6 +131,14 @@ export default {
 			this.currBoard.styles.backgroundColor = '';
 			console.log(this.currBoard);
 			this.$store.dispatch({
+				type: "updateBoard",
+				editedBoard: this.currBoard,
+			});
+		},
+		setBoardGradient(gradient){
+			this.currBoard.styles.backgroundColor = null;
+			this.currBoard.styles.backgroundGradient=gradient
+				this.$store.dispatch({
 				type: "updateBoard",
 				editedBoard: this.currBoard,
 			});

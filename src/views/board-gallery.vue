@@ -5,14 +5,20 @@
 			<h1>Starred Boards</h1>
 			<div class="board-list">
 				<section v-for="board in starredBoards" :key="board._id">
-					<router-link :to="'/board/' + board._id">
-						<div :style="{backgroundColor:board.styles.backgroundColor}" class="transition placeholder-preview">
-								<h4>{{ board.title }}</h4>
-																<span class="flex icons">
-								<i  @click.prevent="removeBoard(board._id)" class="far fa-trash-alt transition"></i>
-								</span>
+					<span @click="getBoard(board._id)">
+						<div
+							:style="{ backgroundColor: board.styles.backgroundColor,backgroundImage: board.styles.backgroundGradient }"
+							class="transition placeholder-preview"
+						>
+							<h4>{{ board.title }}</h4>
+							<span class="flex icons">
+								<i
+									@click.prevent="removeBoard(board._id)"
+									class="far fa-trash-alt transition"
+								></i>
+							</span>
 						</div>
-					</router-link>
+					</span>
 				</section>
 			</div>
 			<h1>Your boards</h1>
@@ -21,15 +27,20 @@
 					<div class="vertical"><div class="horizontal"></div></div>
 				</div>
 				<section v-for="board in regularBoards" :key="board._id">
-					<router-link :to="'/board/' + board._id">
-						<div :style="{backgroundColor:board.styles.backgroundColor}" class="transition placeholder-preview">
-								
-								<h4>{{ board.title }}</h4>
-								<span class="flex icons">
-								<i  @click.prevent="removeBoard(board._id)" class="far fa-trash-alt transition"></i>
-								</span>
+					<span @click="getBoard(board._id)">
+						<div
+							:style="{ backgroundColor: board.styles.backgroundColor,backgroundImage: board.styles.backgroundGradient }"
+							class="transition placeholder-preview"
+						>
+							<h4>{{ board.title }}</h4>
+							<span class="flex icons">
+								<i
+									@click.prevent="removeBoard(board._id)"
+									class="far fa-trash-alt transition"
+								></i>
+							</span>
 						</div>
-					</router-link>
+					</span>
 				</section>
 			</div>
 		</div>
@@ -93,6 +104,8 @@ export default {
 				loggedUser,
 			});
 			await this.loadBoards();
+			await this.$store.dispatch({ type: "getBoard", boardId: this.boards[this.boards.length - 1]._id })
+			this.$router.push('/board/' + this.boards[this.boards.length - 1]._id)
 		},
 		async removeBoard(boardId) {
 			await this.$store.dispatch({
@@ -101,7 +114,11 @@ export default {
 			});
 			await this.loadBoards();
 		},
-
+		async getBoard(boardId) {
+			await this.$store.dispatch({ type: "getBoard", boardId: boardId })
+			const board = this.$store.getters.currBoard
+						this.$router.push('/board/' + board._id)
+		}
 	},
 	async created() {
 		await this.loadBoards();
