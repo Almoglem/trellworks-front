@@ -2,13 +2,9 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    // background-image: url(~@/assets/img/template0.jpg);
-
-    // &.board-color {
-    //     background-color: attr(data-background);
-    // }
-
-    &.board-image {
+    animation: fadeInFromNone 1s ease-out;
+        
+        &.board-image {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -565,23 +561,5 @@
         p {
             margin-left: 8px;
         }
-    }
-}
-
-
-@keyframes fadeInFromNone {
-    0% {
-        display: none;
-        opacity: 0;
-    }
-
-    1% {
-        display: block;
-        opacity: 0;
-    }
-
-    100% {
-        display: block;
-        opacity: 1;
     }
 }
