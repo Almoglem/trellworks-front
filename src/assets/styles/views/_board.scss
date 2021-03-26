@@ -1,6 +1,4 @@
 .board-main {
-    display: flex;
-    flex-direction: column;
     height: 100vh;
     animation: fadeInFromNone 1s ease-out;
         
@@ -123,8 +121,6 @@
 
 .group {
     background-color: #EBECF0;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
     margin: 0;
     padding: 0 3px 0 3px;
@@ -512,7 +508,6 @@
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     padding: 4px;
 
