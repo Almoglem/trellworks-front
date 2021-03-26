@@ -1,6 +1,37 @@
 .login-signup {
+
     .form-wrapper {
         text-align: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .form {
+        width: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .profile-image {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        
+            .image {
+                @include aspect-ratio(1, 1);
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                cursor: pointer;
+        
+                img {
+                    width: 100%;
+                }
+                
+            }
     }
 
     input {

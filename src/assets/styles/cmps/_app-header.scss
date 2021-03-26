@@ -21,7 +21,30 @@ header {
     .pop-up {
         position: fixed;
         right: -44px;
-        top: 55px;
+        top: 115px;
         z-index: 11;
+
+    }
+}
+
+.about-user {
+    width: 100%;
+    padding: 0 10px 10px 10px;
+
+    .profile {
+        display: flex;
+
+        .name-profile {
+            display: flex;
+            flex-direction: column;
+            margin-left: 7px;
+
+            span {}
+
+            small {
+                margin-right: 7px;
+            }
+
+        }
     }
 }

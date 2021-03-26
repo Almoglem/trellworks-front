@@ -23,26 +23,51 @@
       >
     </div>
     <div v-else class="form-wrapper">
-      <form @submit.prevent="doSignup">
-        <h2>Signup</h2>
+          <h2>Register</h2>
+      <div class="form">
+        <form @submit.prevent="doSignup">
+          <label>
+            *Enter your full name
+            <input
+            type="text"
+            v-model="signupCred.fullname"
+            placeholder="Your full name"
+          />
+          </label>
+          <label>
+            *Enter password
         <input
-          type="text"
-          v-model="signupCred.fullname"
-          placeholder="Your full name"
-        /><input
-          type="password"
-          v-model="signupCred.password"
-          placeholder="Password"
-        /><input
-          type="text"
-          v-model="signupCred.username"
-          placeholder="Username"
-        /><button type="submit">Signup</button>
-      </form>
-      <span
-        >Have an account?
-        <span class="clickable bold" @click="isLogin = true">Log in</span></span
-      >
+            type="password"
+            v-model="signupCred.password"
+            placeholder="Password"
+          />
+          </label>
+          <label>
+            *Enter your username
+          <input
+            type="text"
+            v-model="signupCred.username"
+            placeholder="Username"
+          />
+          </label>
+          <button :style="{display: 'none'}" type="submit">Signup</button>
+        </form>
+        <div class="profile-image">
+          <label for="file-upload">
+            <div :style="profileToShow" class="image">
+              <img v-if="!this.signupCred.profileImg" src="../assets/img/profile-img.png">
+              <img v-else :src="profileToShow">
+            </div>
+            <a class="clickable">Add a profile image</a>
+          </label>
+          <input type="file" id="file-upload" :style="{display: 'none'}" @change="addProfileImage">
+        </div>
+      
+      </div>
+      <button @click="doSignup">Sign up</button>
+      <span>Have an account?
+        <span class="clickable bold" @click="isLogin = true">Log in</span>
+      </span>
     </div>
   </section>
 </template><script>
@@ -50,6 +75,7 @@ import appHeader from "@/cmps/app-header";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import loader from "@/cmps/recurring-cmps/loader";
+import { uploadImg } from "@/services/img-upload.service"
 
 export default {
   name: "test",
@@ -65,6 +91,7 @@ export default {
         username: "",
         password: "",
         fullname: "",
+        profileImg: ""
       },
 
       isLogin: true,
@@ -79,8 +106,11 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
-  },
 
+    profileToShow(){
+      return this.signupCred.profileImg
+      }
+  },
   created() {
     this.loadUsers();
   },
@@ -113,7 +143,6 @@ export default {
         this.msg = "Please fill up the form";
         return;
       }
-
       await this.$store.dispatch({
         type: "signup",
         userCred: this.signupCred,
@@ -138,8 +167,11 @@ export default {
         this.msg = "Failed to remove user";
       }
     },
+    async addProfileImage(ev){
+      const imgUploaded = await uploadImg(ev);
+      this.signupCred.profileImg = imgUploaded.url
+    }
   },
-
   components: {
     loader,
     appHeader,
