@@ -9,7 +9,13 @@
     >
       <section class="flex activity">
         <span class="avatar"
-          ><avatar :size="32" :username="activity.byMember.fullname"></avatar>
+          >           		<img
+				v-if="activity.byMember.profileImg"
+				class="user-profileimg"
+				:src="activity.byMember.profileImg"
+				alt=""
+			/>
+			<avatar v-else :size="30" :username="activity.byMember.fullname"></avatar>
         </span>
         <span class="flex activity-details">
           <span>
