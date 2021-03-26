@@ -35,6 +35,7 @@
           @titleChange="changeTitle"
           @toggleTaskCompletion="toggleTaskCompleted"
           @sortGroup="saveGroupSort"
+          @taskEdited="taskEdited"
         />
       </draggable>
       <span>
@@ -329,6 +330,19 @@ export default {
     setMenuToggler(boolean) {
       this.menuToggler = boolean;
     },
+    taskEdited(group,task){
+       const board = this.currBoard;
+      const groupIdx = board.groups.findIndex(
+        (foundGroup) => group.id === foundGroup.id
+      );
+      board.groups.splice(groupIdx, 1, group);
+      this.saveActivity(
+        `changed the title of "${task.title}" `,
+        board,
+        group,
+        task
+      );
+      }
   },
   async created() {
     // document.addEventListener("mousedown", (ev) => {
