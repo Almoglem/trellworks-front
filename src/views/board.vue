@@ -24,10 +24,11 @@
         stop-propagation="true"
       >
         <group
-          v-for="group in currBoard.groups"
+          v-for="(group,idx) in currBoard.groups"
           :key="group.id"
           :group="group"
-          :board="board"
+          :board="currBoard"
+          :groupIdx="idx"
           @taskDragged="draggedTask"
           @removeGroup="removeGroup"
           @addTask="addTask"
