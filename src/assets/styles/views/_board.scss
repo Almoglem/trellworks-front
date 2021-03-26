@@ -2,13 +2,9 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    // background-image: url(~@/assets/img/template0.jpg);
-
-    // &.board-color {
-    //     background-color: attr(data-background);
-    // }
-
-    &.board-image {
+    animation: fadeInFromNone 1s ease-out;
+        
+        &.board-image {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -112,9 +108,6 @@
             margin-left: 26px;
         }
 
-        .invite {
-            margin-left: 15px;
-        }
     }
 
     .board-header-avatar {
@@ -432,42 +425,45 @@
     justify-content: space-between;
     padding-bottom: 6px;
     margin-top: 4px;
+    align-items: center;
 
-    section {
-        margin-top: 2px;
-    }
-
-    .checklist-preview {
-        font-size: 12px;
-        padding: 2px;
-        width: 100%;
-        max-width: 47px;
-        border-radius: 3px;
-        padding: 2px;
-        margin: 0 4px;
-        letter-spacing: 0.7px;
-
-        i {
-            margin-right: 1px;
-        }
-    }
-
-    .checklist-success {
-        background-color: #61bd4f;
-        color: white;
+    .left {
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: 100% !important;
-        max-width: 47px;
 
-        i {
-            margin-right: 3px;
+        .checklist-preview {
+            font-size: 12px;
+            padding: 2px;
+            width: 100%;
+            max-width: 47px;
+            border-radius: 3px;
+            padding: 2px;
+            margin: 0 4px;
+            letter-spacing: 0.7px;
+
+            i {
+                margin-right: 1px;
+            }
         }
-    }
 
-    .fa-file-image {
-        margin-right: 5px;
+        .checklist-success {
+            background-color: #61bd4f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100% !important;
+            max-width: 47px;
+
+            i {
+                margin-right: 3px;
+            }
+        }
+
+        .fa-file-image {
+            margin-right: 5px;
+        }
+
     }
 }
 
@@ -562,23 +558,5 @@
         p {
             margin-left: 8px;
         }
-    }
-}
-
-
-@keyframes fadeInFromNone {
-    0% {
-        display: none;
-        opacity: 0;
-    }
-
-    1% {
-        display: block;
-        opacity: 0;
-    }
-
-    100% {
-        display: block;
-        opacity: 1;
     }
 }

@@ -16,7 +16,7 @@
 				<p @click="toggleEditter" class="clean-input group-title" v-else>
 					{{ group.title }}
 				</p>
-				<span @click.stop="togglePopUp(true, $event)" class="group-header-trash"
+				<span @click.stop="toggleMenu(true, $event)" class="group-header-trash"
 					><i class="fas fa-ellipsis-h"></i>
 				</span>
 			</section>
@@ -67,7 +67,7 @@
 			class="quickmenu-popup"
 			:style="setCurrPos"
 			@closePopUp="togglePopUp(false)"
-			v-if="openPopUp"
+			v-if="menuToggler"
 		>
 			<template v-slot:header>Options</template>
 			<section v-if="sortVisible">
@@ -77,10 +77,10 @@
 				<p  class="clickable" @click="sortGroup('timeOldest')">Time Created (Oldest First)</p>
 			</section>
 			<section v-else>
-				<span class="flex menu-item transition clickable" @click="removeGroup(group.id)"
-					><i class="far fa-trash-alt"></i>
-					<p>Delete Board</p></span
-				>
+				<span class="flex menu-item transition clickable">
+					<i class="fas fa-pencil-alt"></i>
+					<p @click="toggleEditter">Edit Title</p>
+				</span>
 				<span
 					v-if="group.task.length > 1"
 					class="flex menu-item transition clickable"
@@ -92,10 +92,10 @@
 					<i class="fas fa-plus"></i>
 					<p @click="openAddTask">Add Task</p>
 				</span>
-				<span class="flex menu-item transition clickable">
-					<i class="fas fa-pencil-alt"></i>
-					<p @click="toggleEditter">Edit Title</p>
-				</span>
+				<span class="flex menu-item transition clickable" @click="removeGroup(group.id)"
+					><i class="far fa-trash-alt"></i>
+					<p>Delete List</p></span
+				>
 			</section>
 		</popUp>
 	</section>
@@ -115,6 +115,7 @@ export default {
 		board: {
 			type: Object,
 		},
+		menuToggler: Boolean
 	},
 	data() {
 		return {
@@ -194,6 +195,7 @@ export default {
 		},
 		togglePopUp(boolean, ev) {
 			this.openPopUp = boolean;
+			this.$emit('setToggler', boolean)
 			if (boolean) {
 				this.calcPos(ev)
 			}
@@ -229,6 +231,12 @@ export default {
 				return 0;
 			}))
 			this.$emit('sortGroup', groupCopy)
+		},
+		toggleMenu(boolean, ev){
+			this.$emit('setToggler', true)
+			if (boolean) {
+				this.calcPos(ev)
+			}
 		}
 	},
 	components: {

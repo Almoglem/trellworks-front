@@ -190,10 +190,33 @@ hr {
 .board-header {
 
     padding: 5px;
+    padding-left: 8px;
 
     .pop-up {
-        top: 140px;
-        left: 539px;
+        top: 215px;
+        left: 484px;
+        padding-bottom: 10px;
+
+        input {
+            width: 84%;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+
+            i {
+                display: flex;
+                align-items: center;
+                margin-left: 11px;
+            }
+        }
+
+        & li:first-of-type {
+            margin-top: 5px;
+        }
+
 
     }
 }

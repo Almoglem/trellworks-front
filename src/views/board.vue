@@ -34,6 +34,8 @@
 					@titleChange="changeTitle"
 					@toggleTaskCompletion="toggleTaskCompleted"
 					@sortGroup="saveGroupSort"
+					@setToggler="setMenuToggler"
+					:menuToggler="menuToggler"
 				/>
 			</draggable>
 			<span>
@@ -88,7 +90,8 @@ export default {
 			isLoading: false,
 			showGroupToAdd: false,
 			groupTitleToAdd: "",
-			groupsToShow:[]
+			groupsToShow: [],
+			menuToggler: false
 		};
 	},
 	computed: {
@@ -107,15 +110,16 @@ export default {
 		board() {
 			return this.$store.getters.currBoard;
 		},
-		backgroundToShow(){
-			if(this.currBoard.styles.backgroundColor) return {backgroundColor: this.currBoard.styles.backgroundColor}
-			else if(this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0) 
-			return {backgroundImage: 'url(' + require(`@/assets/img/template${this.currBoard.styles.backgroundImage}.jpg`) + ')'}
-			else return {backgroundImage: this.currBoard.styles.backgroundGradient}
+		backgroundToShow() {
+			if (this.currBoard.styles.backgroundColor) return { backgroundColor: this.currBoard.styles.backgroundColor }
+			else if (this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0)
+				return { backgroundImage: 'url(' + require(`@/assets/img/template${this.currBoard.styles.backgroundImage}.jpg`) + ')' }
+			else return { backgroundImage: this.currBoard.styles.backgroundGradient }
 		},
-		backgroundImg(){
-			return {'board-image': this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0}
-		}
+		backgroundImg() {
+			return { 'board-image': this.currBoard.styles.backgroundImage || this.currBoard.styles.backgroundImage === 0 }
+		},
+
 	},
 	methods: {
 		async updateBoard(board) {
@@ -303,28 +307,37 @@ export default {
 			}
 		},
 		saveGroupSort(groupCopy) {
-			const board= this.currBoard
-      const idx = board.groups.findIndex(group => group.id === groupCopy.id)
-    board.groups.splice(idx,1,groupCopy)
-    this.updateBoard(board)
-    },
-	changeGroupsToShow(groupsToShow){
-    this.groupsToShow= groupsToShow
-	}
+			const board = this.currBoard
+			const idx = board.groups.findIndex(group => group.id === groupCopy.id)
+			board.groups.splice(idx, 1, groupCopy)
+			this.updateBoard(board)
+		},
+		changeGroupsToShow(groupsToShow) {
+			this.groupsToShow = groupsToShow
+		}
+		,
+		setMenuToggler(boolean) {
+			this.menuToggler = boolean
+		}
 	},
-	async created() {
-		await this.loadBoard();
-		socketService.setup();
-		socketService.on("board updated", (board) => {
-			this.updateBoard(board);
-		});
-	},
-	destroyed() {
-		socketService.off("board updated", this.updateBoard);
-		socketService.terminate();
-	},
-	components: {
-		boardHeader,
+async created() {
+	document.addEventListener("mousedown", (ev) => {
+		if (!ev.target.closest(".quickmenu-popup")) {
+			this.menuToggler = false
+		}
+	})
+	await this.loadBoard();
+	socketService.setup();
+	socketService.on("board updated", (board) => {
+		this.updateBoard(board);
+	});
+},
+destroyed() {
+	socketService.off("board updated", this.updateBoard);
+	socketService.terminate();
+},
+components: {
+	boardHeader,
 		group,
 		draggable,
 		appHeader,
