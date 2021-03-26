@@ -24,7 +24,7 @@
         stop-propagation="true"
       >
         <group
-          v-for="(group,idx) in currBoard.groups"
+          v-for="(group, idx) in currBoard.groups"
           :key="group.id"
           :group="group"
           :board="currBoard"
@@ -256,7 +256,7 @@ export default {
           title: task.title,
         },
       });
-      await this.updateBoard(board);
+      this.updateBoard(board);
       socketService.emit("board update", board);
     },
     async changeBgc() {
@@ -269,11 +269,11 @@ export default {
     async draggingEnd() {
       const board = this.currBoard;
       board.groups = this.currBoard.groups;
-      await this.updateBoard(board);
+      this.updateBoard(board);
       socketService.emit("board update", board);
     },
     async draggedTask(board) {
-      await this.updateBoard(board);
+      this.updateBoard(board);
       socketService.emit("board update", board);
     },
     async changeTitle(newTitle, groupId) {
@@ -330,8 +330,8 @@ export default {
     setMenuToggler(boolean) {
       this.menuToggler = boolean;
     },
-    taskEdited(group,task){
-       const board = this.currBoard;
+    taskEdited(group, task) {
+      const board = this.currBoard;
       const groupIdx = board.groups.findIndex(
         (foundGroup) => group.id === foundGroup.id
       );
@@ -342,7 +342,7 @@ export default {
         group,
         task
       );
-      }
+    },
   },
   async created() {
     // document.addEventListener("mousedown", (ev) => {

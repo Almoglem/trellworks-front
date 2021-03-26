@@ -108,7 +108,7 @@
             <comments @postComment="logComment" />
             <activityLog
               class="task-details-activity"
-              :activities="getTaskActivity()"
+              :activities="taskActivity"
             />
           </section>
           <div class="action-bar flex column">
@@ -225,6 +225,16 @@ export default {
     };
   },
   computed: {
+    taskActivity() {
+      return this.currBoard.activities.filter((activity) => {
+        return (
+          (activity.task && activity.task.id === this.currTask.id) ||
+          (activity.task &&
+            activity.task.id === this.currTask.id &&
+            activity.isComment)
+        );
+      });
+    },
     currBoard() {
       return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
     },
@@ -255,9 +265,8 @@ export default {
     },
     async saveActivity(activityTitle, isComment = false) {
       try {
-        const activityTask = JSON.parse(JSON.stringify(this.currTask));
-        const board = this.currBoard;
-        board.activities.unshift({
+        const activityTask = this.currTask;
+        this.currBoard.activities.unshift({
           byMember: this.loggedInUser || { fullname: "Guest" },
           title: activityTitle,
           createdAt: Date.now(),
@@ -272,7 +281,10 @@ export default {
           },
           isComment,
         });
-        if (isComment) this.updateBoard(board);
+        if (isComment) {
+          this.updateBoard(this.currBoard);
+          this.updateBoardSocket(this.currBoard);
+        }
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
@@ -322,28 +334,33 @@ export default {
     closeModal() {
       this.$router.push(`/board/${this.$route.params.boardId}`);
     },
-    setHeight(popUpHeight){
-      this.popUpHeight = popUpHeight
-      if((this.currClientHeight - this.setPos.y) < this.popUpHeight) this.setPos.y -= popUpHeight / 2
-      if((this.currClientHeight - this.setPos.y) < this.popUpHeight && (this.currClientHeight + this.setPos.y) > this.popUpHeight) return
-      else this.setPos.y += popUpHeight / 2
+    setHeight(popUpHeight) {
+      this.popUpHeight = popUpHeight;
+      if (this.currClientHeight - this.setPos.y < this.popUpHeight)
+        this.setPos.y -= popUpHeight / 2;
+      if (
+        this.currClientHeight - this.setPos.y < this.popUpHeight &&
+        this.currClientHeight + this.setPos.y > this.popUpHeight
+      )
+        return;
+      else this.setPos.y += popUpHeight / 2;
     },
-		calcPos(ev) {
-      this.currClientHeight = ev.view.innerHeight
-			if (this.setPos.x) {
-        this.setPos.y = ev.pageY
-			} else {
+    calcPos(ev) {
+      this.currClientHeight = ev.view.innerHeight;
+      if (this.setPos.x) {
+        this.setPos.y = ev.pageY;
+      } else {
         if (this.currClientWidth !== ev.view.innerWidth) {
-          this.setPos.x = ev.pageX - 100
-				}
-				this.setPos.y = ev.pageY
-				this.setPos.x = ev.pageX - 100
-				this.currClientWidth = ev.view.innerWidth;
-			} 
-		},
+          this.setPos.x = ev.pageX - 100;
+        }
+        this.setPos.y = ev.pageY;
+        this.setPos.x = ev.pageX - 100;
+        this.currClientWidth = ev.view.innerWidth;
+      }
+    },
     togglePopUp(boolean, actionType, ev) {
-      this.openPopUp = false
-      setTimeout(() => { 
+      this.openPopUp = false;
+      setTimeout(() => {
         this.openPopUp = boolean;
       }, 0);
       this.currAction = actionType;
@@ -361,7 +378,7 @@ export default {
           (group) => group.id === this.currGroup.id
         );
         group.task.splice(taskIdx, 1);
-        await this.updateBoard(board);
+        this.updateBoard(board);
         this.isLoading = false;
         this.updateBoardSocket(board);
         this.$router.push("../");
@@ -406,7 +423,7 @@ export default {
         this.saveActivity(
           `changed the task "${oldTask.title}" to "${task.title}"`
         );
-      await this.updateBoard(this.currBoard);
+      this.updateBoard(this.currBoard);
       this.updateBoardSocket(this.currBoard);
     },
     updateTaskByKey(ev, task) {
@@ -414,19 +431,6 @@ export default {
         this.updateTask(task);
         return this.$refs.taskTitle.$el.blur();
       }
-    },
-    getTaskActivity() {
-      const filteredActivities = this.currBoard.activities.filter(
-        (activity) => {
-          return (
-            (activity.task && activity.task.id === this.currTask.id) ||
-            (activity.task &&
-              activity.task.id === this.currTask.id &&
-              activity.isComment)
-          );
-        }
-      );
-      return filteredActivities;
     },
     showProfile(member) {
       this.currMember = member;
@@ -494,7 +498,7 @@ export default {
     toggleLoader(condition) {
       this.isLoading = condition;
     },
-    logComment(commentTxt) {
+    async logComment(commentTxt) {
       this.saveActivity(commentTxt, true);
     },
   },
