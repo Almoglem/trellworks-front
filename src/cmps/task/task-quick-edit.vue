@@ -7,7 +7,9 @@
 		<section v-if="showModal"  class="quick-edit-modal">
 			<section class="quick-edit">
 				<p @click.stop="closeEdit">X</p>
-				<input type="text" />
+				<form @submit.prevent="updateTask">
+				<input type="text" v-model="taskToEdit.title" />
+				</form>
 				<div class="quick-edit-menu">
 					<ul>
 						<li>archive</li>
@@ -23,14 +25,23 @@
 
 <script>
 export default {
+	props:{
+		task: {
+			type:Object
+		}},
 	data() {
 		return {
-			showModal: true
+			showModal: true,
+			taskToEdit: JSON.parse(JSON.stringify(this.task))
 		}
 	},
 	methods: {
 		closeEdit() {
 			this.$emit('toggleEdit', false)
+		},
+		updateTask(){
+			const task=this.taskToEdit
+			this.$emit('quickEdited',task)
 		}
 	}
 }

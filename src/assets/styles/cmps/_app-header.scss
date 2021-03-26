@@ -1,7 +1,7 @@
 header {
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, .15);
+    background-color: rgba(0, 0, 0, 0.199);
     padding: 5px;
 
     a {
@@ -11,6 +11,7 @@ header {
     .main-logo {
         font-family: 'Megrim-Regular';
         font-size: 2rem;
+        font-weight: bold;
     }
 
     .header-avatar {

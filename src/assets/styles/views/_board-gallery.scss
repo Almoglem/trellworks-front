@@ -1,10 +1,11 @@
 .gallery {
-    background-color: $main-bgc;
+    background-color: $offwhite;
     padding-bottom: 50px;
 
     .board-header {
         justify-content: space-between;
-        height: 20%;
+        height: 30%;
+        backdrop-filter: blur(5px);
         background-color: #00000059;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
@@ -12,6 +13,7 @@
 
     .board-title {
         color: whitesmoke;
+        font-family: 'Quicksand-bold';
     }
 
     .board-list {
@@ -31,7 +33,7 @@
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: cover;
-        background-color: whitesmoke;
+        background-color: rgba(241, 236, 236, 0.637);
         height: 150px;
         border-radius: 8px;
         position: relative;
@@ -50,7 +52,16 @@
             opacity: 0;
             color: whitesmoke;
         }
+    }
 
+    .add-board-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .fa-plus {
+            font-size: 3rem;
+        }
     }
 
     h4 {

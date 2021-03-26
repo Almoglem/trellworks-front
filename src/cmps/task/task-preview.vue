@@ -8,7 +8,7 @@
     :style="bgcToShow"
     :class="setCoverImgFull"
   >
-    <quick-edit @toggleEdit="toggleEdit" :task="task" v-if="showEdit"/>
+    <quick-edit @quickEdited="taskEdited" @toggleEdit="toggleEdit" :task="task" v-if="showEdit"/>
     <div class="top-cover" v-if="task.cover.src && typeTop">
       <div
         class="cover-color"
@@ -199,6 +199,9 @@ export default {
     updateDueDate(task) {
       this.$emit("updateDueDate", task);
     },
+    taskEdited(task){
+this.$emit("taskEdited",task)
+      }
   },
   created() {},
   components: {

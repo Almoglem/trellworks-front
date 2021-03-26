@@ -34,6 +34,7 @@
 					:task="task"
 					:groupId="group.id"
 					@updateDueDate="updatedDueDate"
+					@taskEdited="taskEdited"
 				/>
 			</draggable>
 
@@ -177,6 +178,13 @@ export default {
 		},
 		itemsDragged() {
 			this.$emit("taskDragged", this.board);
+		},
+		taskEdited(task){
+			const group = JSON.parse(JSON.stringify(this.group));
+			const taskIdx = group.task.findIndex(groupTask => groupTask.id === task.id)
+			group.task.splice(taskIdx, 1, task)
+			this.$emit('taskEdited', group, task)
+
 		},
 		updatedDueDate(task) {
 			const group = JSON.parse(JSON.stringify(this.group));
