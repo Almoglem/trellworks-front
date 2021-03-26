@@ -1,17 +1,22 @@
-.homepage-content {
+.home {
+    background-color: #87c4ae;
+}
+
+.page-content {
     padding-bottom: 40px;
-    background-color: $main-bgc;
+    background-color: $offwhite;
 }
 
 .main-img {
     width: 50%;
     height: auto;
+    margin-top: 50px;
 }
 
 .action-call {
-    color: #e9f1e5;
+    color: $offwhite;
     font-weight: bold;
-    background-color: #64916a;
+    background-color: #5a917e;
     padding: 8px;
     border-radius: 5px;
 }
