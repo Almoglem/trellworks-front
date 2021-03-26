@@ -34,8 +34,6 @@
 					@titleChange="changeTitle"
 					@toggleTaskCompletion="toggleTaskCompleted"
 					@sortGroup="saveGroupSort"
-					@setToggler="setMenuToggler"
-					:menuToggler="menuToggler"
 				/>
 			</draggable>
 			<span>
@@ -321,11 +319,11 @@ export default {
 		}
 	},
 async created() {
-	document.addEventListener("mousedown", (ev) => {
-		if (!ev.target.closest(".quickmenu-popup")) {
-			this.menuToggler = false
-		}
-	})
+	// document.addEventListener("mousedown", (ev) => {
+	// 	if (!ev.target.closest(".quickmenu-popup")) {
+	// 		this.menuToggler = false
+	// 	}
+	// })
 	await this.loadBoard();
 	socketService.setup();
 	socketService.on("board updated", (board) => {

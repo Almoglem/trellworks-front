@@ -1,5 +1,6 @@
 <template>
 	<section>
+		<div class="pop-up-window" v-if="openPopUp" @click="openPopUp = false"></div>
 		<div class="group handle" v-if="group">
 			<section class="flex group-header transition">
 				<textarea-autosize
@@ -16,7 +17,7 @@
 				<p @click="toggleEditter" class="clean-input group-title" v-else>
 					{{ group.title }}
 				</p>
-				<span @click.stop="toggleMenu(true, $event)" class="group-header-trash"
+				<span @click.stop="togglePopUp(true, $event)" class="group-header-trash"
 					><i class="fas fa-ellipsis-h"></i>
 				</span>
 			</section>
@@ -67,7 +68,7 @@
 			class="quickmenu-popup"
 			:style="setCurrPos"
 			@closePopUp="togglePopUp(false)"
-			v-if="menuToggler"
+			v-if="openPopUp"
 		>
 			<template v-slot:header>Options</template>
 			<section v-if="sortVisible">
