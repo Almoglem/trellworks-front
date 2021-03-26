@@ -2,8 +2,16 @@
     background-color: $main-bgc;
     padding-bottom: 50px;
 
-    h1 {
-        color: white;
+    .board-header {
+        justify-content: space-between;
+        height: 20%;
+        background-color: #00000059;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .board-title {
+        color: whitesmoke;
     }
 
     .board-list {
@@ -32,9 +40,15 @@
             opacity: 80%;
             cursor: pointer;
 
-            .icons {
+            .fa-trash-alt {
                 opacity: 100%;
             }
+
+        }
+
+        .fa-trash-alt {
+            opacity: 0;
+            color: whitesmoke;
         }
 
     }
@@ -46,17 +60,7 @@
     }
 }
 
-.board-preview {
-    background-color: rgb(75, 191, 107);
-    border-radius: 10px;
-    cursor: pointer;
-    color: white;
 
-    &:hover {
-        opacity: 80%;
-    }
-
-    h2 {
-        margin: 10px 0 0 5px;
-    }
+h2 {
+    margin: 10px 0 0 5px;
 }

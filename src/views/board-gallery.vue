@@ -10,13 +10,13 @@
               :style="getBackground(board.styles)"
               class="transition placeholder-preview"
             >
-              <h4>{{ board.title }}</h4>
-              <span class="flex icons">
+              <div class="board-header flex">
+                <span class="board-title">{{ board.title }}</span>
                 <i
-                  @click.prevent="removeBoard(board._id)"
+                  @click.stop="removeBoard(board._id)"
                   class="far fa-trash-alt transition"
                 ></i>
-              </span>
+              </div>
             </div>
           </span>
         </section>
@@ -32,13 +32,13 @@
               :style="getBackground(board.styles)"
               class="transition placeholder-preview"
             >
-              <h4>{{ board.title }}</h4>
-              <span class="flex icons">
+              <div class="board-header flex">
+                <span class="board-title">{{ board.title }}</span>
                 <i
-                  @click.prevent="removeBoard(board._id)"
+                  @click.stop="removeBoard(board._id)"
                   class="far fa-trash-alt transition"
                 ></i>
-              </span>
+              </div>
             </div>
           </span>
         </section>
