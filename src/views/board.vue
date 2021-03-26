@@ -11,6 +11,7 @@
 			@boardTitleUpdated="updateBoardTitle"
 			@changeBgc="bgcChanged"
 			@updateBoard="updateBoard"
+			@filterBoard="changeGroupsToShow"
 		/>
 		<div class="flex board group-container" v-dragscroll:firstchilddrag>
 			<draggable
@@ -23,7 +24,7 @@
 				stop-propagation="true"
 			>
 				<group
-					v-for="group in board.groups"
+					v-for="group in currBoard.groups"
 					:key="group.id"
 					:group="group"
 					:board="board"
@@ -87,6 +88,7 @@ export default {
 			isLoading: false,
 			showGroupToAdd: false,
 			groupTitleToAdd: "",
+			groupsToShow:[]
 		};
 	},
 	computed: {
@@ -305,11 +307,13 @@ export default {
       const idx = board.groups.findIndex(group => group.id === groupCopy.id)
     board.groups.splice(idx,1,groupCopy)
     this.updateBoard(board)
-    }
+    },
+	changeGroupsToShow(groupsToShow){
+    this.groupsToShow= groupsToShow
+	}
 	},
 	async created() {
 		await this.loadBoard();
-		console.log(this.currBoard.styles);
 		socketService.setup();
 		socketService.on("board updated", (board) => {
 			this.updateBoard(board);
