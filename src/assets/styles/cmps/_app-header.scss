@@ -20,8 +20,8 @@ header {
 
     .pop-up {
         position: fixed;
-        right: -44px;
-        top: 115px;
+        right: -117px;
+        top: 144px;
         z-index: 11;
 
     }
@@ -29,22 +29,46 @@ header {
 
 .about-user {
     width: 100%;
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 0 10px;
 
     .profile {
         display: flex;
+        justify-content: space-between;
 
         .name-profile {
             display: flex;
             flex-direction: column;
             margin-left: 7px;
+            justify-content: center;
 
-            span {}
+
 
             small {
                 margin-right: 7px;
             }
 
+        }
+
+        .avatar-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: 9px;
+        }
+    }
+
+    .link {
+        margin: 0 7px;
+        padding: 4px;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .04);
+        }
+
+        a {
+            color: #516079;
         }
     }
 }

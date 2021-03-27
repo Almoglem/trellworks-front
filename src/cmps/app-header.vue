@@ -22,7 +22,7 @@
         :username="loggedInUser.fullname"
       ></avatar>
 
-      <button class="header-btn" @click="doLogout">Log Out</button>
+      <!-- <button class="header-btn" @click="doLogout">Log Out</button> -->
     </div>
     <section v-else class="nav-side-buttons header-btn transition">
       <router-link to="/login">Log in </router-link>
@@ -32,7 +32,11 @@
       <hr />
       <ul class="about-user">
         <li class="profile">
-          <div>
+          <div class="name-profile">
+            <span>{{ loggedInUser.fullname }}</span>
+            <small>User since: </small>
+          </div>
+          <div class="avatar-profile">
             <img
               v-if="loggedInUser.profileImg"
               class="user-profileimg"
@@ -52,12 +56,11 @@
               @change="updateProfileImage"
             />
           </div>
-          <div class="name-profile">
-            <span>{{ loggedInUser.fullname }}</span>
-            <small>Created at: </small>
-          </div>
+        </li> 
+        <hr>
+        <li class="link">
+          <a @click="doLogout">Log out</a>
         </li>
-        <li>log out will be here</li>
       </ul>
     </section>
     <div
