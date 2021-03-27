@@ -222,7 +222,7 @@ export default {
         this.popUpHeight = this.$refs.inviteMembers.clientHeight;
         this.calcPos(ev);
         if (this.currClientHeight - this.setPos.y < this.popUpHeight)
-          this.setPos.y -= this.popUpHeight / 2;
+          this.setPos.y -= 50
         if (
           this.currClientHeight - this.setPos.y < this.popUpHeight &&
           this.currClientHeight + this.setPos.y > this.popUpHeight
@@ -232,13 +232,13 @@ export default {
       }, 0);
     },
     calcPos(ev) {
-      this.currClientHeight = ev.view.innerHeight;
-      if (this.currClientWidth !== ev.view.innerWidth) {
-        this.setPos.x = ev.pageX + 150;
-      }
-      this.setPos.y = ev.pageY;
-      this.setPos.x = ev.pageX + 150;
-      this.currClientWidth = ev.view.innerWidth;
+		this.currClientHeight = ev.view.innerHeight;
+		this.currClientWidth = ev.view.innerWidth;
+		if (this.currClientWidth !== ev.view.innerWidth) {
+			this.setPos.x = ev.pageX + 150;
+		}
+		this.setPos.y = ev.pageY;
+		this.setPos.x = ev.pageX + 150;
     },
     toggleBoardMember(user, ev) {
       const foundIdx = this.currBoard.members.findIndex(
