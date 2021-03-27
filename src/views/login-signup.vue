@@ -118,7 +118,7 @@ export default {
 
     profileToShow() {
       return this.signupCred.profileImg;
-    },
+    }
   },
   created() {
     this.loadUsers();
