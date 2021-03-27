@@ -29,7 +29,7 @@
 					:group="group"
 					:board="currBoard"
 					:groupIdx="idx"
-          style="height:fit-content"
+					style="height: fit-content"
 					@taskDragged="draggedTask"
 					@removeGroup="removeGroup"
 					@addTask="addTask"
@@ -345,15 +345,31 @@ export default {
 			);
 		},
 		postNotification(activity) {
+			if (!this.loggedInUser) return
 			const user = this.loggedInUser
 			if (user.notifications) {
 				user.notifications.alerts.push(activity)
-        	user.notifications.board = this.currBoard._id
-			this.$store.dispatch({
-				type: "updateUser",
-				user,
-			});
+				const title = activity.title
+        const push = ` ${activity.byMember.fullname} ${activity.title}`
+				// if (title.includes("added the task"))this.pushNotification(push) || title.includes( "added the group" )|| title.includes("posted a comment ")  || title.includes("replied to a comment " ) ||title.includes( "added a due date to " )||title.includes( "removed an attachment")) 
+				this.$store.dispatch({
+					type: "updateUser",
+					user,
+				});
 			}
+		},
+		pushNotification(msg, timer = 2500) {
+			Swal.fire({
+				position: "bottom-end",
+				title: msg,
+				showConfirmButton: false,
+				timer: timer,
+				timerProgressBar: true,
+				allowOutsideClick: true,
+				html: '',
+				toast: true,
+				animation: true,
+			});
 		}
 	},
 	async created() {
@@ -372,25 +388,18 @@ export default {
 			this.postNotification(activity)
 		})
 		if (!user === [] || user) {
+			if (user.notifications.board._id !== this.currBoard._id) user.notifications.alerts = []
 			user.notifications.board = this.currBoard._id
 			this.$store.dispatch({
 				type: "updateUser",
 				user,
 			});
+			if (user.notifications.alerts.length > 1) this.pushNotification(`There were ${user.notifications.alerts.length} changes to this board since you last viewed it`, 3500)
 		}
 	},
 	destroyed() {
 		socketService.off("board updated", this.updateBoard);
 		socketService.off("add notification", this.postNotification)
-		const user = this.loggedInUser
-		if (!user === [] || user) {
-			user.notifications.board = null
-      user.notifications.alerts=[]
-			this.$store.dispatch({
-				type: "updateUser",
-				user,
-			});
-		}
 		socketService.terminate();
 	},
 	components: {
