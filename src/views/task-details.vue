@@ -374,6 +374,7 @@ export default {
 				return;
 			else this.setPos.y += popUpHeight / 2;
 			if(this.setPos.x + 150 < this.popUpWidth) this.setPos.x += 300
+			if(this.currClientWidth < 426) this.setPos.x = this.currClientWidth / 2
 		},
 		calcPos(ev) {
 			this.currClientHeight = ev.view.innerHeight;

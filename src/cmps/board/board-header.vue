@@ -147,7 +147,7 @@ export default {
 			memberSearchTxt: "",
 			setPos: { x: 0, y: 0 },
 			currClientHeight: 0,
-			popUpHeight: 0
+			popUpHeight: 0,
 		};
 	},
 	computed: {
@@ -202,6 +202,8 @@ export default {
 			}, 0);
 		},
 		showUsers(ev) {
+			this.memberSearchTxt = ''
+			console.log(ev.pageY)
 			this.userWindow = !this.userWindow;
 			setTimeout(() => {
 				this.popUpHeight = this.$refs.inviteMembers.clientHeight;
@@ -224,16 +226,17 @@ export default {
 			this.setPos.y = ev.pageY;
 			this.setPos.x = ev.pageX + 150;
 			this.currClientWidth = ev.view.innerWidth;
-		
 		},
-		toggleBoardMember(user) {
+		toggleBoardMember(user, ev) {
 			const foundIdx = this.currBoard.members.findIndex(
 				(member) => member._id === user._id
 			);
 			if (foundIdx !== -1) {
+				this.setPos.y -= 19
 				this.currBoard.members.splice(foundIdx, 1);
 				return this.$emit("updateBoard", this.currBoard);
 			}
+			this.setPos.y += 19
 			this.currBoard.members.push(user);
 			this.$emit("updateBoard", this.currBoard);
 		},

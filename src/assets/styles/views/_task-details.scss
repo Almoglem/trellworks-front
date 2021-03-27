@@ -282,6 +282,12 @@
                 }
             }
 
+            .action-bar ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
             .task-details-main .details-body {
                 grid-template-columns: 1fr 5rem;
             }
