@@ -320,7 +320,7 @@ export default {
 			try {
 				const activityTask = this.currTask;
 				const activity = {
-					byMember: this.loggedInUser || { fullname: "Guest" },
+					byMember: this.loggedInUser || { fullname: "Guest", _id:"000" },
 					title: activityTitle,
 					createdAt: Date.now(),
 					group: {
