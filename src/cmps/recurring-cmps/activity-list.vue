@@ -2,7 +2,7 @@
 	<section class="activity-log">
 		<i class="far fa-list-alt fa-lg"></i>
 		<h2 class="details-title">Activity Log</h2>
-		<span v-if="showToggleComments " class="flex activitylog-commenttoggle">
+		<span v-if="showToggleComments" class="flex activitylog-commenttoggle">
 			<h3 class="uppercase-title">Show Comments</h3>
 			<el-switch
 				v-model="showComments"
@@ -10,7 +10,6 @@
 				inactive-color="#eaecf0"
 				@change="toggleComments"
 		/></span>
-
 		<section
 			v-for="activity in activities"
 			:key="activity.id"
@@ -22,17 +21,7 @@
 				:class="{ comment: activity.isComment }"
 			>
 				<span class="avatar">
-					<img
-						v-if="activity.byMember.profileImg"
-						class="user-profileimg"
-						:src="activity.byMember.profileImg"
-						alt=""
-					/>
-					<avatar
-						v-else
-						:size="30"
-						:username="activity.byMember.fullname"
-					></avatar>
+					<userPic :user="activity.byMember" :size="30" />
 				</span>
 				<span class="flex activity-details">
 					<span>
@@ -65,17 +54,7 @@
 					style="margin-top: 0"
 				>
 					<span class="avatar">
-						<img
-							v-if="reply.byMember.profileImg"
-							class="user-profileimg"
-							:src="reply.byMember.profileImg"
-							alt=""
-						/>
-						<avatar
-							v-else
-							:size="30"
-							:username="reply.byMember.fullname"
-						></avatar>
+					<userPic :user="reply.byMember" :size="30" />
 					</span>
 					<span class="flex activity-details">
 						<span>
@@ -96,7 +75,8 @@
 
 <script>
 import moment from "moment";
-import Avatar from "vue-avatar";
+import userPic from "./user-pic.vue";
+
 
 export default {
 	props: {
@@ -122,6 +102,6 @@ export default {
 			this.$emit('toggleComments', this.showComments)
 		}
 	},
-	components: { Avatar },
+	components: { userPic },
 };
 </script>

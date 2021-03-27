@@ -21,15 +21,16 @@
 					class="clickable transition board-header-avatar"
 					@click="showProfile(user)"
 				>
-					<span @click="currMember = user">
+					<!-- <span @click="currMember = user">
 						<img
 							v-if="user.profileImg"
 							class="user-profileimg"
 							:src="user.profileImg"
 							alt=""
 						/>
-						<avatar v-else :size="30" :username="user.fullname"></avatar>
-					</span>
+						<avatar v-else :size="30" :username="user.fullname"></avatar> -->
+					<!-- </span> -->
+					<userPic @userClicked="currMember = user" :user="user" :size="30" />
 				</span>
 				<memberProfile
 					:currMember="currMember"
@@ -43,7 +44,12 @@
 			Dashboard
 		</button>
 		<dashboard v-if="dashboardShown"></dashboard>
-		<el-badge v-if="userAlerts>0" :value="userAlerts" :max="10" class="item menu-alert" />
+		<el-badge
+			v-if="userAlerts > 0"
+			:value="userAlerts"
+			:max="10"
+			class="item menu-alert"
+		/>
 		<button @click="toggleMenu" class="header-btn">Show Menu</button>
 		<transition name="slide-from-right">
 			<boardMenu
@@ -79,13 +85,7 @@
 						class="search-members flex"
 					>
 						<span class="flex">
-							<img
-								v-if="user.profileImg"
-								class="user-profileimg"
-								:src="user.profileImg"
-								alt=""
-							/>
-							<avatar v-else :size="30" :username="user.fullname"></avatar>
+							<userPic :user="user" :size="30" />
 							<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
 						</span>
 						{{ user.fullname }}
@@ -99,13 +99,7 @@
 						class="search-members flex"
 					>
 						<span class="flex">
-							<img
-								v-if="user.profileImg"
-								class="user-profileimg"
-								:src="user.profileImg"
-								alt=""
-							/>
-							<avatar v-else :size="30" :username="user.fullname"></avatar>
+							<userPic :user="user" :size="30" />
 							<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
 						</span>
 						{{ user.fullname }}
@@ -121,13 +115,7 @@
 					@click="toggleBoardMember(user)"
 				>
 					<span class="flex">
-						<img
-							v-if="user.profileImg"
-							class="user-profileimg"
-							:src="user.profileImg"
-							alt=""
-						/>
-						<avatar v-else :size="30" :username="user.fullname"></avatar>
+							<userPic :user="user" :size="30"/>
 						<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
 					</span>
 					{{ user.fullname }}
@@ -142,7 +130,7 @@ import boardMenu from "./menu.vue";
 import dashboard from "./dashboard.vue";
 import { utilService } from "@/services/util.service.js";
 import memberProfile from "../recurring-cmps/user-miniprofile.vue";
-import Avatar from "vue-avatar";
+import userPic from "../recurring-cmps/user-pic.vue";
 
 export default {
 	data() {
@@ -197,7 +185,7 @@ export default {
 	methods: {
 		updateUserAlerts() {
 			const user = this.loggedInUser
-      if(!user || user === []) return
+			if (!user || user === []) return
 			if (user.notifications) this.userAlerts = user.notifications.alerts.length
 		},
 		bgcChanged() {
@@ -276,6 +264,7 @@ export default {
 		toggleMenu() {
 			this.menuShown = !this.menuShown
 			const user = this.loggedInUser
+			if(!user||user===[])return
 			if (user.notifications) {
 				user.notifications.alerts = []
 				this.$store.dispatch({
@@ -299,6 +288,6 @@ export default {
 	destroyed() {
 		this.memberSearchTxt = "";
 	},
-	components: { boardMenu, Avatar, memberProfile, dashboard },
+	components: { boardMenu, memberProfile, dashboard, userPic },
 };
 </script>

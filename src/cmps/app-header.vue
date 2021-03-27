@@ -8,19 +8,8 @@
     </router-link>
     
     <div class="flex" v-if="loggedInUser">
-      <img
-        v-if="loggedInUser.profileImg"
-        @click="togglePopUp(true)"
-        class="user-profileimg"
-        :src="loggedInUser.profileImg"
-        alt=""
-      />
-      <avatar
-        v-else
-        @click.native="togglePopUp(true)"
-        :size="30"
-        :username="loggedInUser.fullname"
-      ></avatar>
+							<userPic :user="loggedInUser" />
+
 
       <!-- <button class="header-btn" @click="doLogout">Log Out</button> -->
     </div>
@@ -72,9 +61,10 @@
   </header>
 </template>
 <script>
-import Avatar from "vue-avatar";
 import { uploadImg } from "@/services/img-upload.service";
 import loader from "@/cmps/recurring-cmps/loader";
+import userPic from "./recurring-cmps/user-pic.vue";
+
 export default {
   data() {
     return {
@@ -122,7 +112,7 @@ export default {
       }
     },
   },
-  components: { Avatar, loader },
+  components: { loader,userPic },
   created() {
     console.log(this.loggedInUser);
   },
