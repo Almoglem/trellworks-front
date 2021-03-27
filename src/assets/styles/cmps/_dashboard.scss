@@ -6,4 +6,10 @@
     z-index: 2;
     background-color: $offwhite;
     padding: 10px;
+
+    .chart {
+        height: 200px;
+        width: 200px;
+        display: inline-block
+    }
 }

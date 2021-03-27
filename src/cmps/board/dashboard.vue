@@ -5,10 +5,16 @@
     <span>{{ currBoard.members.length }} members</span> |
     <span>{{ tasksLength }} tasks</span> |
     <span>{{ currBoard.activities.length }} activities</span>
-    <h5>tasks per group</h5>
-    <tasksPerGroupChart :board="currBoard" />
-    <h5>tasks per member</h5>
-    <tasksPerMemberChart :board="currBoard" />
+    <div class="chart-container flex">
+      <div>
+        <h5>tasks per group</h5>
+        <tasksPerGroupChart :board="currBoard" class="chart" />
+      </div>
+      <div>
+        <h5>tasks per member</h5>
+        <tasksPerMemberChart :board="currBoard" class="chart" />
+      </div>
+    </div>
   </section>
 </template>
 
