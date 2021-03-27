@@ -7,12 +7,16 @@
     <span>{{ currBoard.activities.length }} activities</span>
     <h5>tasks per group</h5>
     <tasksPerGroupChart :board="currBoard" />
+    <h5>tasks per member</h5>
+    <tasksPerMemberChart :board="currBoard" />
   </section>
 </template>
 
 <script>
 import moment from "moment";
 import tasksPerGroupChart from "./tasks-per-group-chart";
+import tasksPerMemberChart from "./tasks-per-member-chart";
+
 export default {
   props: {},
   computed: {
@@ -39,6 +43,6 @@ export default {
       return moment(date).format("DD.MM.YYYY");
     },
   },
-  components: { tasksPerGroupChart },
+  components: { tasksPerGroupChart, tasksPerMemberChart },
 };
 </script>

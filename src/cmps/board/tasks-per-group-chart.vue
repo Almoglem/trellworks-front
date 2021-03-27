@@ -8,18 +8,14 @@ export default {
   extends: Pie,
   computed: {
     groupTitles() {
-      let titles = [];
-      for (let i = 0; i < this.board.groups.length; i++) {
-        titles.push(this.board.groups[i].title);
-      }
-      return titles;
+      return this.board.groups.map((group) => {
+        return group.title;
+      });
     },
     tasksPerGroup() {
-      let counts = [];
-      for (let i = 0; i < this.board.groups.length; i++) {
-        counts.push(this.board.groups[i].task.length);
-      }
-      return counts;
+      return this.board.groups.map((group) => {
+        return group.task.length;
+      });
     },
   },
   mounted() {
@@ -29,7 +25,21 @@ export default {
         datasets: [
           {
             label: "tasks per group",
-            backgroundColor: ["#C7CEEA", "#B5EAD7", "#FFDAC1", " #FFB7B2"],
+            backgroundColor: [
+              "#d6b0b1",
+              "#8b5e83",
+              "#ffdcb8",
+              "#b67171",
+              "#6f9eaf",
+              "#d0af84",
+              "#62959c",
+              "#c7cfb7",
+              "#bb8082",
+              "#d0af84",
+              "#6e7c7c",
+              "#dddddd",
+              "#91684a",
+            ],
             data: this.tasksPerGroup,
           },
         ],
