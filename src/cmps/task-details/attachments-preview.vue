@@ -4,9 +4,11 @@
     <h1 class="details-title">Attachments</h1>
     <section class="attachments-thumbnail">
       <div class="image-preview" v-for="img in task.imgs" :key="img.id">
-        <div class="image-cover clickable">
-          <img @click="showImage(true, img)" class="img" :src="img.src" />
+        <div class="image-cover clickable" @click="test(img)">
+          <img v-if="!img.isNote" @click="showImage(true, img)" class="img" :src="img.src" />
+          <img v-else :src="`data:image/png;base64,${img.src}`" alt=""/>
         </div>
+        
         <div class="image-details">
           <p class="image-name">{{ img.name }}</p>
           <small
@@ -56,6 +58,9 @@ export default {
   },
   computed: {},
   methods: {
+    test(img){
+      console.log(img);
+    },
     editImg() {
       this.imgToEdit.name = this.txtToEdit;
       this.editToggler = false;
@@ -85,7 +90,7 @@ export default {
       if (img.src === this.task.cover.src) {
         return this.$emit("setCover", false, "");
       }
-      this.$emit("setCover", true, img.src);
+      this.$emit("setCover", true, img);
     },
     moment: function () {
       return moment();

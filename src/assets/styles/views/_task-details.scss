@@ -14,14 +14,13 @@
     .task-details {
         position: relative;
         width: 768px;
-        border-radius: 2px;
+        border-radius: 3px;
         background-color: #F4F5F7;
         margin: 48px 0 80px;
 
         .cover {
             height: 116px;
             width: 100%;
-            border-radius: 3px;
         }
 
         .cover-image {
@@ -243,6 +242,18 @@
 
 .el-picker-panel {
     background-color: whitesmoke;
+}
+
+.canvas {
+    .canvas-config {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .el-select {
+            width: 55%;
+        }
+    }
 }
 
 

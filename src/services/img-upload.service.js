@@ -11,14 +11,26 @@ export const uploadImg = async (ev) => {
     FORM_DATA.append('upload_preset', UPLOAD_PRESET)
     // Sending a post method request to Cloudniarys' API
     try {
-         const res = await axios.post(UPLOAD_URL, FORM_DATA)
-         return res.data;
+        const res = await axios.post(UPLOAD_URL, FORM_DATA)
+        return res.data;
     } catch (err) {
         console.error('ERROR!', err)
     }
 }
 
+export const uploadCanvas = async (img) => {
+    const UPLOAD_PRESET = 'ywe6lwct' // Insert yours
+    const CLOUD_NAME = 'dklqusztc' // Insert yours
+    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+    
+    try {
+        const res = await axios.post(UPLOAD_URL, img)
+        return res.data;
+    } catch (err) {
+        console.error('ERROR!', err)
+    }
 
+}
 
 
 

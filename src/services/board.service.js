@@ -96,7 +96,8 @@ function getEmptyTask() {
         description: '',
         checklists: [],
         members: [],
-        imgs: [],
+        imgs: [
+        ],
         cover: {
             isImg: false,
             type: 'top',

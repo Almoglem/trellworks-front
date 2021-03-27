@@ -15,7 +15,8 @@
 				class="cover-image"
 				v-if="currTask.cover.src && currTask.cover.isImg"
 			>
-				<img :src="currTask.cover.src" />
+				<img v-if="!currTask.cover.isNote" :src="currTask.cover.src" />
+				<img v-else :src="`data:image/png;base64,${currTask.cover.src}`" />
 			</div>
 			<div class="task-details-main">
 				<div class="details-header">
@@ -543,10 +544,12 @@ export default {
 				animation: true,
 			});
 		},
-		setCoverImg(toggler, imgSrc) {
+		setCoverImg(toggler, img) {
 			const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
 			taskToEdit.cover.isImg = toggler;
-			taskToEdit.cover.src = imgSrc;
+			taskToEdit.cover.src = img.src;
+			if(img.isNote) taskToEdit.cover.isNote = true
+			else taskToEdit.cover.isNote = false
 			if (!toggler) taskToEdit.cover.type = "top";
 			this.updateTask(taskToEdit);
 		},
@@ -567,6 +570,7 @@ export default {
 		socketService.on("board updated", (board) => {
 			this.updateBoard(board);
 		});
+		console.log(this.currTask);
 	},
 	components: {
 		popUp,

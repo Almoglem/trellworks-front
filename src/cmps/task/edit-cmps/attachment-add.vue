@@ -36,6 +36,7 @@ export default {
   methods: {
     async addFilePc(ev) {
       try {
+        console.log(ev);
         this.$emit("toggleLoader", true);
         const imgUploaded = await uploadImg(ev);
         const img = {
@@ -43,11 +44,13 @@ export default {
           src: imgUploaded.url,
           name: `${imgUploaded.original_filename}.${imgUploaded.format}`,
           createdAt: Date.now(),
+          isNote: false
         };
         if (!this.taskToEdit.cover.src) {
           this.taskToEdit.cover.src = img.src;
           this.taskToEdit.cover.type = "top";
           this.taskToEdit.cover.isImg = true;
+          this.taskToEdit.cover.isNote = false;
         }
         this.taskToEdit.imgs.unshift(img);
         this.$emit(
@@ -83,11 +86,13 @@ export default {
             src: this.urlToUpload,
             name: `Your Image`,
             createdAt: Date.now(),
+            isNote: false
           };
           if (!this.taskToEdit.cover.src) {
             this.taskToEdit.cover.src = img.src;
             this.taskToEdit.cover.type = "top";
             this.taskToEdit.cover.isImg = true;
+            this.taskToEdit.cover.isNote = false;
           }
           this.taskToEdit.imgs.unshift(img);
           console.log(this.taskToEdit, 'from attachmetn');
