@@ -1,15 +1,18 @@
 <template>
   <section class="dashboard-container">
     <h1>This board's stats</h1>
-    <p>Created at {{ currBoard.createdAt }} (use moment JS here)</p>
-    <p>{{ currBoard.members.length }} members</p>
-    <p>{{ tasksLength }} tasks</p>
-    <p>{{ currBoard.activities.length }} activities</p>
-    <!-- {{ currBoard }} -->
+    <span>Created at {{ boardCreatedAt }} </span> |
+    <span>{{ currBoard.members.length }} members</span> |
+    <span>{{ tasksLength }} tasks</span> |
+    <span>{{ currBoard.activities.length }} activities</span>
+    <h5>tasks per group</h5>
+    <tasksPerGroupChart :board="currBoard" />
   </section>
 </template>
 
 <script>
+import moment from "moment";
+import tasksPerGroupChart from "./tasks-per-group-chart";
 export default {
   props: {},
   computed: {
@@ -24,8 +27,18 @@ export default {
       }
       return count;
     },
+    boardCreatedAt() {
+      return this.time(this.$store.getters.currBoard.createdAt);
+    },
   },
-  methods: {},
-  components: {},
+  methods: {
+    moment: function () {
+      return moment();
+    },
+    time(date) {
+      return moment(date).format("DD.MM.YYYY");
+    },
+  },
+  components: { tasksPerGroupChart },
 };
 </script>
