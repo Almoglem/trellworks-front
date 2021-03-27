@@ -349,14 +349,16 @@ export default {
 			const user = this.loggedInUser
 			if (user.notifications) {
 				user.notifications.alerts.push(activity)
-				user.notifications.board = this.currBoard._id
+				const title = activity.title
+        const push = ` ${activity.byMember.fullname} ${activity.title}`
+				// if (title.includes("added the task"))this.pushNotification(push) || title.includes( "added the group" )|| title.includes("posted a comment ")  || title.includes("replied to a comment " ) ||title.includes( "added a due date to " )||title.includes( "removed an attachment")) 
 				this.$store.dispatch({
 					type: "updateUser",
 					user,
 				});
 			}
 		},
-		pushNotification(msg,timer=2500) {
+		pushNotification(msg, timer = 2500) {
 			Swal.fire({
 				position: "bottom-end",
 				title: msg,
@@ -386,12 +388,13 @@ export default {
 			this.postNotification(activity)
 		})
 		if (!user === [] || user) {
+			if (user.notifications.board._id !== this.currBoard._id) user.notifications.alerts = []
 			user.notifications.board = this.currBoard._id
 			this.$store.dispatch({
 				type: "updateUser",
 				user,
 			});
-			if (user.notifications.alerts.length > 1) this.pushNotification(`There were ${user.notifications.alerts.length} changes to this board since you last viewed it`,3500)
+			if (user.notifications.alerts.length > 1) this.pushNotification(`There were ${user.notifications.alerts.length} changes to this board since you last viewed it`, 3500)
 		}
 	},
 	destroyed() {
