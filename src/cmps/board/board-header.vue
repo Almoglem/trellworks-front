@@ -55,7 +55,7 @@
 			:class="{ 'pop-up-window': userWindow }"
 			@mousedown.self="userWindow = !userWindow"
 		>
-			<div v-if="userWindow" class="pop-up">
+			<div v-if="userWindow" :style="setCurrPos" ref="inviteMembers" class="pop-up">
 				<h3 class="pop-up-title">Invite to board</h3>
 				<hr />
 				<input
@@ -145,6 +145,9 @@ export default {
 			currMember: null,
 			userWindow: false,
 			memberSearchTxt: "",
+			setPos: { x: 0, y: 0 },
+			currClientHeight: 0,
+			popUpHeight: 0
 		};
 	},
 	computed: {
@@ -169,7 +172,10 @@ export default {
 				randomUsers.push(this.users[utilService.getRandomInt(0, this.users.length)])
 			}
 			return randomUsers
-		}
+		},
+		setCurrPos() {
+			return { left: this.setPos.x + "px", top: this.setPos.y + "px" };
+		},
 	},
 	methods: {
 		bgcChanged() {
@@ -195,8 +201,31 @@ export default {
 				this.$refs.titleInput.focus();
 			}, 0);
 		},
-		showUsers() {
+		showUsers(ev) {
 			this.userWindow = !this.userWindow;
+			setTimeout(() => {
+				this.popUpHeight = this.$refs.inviteMembers.clientHeight;
+				// console.log(this.$refs.inviteMembers.clientHeight, 'popupheight');
+				this.calcPos(ev)
+				if (this.currClientHeight - this.setPos.y < this.popUpHeight)
+					this.setPos.y -= this.popUpHeight / 2;
+				if (
+					this.currClientHeight - this.setPos.y < this.popUpHeight &&
+					this.currClientHeight + this.setPos.y > this.popUpHeight
+				)
+					return;
+				else this.setPos.y += this.popUpHeight / 2;
+			}, 0);
+		},
+		calcPos(ev) {
+			this.currClientHeight = ev.view.innerHeight;
+			if (this.currClientWidth !== ev.view.innerWidth) {
+				this.setPos.x = ev.pageX + 150;
+			}
+			this.setPos.y = ev.pageY;
+			this.setPos.x = ev.pageX + 150;
+			this.currClientWidth = ev.view.innerWidth;
+		
 		},
 		toggleBoardMember(user) {
 			const foundIdx = this.currBoard.members.findIndex(
