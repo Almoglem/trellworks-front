@@ -35,7 +35,7 @@ function remove(userId) {
 
 async function update(userToUpdate) {
     // return storageService.put('user', user)
-    if (getLoggedinUser()._id === userToUpdate._id) _saveLocalUser(userToUpdate)
+     if (getLoggedinUser()._id === userToUpdate._id) _saveLocalUser(userToUpdate)
     return httpService.put(`user/${userToUpdate._id}`, userToUpdate)
 }
 

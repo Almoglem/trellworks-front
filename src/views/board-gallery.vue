@@ -113,7 +113,7 @@ export default {
       }
     },
     async createBoard() {
-      const loggedUser = this.loggedInUser || { fullname: "Guest" };
+      const loggedUser = this.loggedInUser || { fullname: "Guest" ,_id:"000"};
       await this.$store.dispatch({
         type: "newBoard",
         loggedUser,
