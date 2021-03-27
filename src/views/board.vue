@@ -350,7 +350,7 @@ export default {
 			if (user.notifications) {
 				user.notifications.alerts.push(activity)
 				const title = activity.title
-        const push = ` ${activity.byMember.fullname} ${activity.title}`
+				const push = ` ${activity.byMember.fullname} ${activity.title}`
 				// if (title.includes("added the task"))this.pushNotification(push) || title.includes( "added the group" )|| title.includes("posted a comment ")  || title.includes("replied to a comment " ) ||title.includes( "added a due date to " )||title.includes( "removed an attachment")) 
 				this.$store.dispatch({
 					type: "updateUser",
@@ -384,10 +384,11 @@ export default {
 		socketService.on("board updated", (board) => {
 			this.updateBoard(board);
 		});
-		socketService.on("add notification", (activity) => {
-			this.postNotification(activity)
-		})
+
 		if (!user === [] || user) {
+			socketService.on("add notification", (activity) => {
+				this.postNotification(activity)
+			})
 			if (user.notifications.board._id !== this.currBoard._id) user.notifications.alerts = []
 			user.notifications.board = this.currBoard._id
 			this.$store.dispatch({
