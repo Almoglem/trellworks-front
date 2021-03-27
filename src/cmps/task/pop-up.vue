@@ -17,7 +17,8 @@ export default {
     },  
     data(){
         return {
-            popUpHeight: 0
+            popUpHeight: 0,
+            popUpWidth: 0
         }
     },
     computed: {
@@ -30,7 +31,7 @@ export default {
         },
         setHeight(){
             this.popUpHeight = this.$refs.popUp.clientHeight;
-
+            this.popUpWidth = this.$refs.popUp.clientWidth;
         }
     },
     watch: {
@@ -41,7 +42,7 @@ export default {
     mounted(){
         console.log('hey');
         this.setHeight()
-        this.$emit('setHeight', this.popUpHeight)
+        this.$emit('setHeight', this.popUpHeight, this.popUpWidth)
     }
 }
 </script>

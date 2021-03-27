@@ -106,6 +106,26 @@
         .avatar {
             padding-right: 6px;
         }
+
+    }
+}
+
+.add-member-label {
+    cursor: pointer;
+    font-size: 16px;
+    height: 32px;
+    line-height: 16px;
+    padding: 8px;
+    color: #6d7a8f;
+    border-radius: 50%;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(9, 30, 66, .04);
+
+    &:hover {
+        background-color: rgba(9, 30, 66, .08);
     }
 }
 

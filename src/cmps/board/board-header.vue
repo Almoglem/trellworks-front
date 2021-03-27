@@ -205,7 +205,6 @@ export default {
 			this.userWindow = !this.userWindow;
 			setTimeout(() => {
 				this.popUpHeight = this.$refs.inviteMembers.clientHeight;
-				// console.log(this.$refs.inviteMembers.clientHeight, 'popupheight');
 				this.calcPos(ev)
 				if (this.currClientHeight - this.setPos.y < this.popUpHeight)
 					this.setPos.y -= this.popUpHeight / 2;

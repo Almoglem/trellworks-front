@@ -64,16 +64,18 @@
       @click="togglePopUp(false)"
       class="pop-up-window"
     ></div>
+    <loader v-if="isLoading" />
   </header>
 </template>
 <script>
 import Avatar from "vue-avatar";
 import { uploadImg } from "@/services/img-upload.service";
-
+import loader from "@/cmps/recurring-cmps/loader";
 export default {
   data() {
     return {
       popUpToggle: false,
+      isLoading: false
     };
   },
   computed: {
@@ -90,6 +92,7 @@ export default {
       this.popUpToggle = toggler;
     },
     async updateProfileImage(ev) {
+      this.isLoading = true
       try {
         const imgUploaded = await uploadImg(ev);
         this.loggedInUser.profileImg = imgUploaded.url;
@@ -98,11 +101,24 @@ export default {
           user: this.loggedInUser,
         });
       } catch (err) {
-        console.log(err);
+          Swal.fire({
+            position: "bottom-end",
+            title: "Sorry, There was a problem with uploading your image.",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              title: "error",
+              popup: "error",
+            },
+            toast: true,
+            animation: true,
+          });
+      } finally {
+        this.isLoading = false
       }
     },
   },
-  components: { Avatar },
+  components: { Avatar, loader },
   created() {
     console.log(this.loggedInUser);
   },

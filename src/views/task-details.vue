@@ -60,6 +60,7 @@
 												:size="32"
 											></avatar></span
 									></span>
+									<span @click.stop="togglePopUp(true, actions[0], $event)" class="add-member-label"><i class="fas fa-plus"></i></span>
 									<memberProfile
 										v-if="showMemberProfile"
 										:currMember="currMember"
@@ -76,6 +77,7 @@
 										:labelId="labelId"
 										:currBoard="currBoard"
 									/>
+									<span @click.stop="togglePopUp(true, actions[1], $event)" class="add-member-label"><i class="fas fa-plus"></i></span>
 								</span>
 							</div>
 						</div>
@@ -226,6 +228,7 @@ export default {
 			openPopUp: false,
 			isLoading: false,
 			setPos: { x: 0, y: 0 },
+			currClientWidth: 0,
 			currClientHeight: 0,
 			popUpHeight: 0,
 			commentToReply: null
@@ -359,8 +362,9 @@ export default {
 		closeModal() {
 			this.$router.push(`/board/${this.$route.params.boardId}`);
 		},
-		setHeight(popUpHeight) {
+		setHeight(popUpHeight, popUpWidth) {
 			this.popUpHeight = popUpHeight;
+			this.popUpWidth = popUpWidth;
 			if (this.currClientHeight - this.setPos.y < this.popUpHeight)
 				this.setPos.y -= popUpHeight / 2;
 			if (
@@ -369,19 +373,20 @@ export default {
 			)
 				return;
 			else this.setPos.y += popUpHeight / 2;
+			if(this.setPos.x + 150 < this.popUpWidth) this.setPos.x += 300
 		},
 		calcPos(ev) {
 			this.currClientHeight = ev.view.innerHeight;
-			if (this.setPos.x) {
-				this.setPos.y = ev.pageY;
-			} else {
+			this.currClientWidth = ev.view.innerWidth;
+			// if (this.setPos.x) {
+			// 	this.setPos.y = ev.pageY;
+			// } else {
 				if (this.currClientWidth !== ev.view.innerWidth) {
-					this.setPos.x = ev.pageX - 100;
+					this.setPos.x = ev.pageX - 150;
 				}
 				this.setPos.y = ev.pageY;
-				this.setPos.x = ev.pageX - 100;
-				this.currClientWidth = ev.view.innerWidth;
-			}
+				this.setPos.x = ev.pageX - 150;
+			// }
 		},
 		togglePopUp(boolean, actionType, ev) {
 			this.openPopUp = false;
