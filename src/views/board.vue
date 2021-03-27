@@ -99,7 +99,7 @@ export default {
       return this.$route.params.boardId;
     },
     loggedInUser() {
-      return this.$store.getters.loggedinUser;
+      return JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
     },
     showAdd() {
       return { "show-add": this.showGroupToAdd };
@@ -355,6 +355,12 @@ export default {
     socketService.on("board updated", (board) => {
       this.updateBoard(board);
     });
+    const user = this.loggedInUser
+    user.notifications.board = this.currBoard._id
+    this.$store.dispatch({
+          type: "updateUser",
+          user,
+        });
   },
   destroyed() {
     socketService.off("board updated", this.updateBoard);
