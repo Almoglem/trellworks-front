@@ -181,6 +181,7 @@ import checklistAdd from "@/cmps/task/edit-cmps/checklist-add";
 import taskDueDate from "@/cmps/task/edit-cmps/due-date";
 import taskAttachment from "@/cmps/task/edit-cmps/attachment-add";
 import taskCover from "@/cmps/task/edit-cmps/cover-picker";
+import taskCanvas from "@/cmps/task/edit-cmps/canvas"
 import activityLog from "@/cmps/recurring-cmps/activity-list";
 import popUp from "@/cmps/task/pop-up";
 import attachmentsPreview from "@/cmps/task-details/attachments-preview.vue";
@@ -233,6 +234,11 @@ export default {
 					type: "taskCover",
 					iconClass: "fas fa-square",
 				},
+				{
+					txt: "Canvas",
+					type: "taskCanvas",
+					iconClass: "fas fa-palette"
+				}
 			],
 			currAction: null,
 			openPopUp: false,
@@ -574,6 +580,7 @@ export default {
 		taskAttachment,
 		taskDueDate,
 		taskCover,
+		taskCanvas,
 		Avatar,
 		memberProfile,
 		attachmentsPreview,
