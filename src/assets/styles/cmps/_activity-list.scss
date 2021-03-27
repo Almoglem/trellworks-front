@@ -1,5 +1,10 @@
   .activity-log {
       position: relative;
+      .activitylog-commenttoggle{
+          align-items: flex-end;
+          width: 35%;
+          justify-content: space-between;
+      }
   }
 
   .activity {
@@ -17,9 +22,4 @@
   .avatar {
       padding-right: 15px;
 
-  }
-
-  .task-details-activity {
-      //   max-height: 50vh;
-      //   overflow-y: auto;
   }
