@@ -4,8 +4,9 @@ import {router} from './router'
 import {store} from './store/store'
 import './assets/styles/main.scss'
 import draggable from 'vuedraggable'
-import ElementUI from 'element-ui'
+import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
+import 'element-ui/lib/theme-chalk/index.css';
 import VueDragscroll from 'vue-dragscroll'
 import TextareaAutosize from 'vue-textarea-autosize'
  

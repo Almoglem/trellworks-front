@@ -2,6 +2,7 @@
 	<section>
 		<!-- <div
       :class="{ 'pop-up-window': userWindow }"
+	  style="background-color:green"
       @mousedown.self="closeEdit"
     ></div> -->
 		<section v-if="showModal"  class="quick-edit-modal">

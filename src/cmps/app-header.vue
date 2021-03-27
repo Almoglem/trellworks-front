@@ -6,6 +6,7 @@
     <router-link to="/">
       <span class="main-logo" aria-label="logo">Trellworks</span>
     </router-link>
+    
     <div class="flex" v-if="loggedInUser">
       <img
         v-if="loggedInUser.profileImg"

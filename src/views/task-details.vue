@@ -60,7 +60,11 @@
 												:size="32"
 											></avatar></span
 									></span>
-									<span @click.stop="togglePopUp(true, actions[0], $event)" class="add-member-label"><i class="fas fa-plus"></i></span>
+									<span
+										@click.stop="togglePopUp(true, actions[0], $event)"
+										class="add-member-label"
+										><i class="fas fa-plus"></i
+									></span>
 									<memberProfile
 										v-if="showMemberProfile"
 										:currMember="currMember"
@@ -77,7 +81,11 @@
 										:labelId="labelId"
 										:currBoard="currBoard"
 									/>
-									<span @click.stop="togglePopUp(true, actions[1], $event)" class="add-member-label"><i class="fas fa-plus"></i></span>
+									<span
+										@click.stop="togglePopUp(true, actions[1], $event)"
+										class="add-member-label"
+										><i class="fas fa-plus"></i
+									></span>
 								</span>
 							</div>
 						</div>
@@ -117,6 +125,8 @@
 							@replyClicked="setCommentToReply"
 							class="task-details-activity"
 							:activities="taskActivity"
+							:showToggleComments="true"
+							@toggleComments="toggleShowComments"
 						/>
 					</section>
 					<div class="action-bar flex column">
@@ -231,20 +241,28 @@ export default {
 			currClientWidth: 0,
 			currClientHeight: 0,
 			popUpHeight: 0,
-			commentToReply: null
+			commentToReply: null,
+			showComments:true
 		};
 	},
 	computed: {
 		taskActivity() {
-			return this.currBoard.activities.filter((activity) => {
+			const showComments = this.showComments
+			if (showComments === true ){return this.currBoard.activities.filter((activity) => {
 				return (
-					(activity.task && activity.task.id === this.currTask.id) && !activity.title.includes("a comment ") && !activity.isComment||
+					(activity.task && activity.task.id === this.currTask.id) && !activity.title.includes("a comment ") && !activity.isComment ||
 					(activity.task &&
 						activity.task.id === this.currTask.id &&
 						activity.isComment)
 				);
-			});
-		},
+			})}
+			else {return this.currBoard.activities.filter((activity) => {
+				return (
+					(activity.task && activity.task.id === this.currTask.id) &&  !activity.isComment && !activity.title.includes("a comment "))
+				
+			})}
+			}
+		,
 		currBoard() {
 			return JSON.parse(JSON.stringify(this.$store.getters.currBoard));
 		},
@@ -268,17 +286,20 @@ export default {
 		},
 	},
 	methods: {
+		toggleShowComments(boolean){
+        this.showComments = boolean
+		},
 		postReply(txt) {
 			const comment = this.commentToReply
 			comment.replies.push({
 				title: txt,
-				byMember: this.loggedInUser || {fullname: 'Guest'},
+				byMember: this.loggedInUser || { fullname: 'Guest' },
 				createdAt: Date.now(),
 			})
-      this.saveActivity(`replied to a comment on "${this.currTask.title}"` );
+			this.saveActivity(`replied to a comment on "${this.currTask.title}"`);
 			this.updateBoard(this.currBoard);
 			this.updateBoardSocket(this.currBoard);
-      this.commentToReply=null
+			this.commentToReply = null
 		},
 		setCommentToReply(commentId) {
 			if (commentId === 'off') this.commentToReply = null
@@ -382,11 +403,11 @@ export default {
 			// if (this.setPos.x) {
 			// 	this.setPos.y = ev.pageY;
 			// } else {
-				if (this.currClientWidth !== ev.view.innerWidth) {
-					this.setPos.x = ev.pageX - 150;
-				}
-				this.setPos.y = ev.pageY;
+			if (this.currClientWidth !== ev.view.innerWidth) {
 				this.setPos.x = ev.pageX - 150;
+			}
+			this.setPos.y = ev.pageY;
+			this.setPos.x = ev.pageX - 150;
 			// }
 		},
 		togglePopUp(boolean, actionType, ev) {
@@ -530,7 +551,7 @@ export default {
 			this.isLoading = condition;
 		},
 		async logComment(commentTxt) {
-      this.saveActivity(`posted a comment to "${this.currTask.title}"` );
+			this.saveActivity(`posted a comment to "${this.currTask.title}"`);
 			this.saveActivity(commentTxt, true);
 		},
 	},
