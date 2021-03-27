@@ -80,13 +80,16 @@
         position: absolute;
         top: 15px;
     }
-    .search-task-item{
+
+    .search-task-item {
         width: 90%;
-        height:95px;
-        h4{
+        height: 95px;
+
+        h4 {
             margin: 8px 0;
         }
-        p{
+
+        p {
             font-size: 14px;
         }
     }
@@ -200,13 +203,17 @@ hr {
 
     padding: 5px;
     padding-left: 8px;
-
+.menu-alert{
+    margin: -14px -14px 0 0 ;
+}
     .pop-up {
         top: 215px;
         left: 484px;
         padding-bottom: 10px;
+        max-height: 500px;
+        overflow-y: auto;
 
-        input {
+        max input {
             width: 84%;
         }
 
@@ -228,7 +235,7 @@ hr {
 
 
     }
-    
+
 }
 
 .pop-up-window {

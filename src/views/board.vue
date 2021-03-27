@@ -29,6 +29,7 @@
 					:group="group"
 					:board="currBoard"
 					:groupIdx="idx"
+          style="height:fit-content"
 					@taskDragged="draggedTask"
 					@removeGroup="removeGroup"
 					@addTask="addTask"
@@ -347,6 +348,11 @@ export default {
 			const user = this.loggedInUser
 			if (user.notifications) {
 				user.notifications.alerts.push(activity)
+        	user.notifications.board = this.currBoard._id
+			this.$store.dispatch({
+				type: "updateUser",
+				user,
+			});
 			}
 		}
 	},
