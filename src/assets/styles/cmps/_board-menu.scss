@@ -203,37 +203,45 @@ hr {
 
     padding: 5px;
     padding-left: 8px;
-.menu-alert{
-    margin: -14px -14px 0 0 ;
-}
-    .pop-up {
-        top: 215px;
-        left: 484px;
-        padding-bottom: 10px;
-        max-height: 500px;
-        overflow-y: auto;
 
-        max input {
-            width: 84%;
-        }
+    .menu-alert {
+        margin: -14px -14px 0 0;
+    }
 
-        li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
+    .pop-up-window {
 
-            i {
+      
+
+        .pop-up {
+            padding-bottom: 10px;
+            height: 500px;
+            max-height: 500px;
+            overflow-y: auto;
+            // transform: unset;
+            // position: unset;
+
+            input {
+                width: 84%;
+            }
+
+            li {
                 display: flex;
                 align-items: center;
-                margin-left: 11px;
+                margin-bottom: 8px;
+
+                i {
+                    display: flex;
+                    align-items: center;
+                    margin-left: 11px;
+                }
             }
+
+            & li:first-of-type {
+                margin-top: 5px;
+            }
+
+
         }
-
-        & li:first-of-type {
-            margin-top: 5px;
-        }
-
-
     }
 
 }

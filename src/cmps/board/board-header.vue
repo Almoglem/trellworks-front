@@ -92,35 +92,42 @@
 						{{ user.fullname }}
 					</li>
 				</span>
-				<ul class="search-users-list">
-					<li
-						v-for="user in filteredMembers"
-						@click="toggleBoardMember(user)"
-						:key="user._id"
-						class="search-members flex"
-					>
-						<span class="flex">
-							<userPic :user="user" :size="30" />
-							<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
-						</span>
-						{{ user.fullname }}
-					</li>
-				</ul>
+				
+					<div>
+						<li
+							v-for="user in filteredMembers"
+							@click="toggleBoardMember(user)"
+							:key="user._id"
+							class="search-members flex"
+						>
+							<span class="flex">
+								<userPic :user="user" :size="30" />
+								<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
+							</span>
+							{{ user.fullname }}
+						</li>
+
+					</div>
+			
 
 				<hr />
 				<h3 class="pop-up-title">In This Board</h3>
-				<li
-					v-for="(user, idx) in boardMembers"
-					:key="idx"
-					class="search-members flex"
-					@click="toggleBoardMember(user)"
-				>
-					<span class="flex">
-							<userPic :user="user" :size="30"/>
-						<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
-					</span>
-					{{ user.fullname }}
-				</li>
+				<div>
+					<li
+						v-for="(user, idx) in boardMembers"
+						:key="idx"
+						class="search-members flex"
+						@click="toggleBoardMember(user)"
+					>
+						<span class="flex">
+								<userPic :user="user" :size="30"/>
+							<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
+						</span>
+						{{ user.fullname }}
+						<span v-if="!boardMembers.length">Currently no users</span>
+					</li>
+
+				</div>
 			</div>
 		</div>
 	</div>
@@ -241,11 +248,9 @@ export default {
 				(member) => member._id === user._id
 			);
 			if (foundIdx !== -1) {
-				this.setPos.y -= 19;
 				this.currBoard.members.splice(foundIdx, 1);
 				return this.$emit("updateBoard", this.currBoard);
 			}
-			this.setPos.y += 19;
 			this.currBoard.members.push(user);
 			this.$emit("updateBoard", this.currBoard);
 		},
