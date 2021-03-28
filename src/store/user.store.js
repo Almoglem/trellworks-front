@@ -45,7 +45,6 @@ export const userStore = {
                 commit({ type: 'setUser', user })
                 return user;
             } catch (err) {
-                console.log('userStore: Error in signup', err)
                 throw err
             }
 
