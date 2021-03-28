@@ -7,16 +7,32 @@
     background-color: $offwhite;
 }
 
-.main-img {
-    width: 50%;
+.home-hero {
+    width:90%;
     height: auto;
-    margin-top: 50px;
+    margin: 50px auto;
 }
 
-.action-call {
-    color: $offwhite;
-    font-weight: bold;
-    background-color: #5a917e;
-    padding: 8px;
-    border-radius: 5px;
+.cta {
+    font-family: "Quicksand-bold";
+    position: absolute;
+    top: 185px;
+    right: 565px;
+
+    h1 {
+        padding: 5%;
+        width: 370px;
+    }
+
+    .action-call {
+        color: $offwhite;
+        font-weight: bold;
+        background-color: #f6b54c;
+        padding: 18px 33px;
+        border-radius: 5px;
+        &:hover{
+            color: #fff;
+        }
+
+    }
 }

@@ -9,6 +9,8 @@ import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 import VueDragscroll from 'vue-dragscroll'
 import TextareaAutosize from 'vue-textarea-autosize'
+import "@lottiefiles/lottie-player";
+
  
 Vue.use(TextareaAutosize)
 Vue.use(VueDragscroll)
