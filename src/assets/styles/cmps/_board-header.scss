@@ -21,12 +21,6 @@
 
         h2 {
             color: white;
-            margin-left: 0;
-        }
-
-        input {
-            width: 200px;
-            color: white;
         }
 
         .avatars-show {
@@ -44,6 +38,18 @@
         }
     }
 
+    .clean-input {
+        min-width: 1%;
+        max-width: 100%;
+        width: 30%;
+        box-sizing: content-box;
+        color: white;
+        display: block;
+        font-size: 1.5em;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+        font-weight: bold;
+    }
 }
 
 .user-profileimg {
@@ -59,21 +65,30 @@
             h2 {
                 font-size: 1rem;
             }
-
-            .avatars-show {
-                display: none;
-            }
         }
     }
 }
 
+.show-menu:after {
+    content: 'Show Menu'
+}
+
+.invite-members:after {
+    content: 'Invite';
+}
+
 @media only screen and (max-width: 580px) {
-    .show-menu {
-        visibility: hidden;
+    .show-menu:after {
+        font-family: "FontAwesome";
+        content: '\f141';
     }
 
-    .show-menu:after {
-        content: 'hi';
-        visibility: visible;
+    .invite-members:after {
+        font-family: "FontAwesome";
+        content: '\f234';
+    }
+
+    .avatars-show {
+        display: none;
     }
 }
