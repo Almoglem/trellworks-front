@@ -363,13 +363,11 @@ export default {
 					const recentNotif = user.notifications.alerts[0]
 					if (recentNotif.id === activity.id || activity.byMember._id === user._id) return
 				}
-		    	 user.notifications.alerts.push(activity)
-				const title = activity.title
-				const push = ` ${activity.byMember.fullname} ${activity.title}`
-				switch (title) {
-					case title.includes(): {
-						break
-					}
+				let title = activity.title
+				let push = ` ${activity.byMember.fullname} ${title}`
+				if (activity.isComment) push = ` ${activity.byMember.fullname} posted a comment on ${activity.task.title}`
+				user.notifications.alerts.push(activity)
+				switch (activity) {
 					default: {
 						this.pushNotification(push)
 						break;
