@@ -5,6 +5,9 @@
             <canvas @mousedown="startPainting" 
             @mouseup="finishedPainting"
             @mousemove="draw"
+            @touchstart="startPaintingMobile"
+            @touchend="finishedPainting"
+            @touchmove="drawMobile"
             height="330" width="277" style="border: 1px solid black;" 
             id="canvas"></canvas>
         </div> 
@@ -23,7 +26,6 @@
                 <button  @click="downloadImg" class="btn-success">Save note</button>
             </div>
         </div>
-<!-- EDIT PICTURES -->
   </section>
 </template>
 
@@ -59,12 +61,17 @@ export default {
         this.painting = true;
         this.draw(e)
         },
+        startPaintingMobile(e){
+          this.painting = true;
+          this.drawMobile(e)  
+        },
         finishedPainting() {
         this.painting = false;
         this.ctx.beginPath()
         },
         draw(e) {
             if(!this.painting) return
+            console.log('heyy from draw');
             this.ctx.strokeStyle = this.currColor
             this.ctx.lineWidth = this.currWidth
             this.ctx.lineCap ="round"
@@ -74,6 +81,25 @@ export default {
 
             this.ctx.beginPath()
             this.ctx.moveTo(e.offsetX,e.offsetY)
+        },
+        drawMobile(ev){
+            if(!this.painting) return
+            ev.preventDefault();
+            console.log(pc.getTouchTargetCoords(ev.changedTouches[0]));
+            ev = ev.changedTouches[0];
+            
+            const pos = {
+                x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+                y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+            };
+            this.ctx.strokeStyle = this.currColor
+            this.ctx.lineWidth = this.currWidth
+            this.ctx.lineCap ="round"
+    
+            this.ctx.lineTo(pos.x, pos.y)
+            this.ctx.stroke()
+            this.ctx.beginPath()
+            this.ctx.moveTo(pos.x, pos.y)            
         },
         downloadImg() {
             try {
