@@ -86,7 +86,7 @@ export const boardStore = {
                 const foundBoard = await boardService.getById(boardId);
                 commit({ type: 'setBoard', board: foundBoard })
             } catch (err) {
-                console.log('reviewStore: Error in loadReviews', err)
+                console.log('Error loading your board', err)
                 throw err.message
             }
         },

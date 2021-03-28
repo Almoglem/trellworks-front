@@ -34,13 +34,7 @@ export default {
             this.popUpWidth = this.$refs.popUp.clientWidth;
         }
     },
-    watch: {
-        '$refs.popUp.clientHeight'(){
-            console.log('watch from clientheight');
-        }
-    },
     mounted(){
-        console.log('hey');
         this.setHeight()
         this.$emit('setHeight', this.popUpHeight, this.popUpWidth)
     }

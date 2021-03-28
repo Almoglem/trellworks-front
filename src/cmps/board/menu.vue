@@ -192,7 +192,6 @@ export default {
       this.$emit("bgcChanged");
     },
     setBoardGradient(gradient) {
-      console.log(gradient);
       this.currBoard.styles.backgroundColor = "";
       this.currBoard.styles.backgroundGradient = gradient;
       this.currBoard.styles.backgroundImage = "";

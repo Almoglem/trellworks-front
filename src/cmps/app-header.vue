@@ -82,7 +82,6 @@ export default {
       this.$store.dispatch({ type: "logout" });
     },
     togglePopUp(toggler) {
-      console.log("hi");
       this.popUpToggle = toggler;
     },
     async updateProfileImage(ev) {
@@ -114,7 +113,6 @@ export default {
   },
   components: { loader,userPic },
   created() {
-    console.log(this.loggedInUser);
   },
 };
 </script>

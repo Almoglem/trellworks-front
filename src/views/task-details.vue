@@ -98,6 +98,7 @@
 							@editImg="editImg"
 							@removeImg="removeImg"
 							@setCover="setCoverImg"
+							@renderCanvas="renderCanvas"
 							:task="currTask"
 							@logActivity="saveActivity"
 						/>
@@ -153,8 +154,9 @@
 									@updateTask="updateTask"
 									@logActivity="saveActivity"
 									@close="togglePopUp(false)"
-									:task="currTask"
 									@toggleLoader="toggleLoader"
+									:task="currTask"
+									:canvasImgSetup="canvasImgSetup"
 								/>
 							</pop-up>
 						</ul>
@@ -247,7 +249,8 @@ export default {
 			currClientHeight: 0,
 			popUpHeight: 0,
 			commentToReply: null,
-			showComments:true
+			showComments:true,
+			canvasImgSetup: false
 		};
 	},
 	computed: {
@@ -391,13 +394,15 @@ export default {
 		setHeight(popUpHeight, popUpWidth) {
 			this.popUpHeight = popUpHeight;
 			this.popUpWidth = popUpWidth;
+			console.log(popUpHeight);
 			if (this.currClientHeight - this.setPos.y < this.popUpHeight)
 				this.setPos.y -= popUpHeight / 2;
+			// if(this.currAction.type === 'taskCanvas') this.setPos.y += 70
 			if (
 				this.currClientHeight - this.setPos.y < this.popUpHeight &&
 				this.currClientHeight + this.setPos.y > this.popUpHeight
 			)
-				return;
+				return
 			else this.setPos.y += popUpHeight / 2;
 			if(this.setPos.x + 150 < this.popUpWidth) this.setPos.x += 300
 			if(this.currClientWidth < 426) this.setPos.x = this.currClientWidth / 2
@@ -423,7 +428,7 @@ export default {
 			this.currAction = actionType;
 			if (boolean) {
 				this.calcPos(ev);
-			}
+			} else this.canvasImgSetup = false
 		},
 		async removeTask() {
 			try {
@@ -519,7 +524,7 @@ export default {
 		},
 		removeImg(img) {
 			const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
-			const foundIdx = taskToEdit.imgs.findIndex((img) => img.id === img.id);
+			const foundIdx = taskToEdit.imgs.findIndex((currImg) => currImg.id === img.id);
 			if (foundIdx < 0) return console.log("couldnt find idx");
 			taskToEdit.imgs.splice(foundIdx, 1);
 			if (img.src === taskToEdit.cover.src)
@@ -561,6 +566,10 @@ export default {
 			this.saveActivity(`posted a comment to "${this.currTask.title}"`);
 			this.saveActivity(commentTxt, true);
 		},
+		renderCanvas(img, ev){
+			this.canvasImgSetup = img
+			this.togglePopUp(true, this.actions[6], ev)
+		}
 	},
 	created() {
 		this.$store.commit({ type: "setTask", taskId: this.taskId });
@@ -568,7 +577,6 @@ export default {
 		socketService.on("board updated", (board) => {
 			this.updateBoard(board);
 		});
-		console.log(this.currTask);
 	},
 	components: {
 		popUp,

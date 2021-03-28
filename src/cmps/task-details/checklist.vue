@@ -126,12 +126,10 @@ export default {
       this.isAddingItem = false;
       this.todoToAdd.id = utilService.makeId();
       this.checklist.todos.push(this.todoToAdd);
-      console.log("before emit");
       this.$emit(
         "logActivity",
         `added item "${this.todoToAdd.title}" in the checklist "${this.checklist.title}"`
       );
-      console.log("after emit");
       this.updateTask();
       this.todoToAdd = { title: "", isDone: false };
       this.isAddingItem = true;

@@ -178,7 +178,6 @@ export default {
 			return { left: this.setPos.x + "px", top: this.setPos.y + "px" };
 		},
 		loggedInUser() {
-			console.log('!!');
 			return JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
 		},
 
@@ -214,7 +213,6 @@ export default {
 		},
 		showUsers(ev) {
 			this.memberSearchTxt = "";
-			console.log(ev.pageY);
 			this.userWindow = !this.userWindow;
 			setTimeout(() => {
 				this.popUpHeight = this.$refs.inviteMembers.clientHeight;

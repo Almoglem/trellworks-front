@@ -22,7 +22,6 @@ export default ({
 	},
     computed: {
 		loggedInUser() {
-			console.log('!!');
 			return JSON.parse(JSON.stringify(this.$store.getters.loggedinUser));
 		},
 	},
@@ -32,7 +31,6 @@ userClicked(){
 }
     },
     created(){
-console.log(this.size);
     },
 	components: {
 		Avatar
