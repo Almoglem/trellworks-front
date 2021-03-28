@@ -5,7 +5,7 @@
   "scripts": {
     "start": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build --dest ../backend/public"
   },
   "dependencies": {
     "@lottiefiles/lottie-player": "^0.5.1",
