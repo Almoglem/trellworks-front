@@ -361,7 +361,6 @@ export default {
 			if (user.notifications) {
 				if (user.notifications.alerts.length) {
 					const recentNotif = user.notifications.alerts[0]
-					console.log(recentNotif);
 					if (recentNotif.id === activity.id || activity.byMember._id === user._id) return
 				}
 		    	 user.notifications.alerts.push(activity)
