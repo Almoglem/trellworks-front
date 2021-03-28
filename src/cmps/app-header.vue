@@ -32,9 +32,9 @@
 								@change="updateProfileImage"
 							/>
 						</div>
-					</li>
+					
 					<hr />
-					<li>
+					
 						<button class="btn-gray" @click="doLogout">Log Out</button>
 					</li>
 				</ul>
