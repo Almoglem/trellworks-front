@@ -67,6 +67,7 @@
                 :size="20"
                 :username="member.fullname"
               ></avatar>
+              
             </span>
           </span>
         </div>

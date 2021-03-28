@@ -55,12 +55,10 @@
 										:key="member._id"
 										@click="showProfile(member)"
 									>
-										<span @click="currMember = member"
-											><avatar
-												:username="member.fullname"
-												:size="32"
-											></avatar></span
-									></span>
+										<span @click="currMember = member">
+													<userPic :user="member" :size="32" />
+									</span>
+									</span>
 									<span
 										@click.stop="togglePopUp(true, actions[0], $event)"
 										class="add-member-label"
@@ -191,13 +189,13 @@ import dueDateDetails from "@/cmps/task-details/due-date-details.vue";
 import labelsPreview from "../cmps/task-details/labels-preview.vue";
 import taskDescription from "../cmps/task-details/task-description.vue";
 import checklist from "../cmps/task-details/checklist";
-import Avatar from "vue-avatar";
 import memberProfile from "../cmps/recurring-cmps/user-miniprofile.vue";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { socketService } from "@/services/socket.service";
 import { utilService } from "@/services/util.service";
 import loader from "@/cmps/recurring-cmps/loader";
+import userPic from "@/cmps/recurring-cmps/user-pic.vue";
 
 export default {
 	data() {
@@ -585,7 +583,7 @@ export default {
 		taskDueDate,
 		taskCover,
 		taskCanvas,
-		Avatar,
+		userPic,
 		memberProfile,
 		attachmentsPreview,
 		dueDateDetails,

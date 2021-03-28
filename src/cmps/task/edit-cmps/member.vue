@@ -13,7 +13,7 @@
 			class="flex member-list"
 			@click="addMember(member)"
 		>
-			<avatar :size="40" :username="member.fullname"></avatar>
+			<userPic :user="member" :size="40" />
 			<p>{{ member.fullname }}</p>
 			<i v-if="checkIfMemberExists(member)" class="far fa-check-square"></i>
 			<i v-else class="far fa-square"></i>
@@ -21,7 +21,7 @@
 	</section>
 </template>
 <script>
-import Avatar from "vue-avatar";
+import userPic from "../../recurring-cmps/user-pic.vue";
 
 export default {
 	props: {
@@ -63,6 +63,6 @@ export default {
 		this.filterMembers()
 
 	},
-	components: { Avatar }
+	components: { userPic }
 }
 </script>
