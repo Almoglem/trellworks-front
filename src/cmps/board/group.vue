@@ -128,7 +128,8 @@ export default {
 			openPopUp: false,
 			sortVisible: null,
 			setPos: { x: 0, y: 0 },
-
+			currClientWidth: 0,
+			popUpWidth: 200
 		};
 	},
 	computed: {
@@ -170,6 +171,8 @@ export default {
 		async addTaskByKey(ev, groupId) {
 			if (ev.keyCode === 13 && this.taskToAdd.title.length <= 1) return
 			if (ev.keyCode === 13) {
+				console.log(this.taskToAdd);
+				this.taskToAdd.title = this.taskToAdd.title.slice(0,this.taskToAdd.title.length-1)
 				this.$emit("addTask", this.taskToAdd, groupId);
 				this.taskToAdd = boardService.getEmptyTask();
 				this.isAddingTask = true;
@@ -205,21 +208,21 @@ export default {
 		togglePopUp(boolean, ev) {
 			this.openPopUp = boolean;
 			this.$emit('setToggler', boolean)
+			console.log(ev);
 			if (boolean) {
 				this.calcPos(ev)
 			}
 		},
 		calcPos(ev) {
-			if (this.setPos.x) {
-				this.setPos.y = ev.pageY;
-			} else {
-				if (this.currClientWidth !== ev.view.innerWidth) {
-					this.setPos.x = ev.pageX
-				}
-				this.setPos.y = ev.pageY
+			if (this.currClientWidth !== ev.view.innerWidth) {
 				this.setPos.x = ev.pageX
-				this.currClientWidth = ev.view.innerWidth;
 			}
+			this.setPos.y = ev.pageY
+			this.setPos.y += 113
+			this.setPos.x = ev.pageX 
+			this.setPos.x += 100
+			this.currClientWidth = ev.view.innerWidth;
+			if((this.currClientWidth - this.setPos.x) < this.popUpWidth) this.setPos.x -= 200
 		},
 		sortGroup(sortBy) {
 			let groupCopy = JSON.parse(JSON.stringify(this.group))

@@ -5,6 +5,7 @@
 		<span v-if="showtoggleActivity" class="flex activitylog-commenttoggle">
 			<h3 class="uppercase-title">Show Activity</h3>
 			<el-switch
+			:style="{paddingBottom: '6px'}"
 				v-model="showComments"
 				active-color="#13ce66"
 				inactive-color="#eaecf0"

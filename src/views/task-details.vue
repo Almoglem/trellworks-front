@@ -408,9 +408,6 @@ export default {
 		calcPos(ev) {
 			this.currClientHeight = ev.view.innerHeight;
 			this.currClientWidth = ev.view.innerWidth;
-			// if (this.setPos.x) {
-			// 	this.setPos.y = ev.pageY;
-			// } else {
 			if (this.currClientWidth !== ev.view.innerWidth) {
 				this.setPos.x = ev.pageX - 150;
 			}
