@@ -9,7 +9,9 @@ import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 import VueDragscroll from 'vue-dragscroll'
 import TextareaAutosize from 'vue-textarea-autosize'
- 
+import Vue2TouchEvents from 'vue2-touch-events'
+
+Vue.use(Vue2TouchEvents)
 Vue.use(TextareaAutosize)
 Vue.use(VueDragscroll)
 Vue.use(ElementUI, { locale })
