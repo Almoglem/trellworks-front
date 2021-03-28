@@ -8,6 +8,7 @@
         ref="titleInput"
         @keypress.enter="editBoardTitle"
         @focusout="editBoardTitle"
+        maxlength="50"
       />
       <h2 @click="getInput" v-else>{{ currBoard.title }}</h2>
       <button class="header-btn star" @click="starBoard">
