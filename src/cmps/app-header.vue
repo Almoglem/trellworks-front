@@ -20,14 +20,10 @@
           <li class="profile">
             <div class="name-profile">
               <span>{{ loggedInUser.fullname }}</span>
-              <small>Member since: {{loggedInUser.createdAt}} </small>
+              <small>Member since: {{ loggedInUser.createdAt }} </small>
             </div>
             <div class="avatar-profile">
-              <userPic
-        :size="30"
-        :user="loggedInUser"
-
-      />
+              <userPic :size="30" :user="loggedInUser" />
               <label for="file-upload"><small>Edit profile image</small></label>
               <input
                 type="file"
@@ -60,6 +56,8 @@ import { uploadImg } from "@/services/img-upload.service";
 import loader from "@/cmps/recurring-cmps/loader";
 import userPic from "./recurring-cmps/user-pic.vue";
 import Avatar from "vue-avatar";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+
 export default {
   data() {
     return {
@@ -99,7 +97,6 @@ export default {
             popup: "error",
           },
           toast: true,
-          animation: true,
         });
       } finally {
         this.isLoading = false;

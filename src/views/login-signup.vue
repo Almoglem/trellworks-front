@@ -134,8 +134,7 @@ export default {
         });
         this.$router.push("/");
       } catch (err) {
-        console.log(err);
-        this.msg = "Failed to log in.";
+        showErrorMsg("Failed to log in.");
       }
     },
 
@@ -147,7 +146,7 @@ export default {
         });
         this.$router.push("/");
       } catch (err) {
-        this.msg = err.response.data.err;
+        showErrorMsg(err.response.data.err);
       }
     },
 
@@ -165,7 +164,7 @@ export default {
         });
         this.msg = "User removed";
       } catch (err) {
-        this.msg = "Failed to remove user";
+        showErrorMsg("Failed to remove user");
       }
     },
     async addProfileImage(ev) {
@@ -174,21 +173,24 @@ export default {
         const imgUploaded = await uploadImg(ev);
         this.signupCred.profileImg = imgUploaded.url;
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "Sorry, There was a problem with uploading your image.",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
+        this.showErrorMsg("Sorry, there was a problem uploading your image.");
       } finally {
         this.isLoading = false;
       }
+    },
+    showErrorMsg(msg) {
+      Swal.fire({
+        position: "bottom-end",
+        title: msg,
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        customClass: {
+          title: "error",
+          popup: "error",
+        },
+        toast: true,
+      });
     },
   },
   components: {
