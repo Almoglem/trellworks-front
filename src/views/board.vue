@@ -258,7 +258,11 @@ export default {
 			task = { title: "", id: "" }
 		) {
 			board.activities.unshift({
-				byMember: this.loggedInUser || { fullname: "Guest", _id: "000" },
+				byMember: {_id:this.loggedInUser._id,
+				username: this.loggedInUser.username,
+				fullname: this.loggedInUser.fullname,
+				profileImg: this.loggedInUser.profileImg || '',
+				notifications: {board: this.loggedInUser.notifications.board }} || { fullname: "Guest", _id: "000" },
 				title: activityTitle,
 				createdAt: Date.now(),
 				group: group.title,
@@ -411,7 +415,7 @@ export default {
 			socketService.on("add notification", (activity) => {
 				this.postNotification(activity)
 			})
-			if (user.notifications.board._id !== this.currBoard._id) user.notifications.alerts = []
+			if (!user.notifications.board||user.notifications.board._id !== this.currBoard._id) user.notifications.alerts = []
 			user.notifications.board = this.currBoard._id
 			this.$store.dispatch({
 				type: "updateUser",
