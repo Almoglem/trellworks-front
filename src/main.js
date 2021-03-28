@@ -11,7 +11,6 @@ import VueDragscroll from 'vue-dragscroll'
 import TextareaAutosize from 'vue-textarea-autosize'
 import "@lottiefiles/lottie-player";
 
- 
 Vue.use(TextareaAutosize)
 Vue.use(VueDragscroll)
 Vue.use(ElementUI, { locale })

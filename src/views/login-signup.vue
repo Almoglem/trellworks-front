@@ -1,7 +1,7 @@
 <template>
   <section class="login-signup">
     <appHeader />
-    <div v-if="isLogin" class="form-wrapper">
+    <div v-if="isLogin" class="form-wrapper login">
       <form @submit.prevent="doLogin">
         <h2>Login</h2>
         <input
@@ -23,7 +23,7 @@
         ></span
       >
     </div>
-    <div v-else class="form-wrapper">
+    <div v-else class="form-wrapper signup">
       <h2>Register</h2>
       <div class="form">
         <form @submit.prevent="doSignup">

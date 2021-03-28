@@ -1,11 +1,16 @@
 .login-signup {
 
-    .form-wrapper {
+    .form-wrapper.login {
         text-align: center;
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
+        height: 250px;
+
+        button {
+            margin: 10px 0;
+        }
     }
 
     .form {
@@ -15,26 +20,70 @@
         justify-content: space-around;
     }
 
+    .form-wrapper {
+        height: 204px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        form {
+            // height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+
+    h2 {
+        margin: 10px 0 10px 5px;
+    }
+
+
     .profile-image {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        
-            .image {
-                @include aspect-ratio(1, 1);
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-                cursor: pointer;
-        
-                img {
-                    width: 100%;
-                }
-                
+        margin-bottom: 13px;
+        padding-left: 15px;
+
+        .image {
+            @include aspect-ratio(1, 1);
+            width: 137px;
+            height: 137px;
+            border-radius: 50%;
+            cursor: pointer;
+
+            img {
+                width: 100%;
             }
+
+        }
     }
 
     input {
         margin: 5px auto;
+    }
+}
+
+.form-wrapper.signup {
+    height: 309px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    form {
+        margin-bottom: 20px;
+        padding-right: 15px;
+
+        button {
+            margin-top: 10px;
+        }
+    }
+
+    .form {
+        justify-content: center;
+        height: 215px;
     }
 }
