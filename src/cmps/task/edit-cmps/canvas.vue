@@ -82,24 +82,21 @@ export default {
             this.ctx.beginPath()
             this.ctx.moveTo(e.offsetX,e.offsetY)
         },
-        drawMobile(ev){
+        drawMobile(e){
             if(!this.painting) return
-            ev.preventDefault();
-            console.log(pc.getTouchTargetCoords(ev.changedTouches[0]));
-            ev = ev.changedTouches[0];
-            
-            const pos = {
-                x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-                y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-            };
+            e.preventDefault();
+            var rect = e.target.getBoundingClientRect();
+            console.log(rect);
+            var x = e.targetTouches[0].pageX - rect.left;
+            var y = e.targetTouches[0].pageY - rect.top;
             this.ctx.strokeStyle = this.currColor
             this.ctx.lineWidth = this.currWidth
             this.ctx.lineCap ="round"
     
-            this.ctx.lineTo(pos.x, pos.y)
+            this.ctx.lineTo(x, y)
             this.ctx.stroke()
             this.ctx.beginPath()
-            this.ctx.moveTo(pos.x, pos.y)            
+            this.ctx.moveTo(x, y)            
         },
         downloadImg() {
             try {
