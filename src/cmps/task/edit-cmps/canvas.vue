@@ -9,20 +9,29 @@
             id="canvas"></canvas>
         </div> 
         <div class="canvas-config">
-            <el-select @setColor="setColor"/>
-            <button  @click="downloadImg" class="btn-success">Save note</button>
+            <div class="canvas-colors">
+                <label>Background
+                    <canvas-bgc @setBgc="setBgc"/>
+                </label>
+                <label>Color
+                    <canvas-color @setColor="setColor"/>
+                </label>
+            </div>
+            <div class="canvas-update">
+                <button class="btn-success clear" @click="setBgc('white')">Clear</button>
+                <button  @click="downloadImg" class="btn-success">Save note</button>
+            </div>
         </div>
-<!-- ADD CLEAR BUTTON, CHANGE BACKGROUND BUTTON AND EDIT PICTURES-->
+<!-- EDIT PICTURES -->
   </section>
 </template>
 
 <script>
 import { utilService } from "@/services/util.service.js";
-import elSelect from '@/cmps/elementui/select'
+import canvasColor from '@/cmps/elementui/canvas-color-select'
+import canvasBgc from '@/cmps/elementui/canvas-bgc-select'
 export default {
-    props: {
-        task: Object
-    },
+    props: ['task', 'canvasImgSetup'],
     data() {
        return {
             painting:false,
@@ -35,6 +44,10 @@ export default {
     methods: {
         setColor(color){
             this.currColor = color
+        },
+        setBgc(bgc){
+            this.ctx.fillStyle = bgc;
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);        
         },
         startPainting(e) {
         this.painting = true;
@@ -94,12 +107,22 @@ export default {
     },
     mounted() {
         this.canvas = document.getElementById("canvas");
-        this.ctx = canvas.getContext("2d");   
-        console.log('task', this.task); 
-        
+        this.ctx = canvas.getContext("2d"); 
+        this.ctx.fillStyle = "white";
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);  
+        if(this.canvasImgSetup) {
+            const img = new Image();
+            if(this.canvasImgSetup.isNote) img.src = `data:image/png;base64,${this.canvasImgSetup.src}`
+            else img.src = this.canvasImgSetup.src
+            img.setAttribute('crossorigin', 'anonymous'); 
+            img.onload = () => {
+                this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+            }
+        }
     },
     components: {
-        elSelect
+        canvasColor,
+        canvasBgc
     }
 }
 </script>

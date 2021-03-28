@@ -98,6 +98,7 @@
 							@editImg="editImg"
 							@removeImg="removeImg"
 							@setCover="setCoverImg"
+							@renderCanvas="renderCanvas"
 							:task="currTask"
 							@logActivity="saveActivity"
 						/>
@@ -153,8 +154,9 @@
 									@updateTask="updateTask"
 									@logActivity="saveActivity"
 									@close="togglePopUp(false)"
-									:task="currTask"
 									@toggleLoader="toggleLoader"
+									:task="currTask"
+									:canvasImgSetup="canvasImgSetup"
 								/>
 							</pop-up>
 						</ul>
@@ -247,7 +249,8 @@ export default {
 			currClientHeight: 0,
 			popUpHeight: 0,
 			commentToReply: null,
-			showComments:true
+			showComments:true,
+			canvasImgSetup: false
 		};
 	},
 	computed: {
@@ -423,7 +426,7 @@ export default {
 			this.currAction = actionType;
 			if (boolean) {
 				this.calcPos(ev);
-			}
+			} else this.canvasImgSetup = false
 		},
 		async removeTask() {
 			try {
@@ -561,6 +564,10 @@ export default {
 			this.saveActivity(`posted a comment to "${this.currTask.title}"`);
 			this.saveActivity(commentTxt, true);
 		},
+		renderCanvas(img, ev){
+			this.canvasImgSetup = img
+			this.togglePopUp(true, this.actions[6], ev)
+		}
 	},
 	created() {
 		this.$store.commit({ type: "setTask", taskId: this.taskId });

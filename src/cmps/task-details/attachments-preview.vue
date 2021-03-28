@@ -14,7 +14,8 @@
           <small
             >Added {{ attachmentTimestamp(img.createdAt) }} -
             <span class="image-info" @click="removeImg(img)">Delete</span> -
-            <span @click="toggleEdit(true, img)" class="image-info edit"
+            <span class="image-info" @click.stop="renderCanvas(img, $event)">Edit</span> - 
+            <span @click="toggleEdit(true, img)" class="image-info"
               >Rename
             </span>
           </small>
@@ -91,6 +92,9 @@ export default {
         return this.$emit("setCover", false, "");
       }
       this.$emit("setCover", true, img);
+    },
+    renderCanvas(img, ev){
+      this.$emit('renderCanvas', img, ev)
     },
     moment: function () {
       return moment();

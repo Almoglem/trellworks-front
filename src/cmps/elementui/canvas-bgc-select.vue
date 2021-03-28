@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="value" @change="setColor" placeholder="Black">
+  <el-select v-model="value" @change="setBgc" placeholder="White">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -14,6 +14,9 @@
     data() {
       return {
         options: [{
+          value: 'white',
+          label: 'White'
+        },{
           value: 'black',
           label: 'Black'
         }, {
@@ -40,8 +43,8 @@
       }
     },
     methods: {
-        setColor(){
-            this.$emit('setColor', this.value)
+        setBgc(){
+            this.$emit('setBgc', this.value)
         }
     }
   }

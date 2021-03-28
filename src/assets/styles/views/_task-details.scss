@@ -247,11 +247,33 @@
 .canvas {
     .canvas-config {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
 
         .el-select {
             width: 55%;
+            height: 45px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 14px;
+        }
+
+        .canvas-update {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 15px;
+
+            .clear {
+                background-color: #091e420a; 
+                color: #516077;
+            }
         }
     }
 }
