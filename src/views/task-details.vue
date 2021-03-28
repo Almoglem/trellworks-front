@@ -394,7 +394,7 @@ export default {
 		setHeight(popUpHeight, popUpWidth) {
 			this.popUpHeight = popUpHeight;
 			this.popUpWidth = popUpWidth;
-			console.log(popUpHeight);
+			if (this.currAction.type === 'taskCanvas') this.setPos.y += 60
 			if (this.currClientHeight - this.setPos.y < this.popUpHeight)
 				this.setPos.y -= popUpHeight / 2;
 			// if(this.currAction.type === 'taskCanvas') this.setPos.y += 70
