@@ -290,7 +290,8 @@ export default {
 			return { "close-btn-details": this.currTask.cover.src };
 		},
 		setCurrPos() {
-			return { left: this.setPos.x + "px", top: this.setPos.y + "px" };
+			if(this.currAction.type === 'taskCanvas') return {  position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
+			else return { left: this.setPos.x + "px", top: this.setPos.y + "px" };
 		},
 	},
 	methods: {
@@ -394,9 +395,6 @@ export default {
 		setHeight(popUpHeight, popUpWidth) {
 			this.popUpHeight = popUpHeight;
 			this.popUpWidth = popUpWidth;
-			console.log(this.popUpHeight, this.setPos.y);
-			if(this.popUpHeight / 2 > this.setPos.y) console.log('too high');
-			if (this.currAction.type === 'taskCanvas' && this.popUpHeight / 2 > this.setPos.y) this.setPos.y += 200
 			if (this.currClientHeight - this.setPos.y < this.popUpHeight)
 				this.setPos.y -= popUpHeight / 2;
 			// if(this.currAction.type === 'taskCanvas') this.setPos.y += 70
