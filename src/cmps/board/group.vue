@@ -210,7 +210,6 @@ export default {
 			}
 		},
 		calcPos(ev) {
-			console.log('hey');
 			if (this.setPos.x) {
 				this.setPos.y = ev.pageY;
 			} else {

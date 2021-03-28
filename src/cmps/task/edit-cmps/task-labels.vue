@@ -116,7 +116,6 @@ export default {
     async addLabelToBoard(){
       const taskToEdit = this.getTask(this.currBoard)
       if(!this.newLabel.id){
-        console.log('creating');
         this.newLabel.id = utilService.makeId()
         this.labelIds.push(this.newLabel.id);
         taskToEdit.labelIds = this.labelIds;

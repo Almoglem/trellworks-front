@@ -36,7 +36,6 @@ export default {
   methods: {
     async addFilePc(ev) {
       try {
-        console.log(ev);
         this.$emit("toggleLoader", true);
         const imgUploaded = await uploadImg(ev);
         const img = {
@@ -95,7 +94,6 @@ export default {
             this.taskToEdit.cover.isNote = false;
           }
           this.taskToEdit.imgs.unshift(img);
-          console.log(this.taskToEdit, 'from attachmetn');
           this.$emit(
             "logActivity",
             `added an attachment to "${this.taskToEdit.title}"`

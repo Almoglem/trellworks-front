@@ -18,6 +18,7 @@
                 </label>
             </div>
             <div class="canvas-update">
+                <canvas-font-size @setPenWidth="setPenWidth" />
                 <button class="btn-success clear" @click="setBgc('white')">Clear</button>
                 <button  @click="downloadImg" class="btn-success">Save note</button>
             </div>
@@ -30,6 +31,7 @@
 import { utilService } from "@/services/util.service.js";
 import canvasColor from '@/cmps/elementui/canvas-color-select'
 import canvasBgc from '@/cmps/elementui/canvas-bgc-select'
+import canvasFontSize from '@/cmps/elementui/canvas-fontsize-select'
 export default {
     props: ['task', 'canvasImgSetup'],
     data() {
@@ -38,6 +40,7 @@ export default {
             canvas:null,
             ctx:null,
             currColor: 'black',
+            currWidth: 4,
             taskToEdit: JSON.parse(JSON.stringify(this.task))
        }
     },
@@ -48,6 +51,9 @@ export default {
         setBgc(bgc){
             this.ctx.fillStyle = bgc;
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);        
+        },
+        setPenWidth(size){
+            this.currWidth = size
         },
         startPainting(e) {
         this.painting = true;
@@ -60,7 +66,7 @@ export default {
         draw(e) {
             if(!this.painting) return
             this.ctx.strokeStyle = this.currColor
-            this.ctx.lineWidth = 10;
+            this.ctx.lineWidth = this.currWidth
             this.ctx.lineCap ="round"
     
             this.ctx.lineTo(e.offsetX,e.offsetY)
@@ -88,7 +94,6 @@ export default {
                     this.taskToEdit.cover.isNote = true;
                 }
                 this.taskToEdit.imgs.unshift(img);
-                console.log(this.taskToEdit);
                 this.$emit(
                 "logActivity",
                 `added an attachment to "${this.taskToEdit.title}"`
@@ -98,7 +103,18 @@ export default {
 
             }
             catch(err) {
-                console.log(err);
+                Swal.fire({
+                    position: "bottom-end",
+                    title: "Sorry, There was a problem with uploading your image.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                        title: "error",
+                        popup: "error",
+                    },
+                    toast: true,
+                    animation: true,
+                });
             }
             finally {
                 this.$emit("toggleLoader", false);
@@ -122,7 +138,8 @@ export default {
     },
     components: {
         canvasColor,
-        canvasBgc
+        canvasBgc,
+        canvasFontSize
     }
 }
 </script>

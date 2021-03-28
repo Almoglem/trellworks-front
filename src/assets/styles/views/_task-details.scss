@@ -269,9 +269,19 @@
             width: 100%;
             justify-content: space-between;
             margin-top: 15px;
+            align-items: center;
+
+            .el-select {
+                height: 39px;
+                width: 110px;
+
+                input {
+                    margin: 0;
+                }
+            }
 
             .clear {
-                background-color: #091e420a; 
+                background-color: #091e420a;
                 color: #516077;
             }
         }

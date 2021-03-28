@@ -4,9 +4,9 @@
     <h1 class="details-title">Attachments</h1>
     <section class="attachments-thumbnail">
       <div class="image-preview" v-for="img in task.imgs" :key="img.id">
-        <div class="image-cover clickable" @click="test(img)">
+        <div class="image-cover clickable">
           <img v-if="!img.isNote" @click="showImage(true, img)" class="img" :src="img.src" />
-          <img v-else :src="`data:image/png;base64,${img.src}`" alt=""/>
+          <img v-else :src="`data:image/png;base64,${img.src}`" @click="showImage(true, img)" class="img" alt=""/>
         </div>
         
         <div class="image-details">
@@ -34,7 +34,8 @@
       </div>
       <section class="image-window" v-if="currImg" @click="showImage(false)">
         <div>
-          <img :src="currImg.src" alt="" />
+          <img v-if="!currImg.isNote" :src="currImg.src" alt="" />
+          <img v-else :src="`data:image/png;base64,${currImg.src}`" alt="" />
         </div>
       </section>
     </section>
@@ -59,9 +60,6 @@ export default {
   },
   computed: {},
   methods: {
-    test(img){
-      console.log(img);
-    },
     editImg() {
       this.imgToEdit.name = this.txtToEdit;
       this.editToggler = false;
@@ -84,8 +82,8 @@ export default {
       this.txtToEdit = img.name;
     },
     showImage(toggler, img) {
-      if (!toggler) this.currImg = null;
-      this.currImg = img;
+        if (!toggler) this.currImg = null;
+        this.currImg = img;
     },
     setCover(img) {
       if (img.src === this.task.cover.src) {

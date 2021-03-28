@@ -226,7 +226,18 @@ export default {
 					animation: true,
 				});
 			} catch (err) {
-				console.log("hi", err);
+				Swal.fire({
+					position: "bottom-end",
+					title: "There was a problem removing this group",
+					showConfirmButton: false,
+					timer: 1500,
+					customClass: {
+						title: "error",
+						popup: "error",
+					},
+					toast: true,
+					animation: true,
+				});
 			}
 		},
 		async addTask(task, groupId) {
