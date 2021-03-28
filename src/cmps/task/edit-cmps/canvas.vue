@@ -5,7 +5,7 @@
             <canvas @mousedown="startPainting" 
             @mouseup="finishedPainting"
             @mousemove="draw"
-            height="406" width="277" style="border: 1px solid black;" 
+            height="330" width="277" style="border: 1px solid black;" 
             id="canvas"></canvas>
         </div> 
         <div class="canvas-config">
