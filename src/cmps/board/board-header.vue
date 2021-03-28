@@ -4,9 +4,8 @@
       <input
         class="clean-input"
         v-model="currBoard.title"
-        v-if="true"
+        v-if="isEditing"
         ref="titleInput"
-        @input="setInputWidth"
         @keypress.enter="editBoardTitle"
         @focusout="editBoardTitle"
         maxlength="30"
@@ -214,9 +213,6 @@ export default {
   },
 
   methods: {
-    setInputWidth() {
-      console.log(this.$refs.titleInput.clientWidth);
-    },
     updateUserAlerts() {
       const user = this.loggedInUser;
       if (!user || user === []) return;
