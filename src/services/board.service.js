@@ -50,6 +50,7 @@ async function save(board) {
 }
 
 function _getEmptyBoard(loggedinUser) {
+    const members = (loggedinUser._id === "000" ? [] : [loggedinUser]);
     return {
         title: 'My new board',
         createdAt: Date.now(),
@@ -59,8 +60,7 @@ function _getEmptyBoard(loggedinUser) {
             backgroundColor: '#61bd4f',
             backgroundImage: ''
         },
-        members: [
-        ],
+        members,
         activities: [
             {
                 id: utilService.makeId(),
@@ -182,7 +182,7 @@ function getAllGradients() {
         color: 'linear-gradient(to left bottom, #03c1c9, #00d8bc, #3aeb98, #93f962, #e9ff00)',
         colorName: 'gradient-8'
     },
-]
+    ]
 }
 
 function getAllColors() {
