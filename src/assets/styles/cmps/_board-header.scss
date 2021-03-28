@@ -1,0 +1,79 @@
+.board-header {
+    width: 100%;
+    align-items: center;
+    padding: 10px 15px;
+    height: 52px;
+    background-color: transparent;
+    padding: 10px 10px;
+
+    .search-members {
+        justify-content: space-between;
+        width: 250px;
+    }
+
+    .header-container {
+        align-items: center;
+        flex: 1;
+
+        &>* {
+            margin: 1%;
+        }
+
+        h2 {
+            color: white;
+            margin-left: 0;
+        }
+
+        input {
+            width: 200px;
+            color: white;
+        }
+
+        .avatars-show {
+            margin-left: 26px;
+        }
+
+    }
+
+    .board-header-avatar {
+        margin-left: -5%;
+
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
+
+}
+
+.user-profileimg {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+
+}
+
+@media only screen and (max-width: 810px) {
+    .board-header {
+        .header-container {
+            h2 {
+                font-size: 1rem;
+            }
+
+            .avatars-show {
+                display: none;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .show-menu {
+        visibility: hidden;
+    }
+
+    .show-menu:after {
+        content: 'hi';
+        visibility: visible;
+    }
+}

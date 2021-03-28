@@ -8,6 +8,7 @@
         ref="titleInput"
         @keypress.enter="editBoardTitle"
         @focusout="editBoardTitle"
+        maxlength="40"
       />
       <h2 @click="getInput" v-else>{{ currBoard.title }}</h2>
       <button class="header-btn star" @click="starBoard">
@@ -54,8 +55,8 @@
       :max="10"
       class="item menu-alert"
     />
-    <button @click="toggleMenu" class="header-btn menu show-menu">
-      Show Menu
+    <button @click="toggleMenu" class="header-btn menu">
+      <span class="show-menu"> Show Menu</span>
     </button>
     <transition name="slide-from-right">
       <boardMenu

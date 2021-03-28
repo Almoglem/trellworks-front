@@ -7,12 +7,13 @@
 				autoplay
 				loop
 				mode="normal"
+        speed="0.5"
 				src="https://assets5.lottiefiles.com/packages/lf20_yhrzppye.json"
 				class="home-hero"
 			>
 			</lottie-player>
 			<span class="cta">
-				<h1 class="text-center">Managing your team has never been easier.</h1>
+				<h1 class="text-center">Take your team to new heights.</h1>
 				<router-link to="/board/605c6ee08defda42fc5e20ee" class="action-call transition"
 					>Try it now!</router-link
 				>
