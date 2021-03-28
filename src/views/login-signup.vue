@@ -1,7 +1,6 @@
 <template>
   <section class="login-signup">
     <appHeader />
-    <p>{{ msg }}</p>
     <div v-if="isLogin" class="form-wrapper">
       <form @submit.prevent="doLogin">
         <h2>Login</h2>
@@ -91,7 +90,6 @@ export default {
   name: "test",
   data() {
     return {
-      msg: "",
       loginCred: {
         username: "",
         password: "",
@@ -134,7 +132,9 @@ export default {
         });
         this.$router.push("/");
       } catch (err) {
-        showErrorMsg("Failed to log in.");
+        this.showErrorMsg(
+          "Failed to log in. please re-check your entered username and password"
+        );
       }
     },
 
@@ -146,7 +146,7 @@ export default {
         });
         this.$router.push("/");
       } catch (err) {
-        showErrorMsg(err.response.data.err);
+        this.showErrorMsg(err.response.data.err);
       }
     },
 
@@ -154,18 +154,6 @@ export default {
       this.$store.dispatch({
         type: "loadUsers",
       });
-    },
-
-    async removeUser(userId) {
-      try {
-        await this.$store.dispatch({
-          type: "removeUser",
-          userId,
-        });
-        this.msg = "User removed";
-      } catch (err) {
-        showErrorMsg("Failed to remove user");
-      }
     },
     async addProfileImage(ev) {
       this.isLoading = true;
@@ -192,6 +180,18 @@ export default {
         toast: true,
       });
     },
+    // potential future use- to delete account
+    // async removeUser(userId) {
+    //   try {
+    //     await this.$store.dispatch({
+    //       type: "removeUser",
+    //       userId,
+    //     });
+    //     this.msg = "User removed";
+    //   } catch (err) {
+    //     this.showErrorMsg("Failed to remove user");
+    //   }
+    // },
   },
   components: {
     loader,
