@@ -265,13 +265,15 @@ export default {
 			const user = this.loggedInUser
 			if(!user||user===[])return
 			if (user.notifications) {
+				console.log('reducing user alerts to 0');
 				user.notifications.alerts = []
 				this.$store.dispatch({
 					type: "updateUser",
 					user,
 				});
-			}
 			this.updateUserAlerts()
+			console.log('user alerts after update:',this.userAlerts);
+			}
 		}
 	},
 	async created() {

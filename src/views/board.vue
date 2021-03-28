@@ -358,12 +358,21 @@ export default {
 		postNotification(activity) {
 			if (!this.loggedInUser) return
 			const user = this.loggedInUser
+			const recentNotif = user.notifications.alerts[0]
+			if (recentNotif.id === activity.id || activity.byMember._id === user._id) return
 			if (user.notifications) {
-				if(activity.byMember._id===user._id) return
-				else user.notifications.alerts.push(activity)
+				user.notifications.alerts.push(activity)
 				const title = activity.title
 				const push = ` ${activity.byMember.fullname} ${activity.title}`
-				// if (title.includes("added the task"))this.pushNotification(push) || title.includes( "added the group" )|| title.includes("posted a comment ")  || title.includes("replied to a comment " ) ||title.includes( "added a due date to " )||title.includes( "removed an attachment")) 
+				switch (title) {
+					case title.includes(): {
+						break
+					}
+					default: {
+						this.pushNotification(push)
+						break;
+					}
+				}
 				this.$store.dispatch({
 					type: "updateUser",
 					user,
