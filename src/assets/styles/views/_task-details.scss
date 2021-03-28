@@ -41,6 +41,19 @@
             position: absolute;
             right: 23px;
             top: 18px;
+            z-index: 5;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 10px;
+            right: 10px;
+
+            &:hover {
+                background-color: rgba(9, 30, 66, .08);
+            }
 
             &.close-btn-details {
                 background-color: rgba(0, 0, 0, .08);
@@ -54,6 +67,10 @@
                 color: whitesmoke;
                 top: 10px;
                 right: 10px;
+
+                &:hover {
+                    background-color: rgba(0, 0, 0, .16);
+                }
             }
         }
 
