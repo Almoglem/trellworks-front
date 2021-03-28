@@ -36,7 +36,7 @@
 							@click="replyToComment(activity.id)"
 							v-if="activity.isComment"
 							class="clickable"
-							style="margin-left: 8px"
+							style="margin: 0 8px"
 						>Reply
 						</p>
 					</span>
