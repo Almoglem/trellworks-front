@@ -359,7 +359,8 @@ export default {
 			if (!this.loggedInUser) return
 			const user = this.loggedInUser
 			if (user.notifications) {
-				user.notifications.alerts.push(activity)
+				if(activity.byMember._id===user._id) return
+				else user.notifications.alerts.push(activity)
 				const title = activity.title
 				const push = ` ${activity.byMember.fullname} ${activity.title}`
 				// if (title.includes("added the task"))this.pushNotification(push) || title.includes( "added the group" )|| title.includes("posted a comment ")  || title.includes("replied to a comment " ) ||title.includes( "added a due date to " )||title.includes( "removed an attachment")) 
