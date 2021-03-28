@@ -12,7 +12,7 @@
             <el-select @setColor="setColor"/>
             <button  @click="downloadImg" class="btn-success">Save note</button>
         </div>
-<!-- ADD CLEAR BUTTON, CHANGE BACKGROUND BUTTON -->
+<!-- ADD CLEAR BUTTON, CHANGE BACKGROUND BUTTON AND EDIT PICTURES-->
   </section>
 </template>
 
