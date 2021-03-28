@@ -534,6 +534,7 @@ export default {
 					type: "top",
 					isImg: false,
 				};
+				// this.saveActivity( `removed an attachment from "${this.taskToEdit.title}"`)
 			this.updateTask(taskToEdit);
 			Swal.fire({
 				position: "bottom-end",
@@ -563,9 +564,9 @@ export default {
 		toggleLoader(condition) {
 			this.isLoading = condition;
 		},
-		async logComment(commentTxt) {
-			this.saveActivity(`posted a comment to "${this.currTask.title}"`);
+		logComment(commentTxt) {
 			this.saveActivity(commentTxt, true);
+			this.saveActivity(`posted a comment to "${this.currTask.title}"`);
 		},
 		renderCanvas(img, ev){
 			this.canvasImgSetup = img

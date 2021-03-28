@@ -32,6 +32,7 @@
 					<!-- </span> -->
 					<userPic @userClicked="currMember = user" :user="user" :size="30" />
 				</span>
+				<div v-if="showMemberProfile" @click="showMemberProfile = false" class="pop-up-window"></div>
 				<memberProfile
 					:currMember="currMember"
 					v-if="showMemberProfile"
@@ -40,7 +41,7 @@
 			</ul>
 			<button class="header-btn invite" @click="showUsers">Invite</button>
 		</div>
-		<button @click="dashboardShown = !dashboardShown" class="header-btn">
+		<button @click="dashboardShown = !dashboardShown" class="header-btn btn-dashboard">
 			Dashboard
 		</button>
 		<div class="pop-up-window" v-if="dashboardShown" @click="dashboardShown = false"></div>
@@ -51,7 +52,7 @@
 			:max="10"
 			class="item menu-alert"
 		/>
-		<button @click="toggleMenu" class="header-btn">Show Menu</button>
+		<button @click="toggleMenu" class="header-btn menu">Show Menu</button>
 		<transition name="slide-from-right">
 			<boardMenu
 				class="board-menu"
@@ -92,35 +93,42 @@
 						{{ user.fullname }}
 					</li>
 				</span>
-				<ul class="search-users-list">
-					<li
-						v-for="user in filteredMembers"
-						@click="toggleBoardMember(user)"
-						:key="user._id"
-						class="search-members flex"
-					>
-						<span class="flex">
-							<userPic :user="user" :size="30" />
-							<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
-						</span>
-						{{ user.fullname }}
-					</li>
-				</ul>
+				
+					<div>
+						<li
+							v-for="user in filteredMembers"
+							@click="toggleBoardMember(user)"
+							:key="user._id"
+							class="search-members flex"
+						>
+							<span class="flex">
+								<userPic :user="user" :size="30" />
+								<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
+							</span>
+							{{ user.fullname }}
+						</li>
+
+					</div>
+			
 
 				<hr />
 				<h3 class="pop-up-title">In This Board</h3>
-				<li
-					v-for="(user, idx) in boardMembers"
-					:key="idx"
-					class="search-members flex"
-					@click="toggleBoardMember(user)"
-				>
-					<span class="flex">
-							<userPic :user="user" :size="30"/>
-						<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
-					</span>
-					{{ user.fullname }}
-				</li>
+				<div>
+					<li
+						v-for="(user, idx) in boardMembers"
+						:key="idx"
+						class="search-members flex"
+						@click="toggleBoardMember(user)"
+					>
+						<span class="flex">
+								<userPic :user="user" :size="30"/>
+							<i v-if="isUserInBoard(user._id)" class="fas fa-check"></i>
+						</span>
+						{{ user.fullname }}
+						<span v-if="!boardMembers.length">Currently no users</span>
+					</li>
+
+				</div>
 			</div>
 		</div>
 	</div>
@@ -241,11 +249,9 @@ export default {
 				(member) => member._id === user._id
 			);
 			if (foundIdx !== -1) {
-				this.setPos.y -= 19;
 				this.currBoard.members.splice(foundIdx, 1);
 				return this.$emit("updateBoard", this.currBoard);
 			}
-			this.setPos.y += 19;
 			this.currBoard.members.push(user);
 			this.$emit("updateBoard", this.currBoard);
 		},
@@ -265,14 +271,12 @@ export default {
 			const user = this.loggedInUser
 			if(!user||user===[])return
 			if (user.notifications) {
-				console.log('reducing user alerts to 0');
 				user.notifications.alerts = []
 				this.$store.dispatch({
 					type: "updateUser",
 					user,
 				});
 			this.updateUserAlerts()
-			console.log('user alerts after update:',this.userAlerts);
 			}
 		}
 	},
