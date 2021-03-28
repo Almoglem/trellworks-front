@@ -32,6 +32,7 @@
 					<!-- </span> -->
 					<userPic @userClicked="currMember = user" :user="user" :size="30" />
 				</span>
+				<div v-if="showMemberProfile" @click="showMemberProfile = false" class="pop-up-window"></div>
 				<memberProfile
 					:currMember="currMember"
 					v-if="showMemberProfile"
@@ -40,7 +41,7 @@
 			</ul>
 			<button class="header-btn invite" @click="showUsers">Invite</button>
 		</div>
-		<button @click="dashboardShown = !dashboardShown" class="header-btn">
+		<button @click="dashboardShown = !dashboardShown" class="header-btn btn-dashboard">
 			Dashboard
 		</button>
 		<div class="pop-up-window" v-if="dashboardShown" @click="dashboardShown = false"></div>
@@ -51,7 +52,7 @@
 			:max="10"
 			class="item menu-alert"
 		/>
-		<button @click="toggleMenu" class="header-btn">Show Menu</button>
+		<button @click="toggleMenu" class="header-btn menu">Show Menu</button>
 		<transition name="slide-from-right">
 			<boardMenu
 				class="board-menu"
