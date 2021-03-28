@@ -563,9 +563,9 @@ export default {
 		toggleLoader(condition) {
 			this.isLoading = condition;
 		},
-		async logComment(commentTxt) {
-			this.saveActivity(`posted a comment to "${this.currTask.title}"`);
+		logComment(commentTxt) {
 			this.saveActivity(commentTxt, true);
+			this.saveActivity(`posted a comment to "${this.currTask.title}"`);
 		},
 		renderCanvas(img, ev){
 			this.canvasImgSetup = img
