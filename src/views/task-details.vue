@@ -125,8 +125,8 @@
 							@replyClicked="setCommentToReply"
 							class="task-details-activity"
 							:activities="taskActivity"
-							:showToggleComments="true"
-							@toggleComments="toggleShowComments"
+							:showtoggleActivity="true"
+							@toggleActivity="toggleshowActivity"
 						/>
 					</section>
 					<div class="action-bar flex column">
@@ -249,24 +249,21 @@ export default {
 			currClientHeight: 0,
 			popUpHeight: 0,
 			commentToReply: null,
-			showComments:true,
+			showActivity:true,
 			canvasImgSetup: false
 		};
 	},
 	computed: {
 		taskActivity() {
-			const showComments = this.showComments
-			if (showComments === true ){return this.currBoard.activities.filter((activity) => {
+			const showActivity = this.showActivity
+			if (showActivity === true ){return this.currBoard.activities.filter((activity) => {
 				return (
-					(activity.task && activity.task.id === this.currTask.id) && !activity.title.includes("a comment ") && !activity.isComment ||
-					(activity.task &&
-						activity.task.id === this.currTask.id &&
-						activity.isComment)
+					(activity.task && activity.task.id === this.currTask.id)
 				);
 			})}
 			else {return this.currBoard.activities.filter((activity) => {
 				return (
-					(activity.task && activity.task.id === this.currTask.id) &&  !activity.isComment && !activity.title.includes("a comment "))
+					(activity.task && activity.task.id === this.currTask.id) &&  activity.isComment )
 				
 			})}
 			}
@@ -295,8 +292,8 @@ export default {
 		},
 	},
 	methods: {
-		toggleShowComments(boolean){
-        this.showComments = boolean
+		toggleshowActivity(boolean){
+        this.showActivity = boolean
 		},
 		postReply(txt) {
 			const comment = this.commentToReply

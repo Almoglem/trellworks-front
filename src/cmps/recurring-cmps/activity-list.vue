@@ -2,13 +2,13 @@
 	<section class="activity-log">
 		<i class="far fa-list-alt fa-lg"></i>
 		<h2 class="details-title">Activity Log</h2>
-		<span v-if="showToggleComments" class="flex activitylog-commenttoggle">
-			<h3 class="uppercase-title">Show Comments</h3>
+		<span v-if="showtoggleActivity" class="flex activitylog-commenttoggle">
+			<h3 class="uppercase-title">Show Activity</h3>
 			<el-switch
 				v-model="showComments"
 				active-color="#13ce66"
 				inactive-color="#eaecf0"
-				@change="toggleComments"
+				@change="toggleActivity"
 		/></span>
 		<section
 			v-for="activity in activities"
@@ -36,8 +36,8 @@
 							@click="replyToComment(activity.id)"
 							v-if="activity.isComment"
 							class="clickable"
-						>
-							Reply
+							style="margin: 0 8px"
+						>Reply
 						</p>
 					</span>
 				</span>
@@ -81,7 +81,7 @@ import userPic from "./user-pic.vue";
 export default {
 	props: {
 		activities: Array,
-		showToggleComments: Boolean
+		showtoggleActivity: Boolean
 	},
 	data() {
 		return {
@@ -98,8 +98,8 @@ export default {
 		replyToComment(activityId) {
 			this.$emit('replyClicked', activityId)
 		},
-		toggleComments() {
-			this.$emit('toggleComments', this.showComments)
+		toggleActivity() {
+			this.$emit('toggleActivity', this.showComments)
 		}
 	},
 	components: { userPic },

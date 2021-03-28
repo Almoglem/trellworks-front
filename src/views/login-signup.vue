@@ -1,7 +1,6 @@
 <template>
   <section class="login-signup">
     <appHeader />
-    <p>{{ msg }}</p>
     <div v-if="isLogin" class="form-wrapper">
       <form @submit.prevent="doLogin">
         <h2>Login</h2>
@@ -9,10 +8,12 @@
           type="text"
           v-model="loginCred.username"
           placeholder="User name"
+          required
         /><input
           type="password"
           v-model="loginCred.password"
           placeholder="Password"
+          required
         /><button type="submit">Login</button>
       </form>
       <span
@@ -27,30 +28,30 @@
       <div class="form">
         <form @submit.prevent="doSignup">
           <label>
-            *Enter your full name
             <input
               type="text"
               v-model="signupCred.fullname"
               placeholder="Your full name"
+              required
             />
           </label>
           <label>
-            *Enter password
             <input
               type="password"
               v-model="signupCred.password"
               placeholder="Password"
+              required
             />
           </label>
           <label>
-            *Enter your username
             <input
               type="text"
               v-model="signupCred.username"
               placeholder="Username"
+              required
             />
           </label>
-          <button :style="{ display: 'none' }" type="submit">Signup</button>
+          <button type="submit">Signup</button>
         </form>
         <div class="profile-image">
           <label for="file-upload">
@@ -71,7 +72,6 @@
           />
         </div>
       </div>
-      <button @click="doSignup">Sign up</button>
       <span
         >Have an account?
         <span class="clickable bold" @click="isLogin = true">Log in</span>
@@ -90,7 +90,6 @@ export default {
   name: "test",
   data() {
     return {
-      msg: "",
       loginCred: {
         username: "",
         password: "",
@@ -103,7 +102,7 @@ export default {
         profileImg: "",
       },
       isLogin: true,
-      isLoading: false
+      isLoading: false,
     };
   },
 
@@ -118,7 +117,7 @@ export default {
 
     profileToShow() {
       return this.signupCred.profileImg;
-    }
+    },
   },
   created() {
     this.loadUsers();
@@ -126,11 +125,6 @@ export default {
 
   methods: {
     async doLogin() {
-      if (!this.loginCred.username || !this.loginCred.password) {
-        this.msg = "Please enter username/password";
-        return;
-      }
-
       try {
         await this.$store.dispatch({
           type: "login",
@@ -138,25 +132,22 @@ export default {
         });
         this.$router.push("/");
       } catch (err) {
-        console.log(err);
-        this.msg = "Failed to log in.";
+        this.showErrorMsg(
+          "Failed to log in. please re-check your entered username and password"
+        );
       }
     },
 
     async doSignup() {
-      if (
-        !this.signupCred.fullname ||
-        !this.signupCred.password ||
-        !this.signupCred.username
-      ) {
-        this.msg = "Please fill up the form";
-        return;
+      try {
+        await this.$store.dispatch({
+          type: "signup",
+          userCred: this.signupCred,
+        });
+        this.$router.push("/");
+      } catch (err) {
+        this.showErrorMsg(err.response.data.err);
       }
-      await this.$store.dispatch({
-        type: "signup",
-        userCred: this.signupCred,
-      });
-      this.$router.push("/");
     },
 
     loadUsers() {
@@ -164,40 +155,43 @@ export default {
         type: "loadUsers",
       });
     },
-
-    async removeUser(userId) {
-      try {
-        await this.$store.dispatch({
-          type: "removeUser",
-          userId,
-        });
-        this.msg = "User removed";
-      } catch (err) {
-        this.msg = "Failed to remove user";
-      }
-    },
     async addProfileImage(ev) {
-      this.isLoading = true
-      try{
+      this.isLoading = true;
+      try {
         const imgUploaded = await uploadImg(ev);
         this.signupCred.profileImg = imgUploaded.url;
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-            title: "Sorry, There was a problem with uploading your image.",
-            showConfirmButton: false,
-            timer: 1500,
-            customClass: {
-              title: "error",
-              popup: "error",
-            },
-            toast: true,
-            animation: true,
-        });
+        this.showErrorMsg("Sorry, there was a problem uploading your image.");
       } finally {
-        this.isLoading = false
+        this.isLoading = false;
       }
     },
+    showErrorMsg(msg) {
+      Swal.fire({
+        position: "bottom-end",
+        title: msg,
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        customClass: {
+          title: "error",
+          popup: "error",
+        },
+        toast: true,
+      });
+    },
+    // potential future use- to delete account
+    // async removeUser(userId) {
+    //   try {
+    //     await this.$store.dispatch({
+    //       type: "removeUser",
+    //       userId,
+    //     });
+    //     this.msg = "User removed";
+    //   } catch (err) {
+    //     this.showErrorMsg("Failed to remove user");
+    //   }
+    // },
   },
   components: {
     loader,

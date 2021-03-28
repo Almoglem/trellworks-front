@@ -25,35 +25,39 @@ header {
         z-index: 11;
 
     }
+
+
+
+}
+
+.pop-up.about {
+    top: 200px;
 }
 
 .about-user {
     width: 100%;
-    padding: 0 10px 0 10px;
+    padding: 0 50px;
 
     .profile {
         display: flex;
         justify-content: space-between;
-
+        text-align: center;
+        .user-profileimg {
+            height: 120px !important;
+            width: 120px !important;
+        }
         .name-profile {
             display: flex;
             flex-direction: column;
             margin-left: 7px;
             justify-content: center;
-
-
-
             small {
                 margin-right: 7px;
             }
-
         }
-
         .avatar-profile {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            margin-bottom: 9px;
+ 
+            align-items: center;
         }
     }
 

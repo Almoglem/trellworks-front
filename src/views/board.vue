@@ -358,10 +358,11 @@ export default {
 		postNotification(activity) {
 			if (!this.loggedInUser) return
 			const user = this.loggedInUser
+			if(activity.byMember._id === user._id) return
 			if (user.notifications) {
 				if (user.notifications.alerts.length) {
 					const recentNotif = user.notifications.alerts[0]
-					if (recentNotif.id === activity.id || activity.byMember._id === user._id) return
+					if (recentNotif.id === activity.id ) return
 				}
 				let title = activity.title
 				let push = ` ${activity.byMember.fullname} ${title}`
