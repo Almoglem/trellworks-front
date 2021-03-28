@@ -8,7 +8,7 @@
     </router-link>
     
     <div class="flex" v-if="loggedInUser">
-							<userPic :user="loggedInUser" @userClicked="togglePopUp(true)"/>
+							<userPic :size="30" :user="loggedInUser" @userClicked="togglePopUp(true)"/>
 
 
       <!-- <button class="header-btn" @click="doLogout">Log Out</button> -->
