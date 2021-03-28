@@ -71,7 +71,6 @@ export default {
         },
         draw(e) {
             if(!this.painting) return
-            console.log('heyy from draw');
             this.ctx.strokeStyle = this.currColor
             this.ctx.lineWidth = this.currWidth
             this.ctx.lineCap ="round"
@@ -86,7 +85,6 @@ export default {
             if(!this.painting) return
             e.preventDefault();
             var rect = e.target.getBoundingClientRect();
-            console.log(rect);
             var x = e.targetTouches[0].pageX - rect.left;
             var y = e.targetTouches[0].pageY - rect.top;
             this.ctx.strokeStyle = this.currColor
