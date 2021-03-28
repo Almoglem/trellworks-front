@@ -331,6 +331,10 @@
                 align-items: center;
             }
 
+            .label {
+                width: 100%;
+            }
+
             .task-details-main .details-body {
                 grid-template-columns: 1fr 5rem;
             }
