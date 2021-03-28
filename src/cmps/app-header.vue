@@ -20,20 +20,14 @@
           <li class="profile">
             <div class="name-profile">
               <span>{{ loggedInUser.fullname }}</span>
-              <small>User since: </small>
+              <small>Member since: {{loggedInUser.createdAt}} </small>
             </div>
             <div class="avatar-profile">
-              <img
-                v-if="loggedInUser.profileImg"
-                class="user-profileimg"
-                :src="loggedInUser.profileImg"
-                alt=""
-              />
-              <avatar
-                v-else
-                :size="30"
-                :username="loggedInUser.fullname"
-              ></avatar>
+              <userPic
+        :size="30"
+        :user="loggedInUser"
+
+      />
               <label for="file-upload"><small>Edit profile image</small></label>
               <input
                 type="file"
