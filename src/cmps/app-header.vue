@@ -44,12 +44,11 @@
             </div>
           </li>
           <hr />
-          <li class="link">
-            <a @click="doLogout">Log out</a>
+          <li>
+            <button class="btn-gray" @click="doLogout">Log Out</button>
           </li>
         </ul>
       </section>
-      <!-- <button class="header-btn" @click="doLogout">Log Out</button> -->
     </div>
     <section v-else class="nav-side-buttons header-btn transition">
       <router-link to="/login">Log in </router-link>
