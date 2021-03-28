@@ -43,6 +43,7 @@
 		<button @click="dashboardShown = !dashboardShown" class="header-btn">
 			Dashboard
 		</button>
+		<div class="pop-up-window" v-if="dashboardShown" @click="dashboardShown = false"></div>
 		<dashboard v-if="dashboardShown"></dashboard>
 		<el-badge
 			v-if="userAlerts > 0"

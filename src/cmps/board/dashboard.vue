@@ -25,6 +25,11 @@ import tasksPerMemberChart from "./tasks-per-member-chart";
 
 export default {
   props: {},
+  data(){
+    return {
+      toggleDashboard: true
+    }
+  },
   computed: {
     currBoard() {
       return this.$store.getters.currBoard;
