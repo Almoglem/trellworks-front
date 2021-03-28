@@ -9,10 +9,12 @@
           type="text"
           v-model="loginCred.username"
           placeholder="User name"
+          required
         /><input
           type="password"
           v-model="loginCred.password"
           placeholder="Password"
+          required
         /><button type="submit">Login</button>
       </form>
       <span
@@ -27,30 +29,30 @@
       <div class="form">
         <form @submit.prevent="doSignup">
           <label>
-            *Enter your full name
             <input
               type="text"
               v-model="signupCred.fullname"
               placeholder="Your full name"
+              required
             />
           </label>
           <label>
-            *Enter password
             <input
               type="password"
               v-model="signupCred.password"
               placeholder="Password"
+              required
             />
           </label>
           <label>
-            *Enter your username
             <input
               type="text"
               v-model="signupCred.username"
               placeholder="Username"
+              required
             />
           </label>
-          <button :style="{ display: 'none' }" type="submit">Signup</button>
+          <button type="submit">Signup</button>
         </form>
         <div class="profile-image">
           <label for="file-upload">
@@ -71,7 +73,6 @@
           />
         </div>
       </div>
-      <button @click="doSignup">Sign up</button>
       <span
         >Have an account?
         <span class="clickable bold" @click="isLogin = true">Log in</span>
@@ -103,7 +104,7 @@ export default {
         profileImg: "",
       },
       isLogin: true,
-      isLoading: false
+      isLoading: false,
     };
   },
 
@@ -118,7 +119,7 @@ export default {
 
     profileToShow() {
       return this.signupCred.profileImg;
-    }
+    },
   },
   created() {
     this.loadUsers();
@@ -126,11 +127,6 @@ export default {
 
   methods: {
     async doLogin() {
-      if (!this.loginCred.username || !this.loginCred.password) {
-        this.msg = "Please enter username/password";
-        return;
-      }
-
       try {
         await this.$store.dispatch({
           type: "login",
@@ -144,19 +140,15 @@ export default {
     },
 
     async doSignup() {
-      if (
-        !this.signupCred.fullname ||
-        !this.signupCred.password ||
-        !this.signupCred.username
-      ) {
-        this.msg = "Please fill up the form";
-        return;
+      try {
+        await this.$store.dispatch({
+          type: "signup",
+          userCred: this.signupCred,
+        });
+        this.$router.push("/");
+      } catch (err) {
+        this.msg = err.response.data.err;
       }
-      await this.$store.dispatch({
-        type: "signup",
-        userCred: this.signupCred,
-      });
-      this.$router.push("/");
     },
 
     loadUsers() {
@@ -177,25 +169,25 @@ export default {
       }
     },
     async addProfileImage(ev) {
-      this.isLoading = true
-      try{
+      this.isLoading = true;
+      try {
         const imgUploaded = await uploadImg(ev);
         this.signupCred.profileImg = imgUploaded.url;
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
-            title: "Sorry, There was a problem with uploading your image.",
-            showConfirmButton: false,
-            timer: 1500,
-            customClass: {
-              title: "error",
-              popup: "error",
-            },
-            toast: true,
-            animation: true,
+          title: "Sorry, There was a problem with uploading your image.",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            title: "error",
+            popup: "error",
+          },
+          toast: true,
+          animation: true,
         });
       } finally {
-        this.isLoading = false
+        this.isLoading = false;
       }
     },
   },
