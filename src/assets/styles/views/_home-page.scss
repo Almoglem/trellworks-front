@@ -33,15 +33,25 @@
 
 
 .features-container {
-    display: flex;
     padding: 3%;
 
     &:nth-child(even) {
         background-color: $offwhite;
     }
 
+    .feature-content {
+        padding: 30px;
+    }
+
+
+    .txt-container {
+        max-width: 500px;
+        margin: auto;
+        text-align: left;
+    }
+
     .img-container {
-        width: 100%;
+        width: 20%;
 
         img {
             width: 100%;

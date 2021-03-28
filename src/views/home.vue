@@ -23,45 +23,35 @@
       </div>
     </main>
     <div class="features-container">
-      <div class="img-container">
-        <img
-          src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-          alt=""
-        />
-      </div>
-      <div>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-        necessitatibus adipisci dicta sequi repudiandae distinctio minima
-        inventore consequatur, repellat doloribus ducimus ut dolores nobis
-        explicabo sunt, nesciunt impedit quas temporibus?
-      </div>
-    </div>
-    <div class="features-container">
-      <div class="img-container">
-        <img
-          src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-          alt=""
-        />
-      </div>
-      <div>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-        necessitatibus adipisci dicta sequi repudiandae distinctio minima
-        inventore consequatur, repellat doloribus ducimus ut dolores nobis
-        explicabo sunt, nesciunt impedit quas temporibus?
+      <div class="flex feature-content">
+        <div class="img-container">
+          <img
+            src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
+            alt=""
+          />
+        </div>
+        <div class="txt-container">
+          <h1>live updates and notifications</h1>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          necessitatibus adipisci dicta sequi repudiandae distinctio minima
+          inventore consequatur
+        </div>
       </div>
     </div>
     <div class="features-container">
-      <div class="img-container">
-        <img
-          src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-          alt=""
-        />
-      </div>
-      <div>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-        necessitatibus adipisci dicta sequi repudiandae distinctio minima
-        inventore consequatur, repellat doloribus ducimus ut dolores nobis
-        explicabo sunt, nesciunt impedit quas temporibus?
+      <div class="flex feature-content">
+        <div class="txt-container">
+          <h1>keep track of your team (DASHBOARD)</h1>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          necessitatibus adipisci dicta sequi repudiandae distinctio minima
+          inventore consequatur
+        </div>
+        <div class="img-container">
+          <img
+            src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   </section>
