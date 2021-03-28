@@ -394,13 +394,15 @@ export default {
 		setHeight(popUpHeight, popUpWidth) {
 			this.popUpHeight = popUpHeight;
 			this.popUpWidth = popUpWidth;
-			if (this.currAction.type === 'taskCanvas') this.setPos.y += 60
+			if(this.popUpHeight > this.setPos.y) console.log('too high');
+			if (this.currAction.type === 'taskCanvas' && this.popUpHeight > this.setPos.y) this.setPos.y += 80
 			if (this.currClientHeight - this.setPos.y < this.popUpHeight)
 				this.setPos.y -= popUpHeight / 2;
 			// if(this.currAction.type === 'taskCanvas') this.setPos.y += 70
 			if (
 				this.currClientHeight - this.setPos.y < this.popUpHeight &&
-				this.currClientHeight + this.setPos.y > this.popUpHeight
+				this.popUpHeight > this.setPos.y
+				// this.currClientHeight + this.setPos.y > this.popUpHeight
 			)
 				return
 			else this.setPos.y += popUpHeight / 2;
