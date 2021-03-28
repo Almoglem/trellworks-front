@@ -534,6 +534,7 @@ export default {
 					type: "top",
 					isImg: false,
 				};
+				// this.saveActivity( `removed an attachment from "${this.taskToEdit.title}"`)
 			this.updateTask(taskToEdit);
 			Swal.fire({
 				position: "bottom-end",
