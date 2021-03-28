@@ -34,6 +34,10 @@ header {
     top: 200px;
 }
 
+.appheader-profile .vue-avatar--wrapper {
+margin:  0 auto 15px auto;
+}
+
 .about-user {
     width: 100%;
     padding: 0 50px;
@@ -42,21 +46,25 @@ header {
         display: flex;
         justify-content: space-between;
         text-align: center;
+
         .user-profileimg {
             height: 120px !important;
             width: 120px !important;
         }
+
         .name-profile {
             display: flex;
             flex-direction: column;
             margin-left: 7px;
             justify-content: center;
+
             small {
                 margin-right: 7px;
             }
         }
+
         .avatar-profile {
- 
+
             align-items: center;
         }
     }
