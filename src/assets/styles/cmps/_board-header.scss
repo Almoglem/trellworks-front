@@ -14,20 +14,21 @@
         &:hover {
             background-color: rgba(209, 209, 209, 0.349);
         }
-
     }
 
-    .header-container {
+
+    .board-title,
+    .side-actions-container,
+    .member-container {
         align-items: center;
+        justify-content: center;
+    }
+
+    .actions-container {
+        // align-items: center;
+        justify-content: space-between;
         flex: 1;
 
-        &>* {
-            margin: 1%;
-        }
-
-        input {
-            padding-left: 4px;
-        }
 
         h2 {
             color: white;
@@ -50,16 +51,13 @@
     }
 
     .clean-input {
-        min-width: 1%;
-        max-width: 100%;
-        width: 30%;
         box-sizing: content-box;
         color: white;
         display: block;
         font-size: 1.5em;
-        margin-inline-start: 0;
-        margin-inline-end: 0;
         font-weight: bold;
+        padding-left: 0;
+        margin: 0;
     }
 }
 
@@ -81,7 +79,7 @@
 }
 
 .show-menu:after {
-    content: 'Show Menu'
+    content: 'Menu'
 }
 
 .invite-members:after {
@@ -89,6 +87,24 @@
 }
 
 @media only screen and (max-width: 580px) {
+    .board-header {
+        flex-direction: column;
+        height: unset;
+
+        .clean-input {
+            font-weight: unset;
+        }
+
+
+        .actions-container {
+            justify-content: center;
+
+            .invite {
+                margin-right: 3px;
+            }
+        }
+    }
+
     .show-menu:after {
         font-family: "FontAwesome";
         content: '\f141';
@@ -99,7 +115,4 @@
         content: '\f234';
     }
 
-    .avatars-show {
-        display: none;
-    }
 }
