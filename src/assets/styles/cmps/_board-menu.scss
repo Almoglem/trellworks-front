@@ -200,8 +200,6 @@ hr {
 
     .pop-up-window {
 
-
-
         .pop-up {
             padding-bottom: 10px;
             height: 500px;
@@ -301,5 +299,20 @@ hr {
 
             }
         }
+    }
+}
+
+.search-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        margin-bottom: 15px;
+    }
+
+    input {
+        width: 85%
     }
 }
