@@ -259,7 +259,6 @@ export default {
       task = { title: "", id: "" }
     ) {
       const loggedUser = this.loggedInUser || { fullname: "Guest", _id: "000" };
-      console.log(loggedUser);
       board.activities.unshift({
         byMember: {
           _id: loggedUser._id,

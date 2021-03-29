@@ -143,7 +143,6 @@ export default {
   },
   async created() {
     await this.loadBoards();
-    console.log("got boards", this.boards);
     this.setBoards();
   },
   components: {
