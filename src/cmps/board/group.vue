@@ -76,8 +76,12 @@
       v-if="openPopUp"
     >
       <template v-slot:header>
-        <span v-if="sortVisible" @click="sortVisible = false" class="bold">
-          ˂
+        <span
+          v-if="sortVisible"
+          @click="sortVisible = false"
+          class="clickable bold backwords-arrow"
+        >
+          ❮
         </span>
         Options</template
       >

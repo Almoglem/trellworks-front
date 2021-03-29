@@ -491,6 +491,11 @@
     font-size: 14px;
     z-index: 11 !important;
 
+    .backwords-arrow {
+        position: absolute;
+        left: 14px;
+    }
+
     .menu-item {
         width: 90%;
         margin: 0 auto;
