@@ -58,7 +58,7 @@
 
 .sortable-chosen {
     cursor: grab;
-    opacity: 100%;
+    opacity: 1;
     transition: transform 0.18s ease;
 
 }
@@ -427,7 +427,7 @@
 
 .group-header {
     &:hover .fa-trash-alt {
-        opacity: 100%;
+        opacity: 1;
     }
 
 }
@@ -508,6 +508,7 @@
     }
 
 }
+
 .search-users-list {
     max-height: 55vh;
     overflow-y: auto;

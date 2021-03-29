@@ -2,7 +2,9 @@
   <section>
     <app-header />
     <div class="flex main-container gallery">
-      <h1 style="font-weight:400"><i class="fas fa-star"></i> Starred Boards</h1>
+      <h1 style="font-weight: 400">
+        <i class="fas fa-star"></i> Starred Boards
+      </h1>
       <div class="board-list">
         <section v-for="board in starredBoards" :key="board._id">
           <span @click="getBoard(board._id)">
@@ -21,7 +23,7 @@
           </span>
         </section>
       </div>
-      <h1 style="font-weight:400"><i class="fas fa-th"></i> Your boards</h1>
+      <h1 style="font-weight: 400"><i class="fas fa-th"></i> Your boards</h1>
       <div class="board-list">
         <div
           @click="createBoard"
@@ -113,7 +115,7 @@ export default {
       }
     },
     async createBoard() {
-      const loggedUser = this.loggedInUser || { fullname: "Guest" ,_id:"000"};
+      const loggedUser = this.loggedInUser || { fullname: "Guest", _id: "000" };
       await this.$store.dispatch({
         type: "newBoard",
         loggedUser,
@@ -140,6 +142,7 @@ export default {
   },
   async created() {
     await this.loadBoards();
+    console.log("got boards", this.boards);
     this.setBoards();
   },
   components: {

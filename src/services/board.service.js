@@ -20,9 +20,9 @@ export const boardService = {
     getAllGradients
 }
 
-async function query() {
+async function query(isMinimized) {
     // return storageService.query(BOARD_DB)
-    return httpService.get(BOARD_URL)
+    return httpService.get(BOARD_URL, isMinimized)
 }
 
 async function getById(boardId) {

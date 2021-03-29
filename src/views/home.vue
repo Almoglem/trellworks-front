@@ -42,15 +42,28 @@
       <div class="flex feature-content">
         <div class="txt-container">
           <h1>keep track of your team (DASHBOARD)</h1>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-          necessitatibus adipisci dicta sequi repudiandae distinctio minima
-          inventore consequatur
+          Each board has an easilly accessable dashboard to see how your team is
+          doing.
         </div>
         <div class="img-container">
           <img
             src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
             alt=""
           />
+        </div>
+      </div>
+    </div>
+    <div class="features-container">
+      <div class="flex feature-content">
+        <div class="img-container">
+          <img
+            src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
+            alt=""
+          />
+        </div>
+        <div class="txt-container">
+          <h1>work from anywhere(RESPONSIVENESS)</h1>
+          Use Trellworks easily from your computer, tablet or phone.
         </div>
       </div>
     </div>

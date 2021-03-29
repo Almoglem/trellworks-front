@@ -74,7 +74,7 @@ export const boardStore = {
     actions: {
         async loadBoards({ commit }) {
             try {
-                const foundBoards = await boardService.query();
+                const foundBoards = await boardService.query(true);
                 commit({ type: 'setBoards', foundBoards })
             } catch (err) {
                 console.log('Error loading boards');

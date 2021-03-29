@@ -20,13 +20,13 @@
         background-color: $lightgray;
 
         .fa-trash-alt {
-            opacity: 100%;
+            opacity: 1;
         }
     }
 
-   .fa-trash-alt {
-    opacity: 0;
-} 
+    .fa-trash-alt {
+        opacity: 0;
+    }
 }
 
 
