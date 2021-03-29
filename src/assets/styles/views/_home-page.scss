@@ -5,6 +5,17 @@
 .hero-container {
     background-color: $offwhite;
     padding-bottom: 50px;
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .home-hero {
+            width: 75%;
+        }
+    }
 }
 
 
