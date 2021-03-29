@@ -4,7 +4,12 @@
     <h1>{{ setTitle }}</h1>
     <hr />
     <section
-      v-if="!openMenu.colorMenu && !openMenu.searchTasks && !openMenu.aboutBoard && menuToggler"
+      v-if="
+        !openMenu.colorMenu &&
+        !openMenu.searchTasks &&
+        !openMenu.aboutBoard &&
+        menuToggler
+      "
       class="menu-info"
     >
       <ul>
@@ -30,7 +35,8 @@
         >
           <h4>{{ task.title }}</h4>
           <p class="flex column">
-            Created by {{ getTaskActivity(task.id).byMember.fullname }}<span class="muted-txt">{{
+            Created by {{ getTaskActivity(task.id).byMember.fullname
+            }}<span class="muted-txt">{{
               time(getTaskActivity(task.id).createdAt)
             }}</span>
           </p>
@@ -83,25 +89,34 @@
     </section>
     <section class="about-menu" v-if="openMenu.aboutBoard">
       <ul>
-        <li>{{currBoard.title}}</li>
-        <dashboard :isMenu="isMenu"/>
+        <li>
+          Tasks per group
+          <tasksPerGroupChart :board="currBoard" class="chart" />
+        </li>
+        <li>
+          Tasks per member
+          <tasksPerMemberChart :board="currBoard" class="chart" />
+        </li>
       </ul>
     </section>
-    <hr>
+    <hr />
     <i
       @click="toggleColorMenu(false)"
       v-if="!menuToggler"
       class="fas fa-angle-left back-btn clickable"
     ></i>
     <activityLog
-      v-if="!openMenu.colorMenu && !openMenu.searchTasks && !openMenu.aboutBoard"
+      v-if="
+        !openMenu.colorMenu && !openMenu.searchTasks && !openMenu.aboutBoard
+      "
       :activities="activities"
     />
   </section>
 </template>
 
 <script>
-import dashboard from '@/cmps/board/dashboard'
+import tasksPerMemberChart from "../../cmps/board/tasks-per-member-chart";
+import tasksPerGroupChart from "../../cmps/board/tasks-per-group-chart";
 import { boardService } from "@/services/board.service.js";
 import activityLog from "../recurring-cmps/activity-list.vue";
 import moment from "moment";
@@ -111,7 +126,7 @@ export default {
       openMenu: {
         colorMenu: false,
         searchTasks: false,
-        aboutBoard: false
+        aboutBoard: false,
       },
       colorPicker: false,
       colorList: boardService.getAllColors(),
@@ -119,7 +134,6 @@ export default {
       isTemplates: false,
       taskSearchTxt: "",
       tasksToShow: [],
-      isMenu: true
     };
   },
   computed: {
@@ -131,7 +145,9 @@ export default {
       return activitiesToShow;
     },
     menuToggler() {
-      return this.openMenu.colorMenu || this.openMenu.searchTasks || this.openMenu.aboutBoard
+      return this.openMenu.colorMenu ||
+        this.openMenu.searchTasks ||
+        this.openMenu.aboutBoard
         ? false
         : true;
     },
@@ -167,11 +183,11 @@ export default {
       this.openMenu.aboutBoard = false;
       this.openMenu.searchTasks = colorMenuToggler;
     },
-    toggleAboutMenu(aboutMenuToggler){
+    toggleAboutMenu(aboutMenuToggler) {
       this.openMenu.colorMenu = false;
       this.colorPicker = false;
-      this.openMenu.searchTasks = false;   
-      this.openMenu.aboutBoard = aboutMenuToggler   
+      this.openMenu.searchTasks = false;
+      this.openMenu.aboutBoard = aboutMenuToggler;
     },
     getDetails(task) {
       this.$router.push(`/board/${this.currBoard._id}/details/${task.id}`);
@@ -242,7 +258,7 @@ export default {
       );
     },
   },
-  components: { activityLog, dashboard },
+  components: { activityLog, tasksPerGroupChart, tasksPerMemberChart },
   created() {},
 };
 </script>

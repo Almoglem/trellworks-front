@@ -1,10 +1,39 @@
 <template>
   <section class="dashboard-container">
-    <h1>This board's stats</h1>
-    <span>Created at {{ boardCreatedAt }} </span> <span v-if="!isMenu">| </span>
-    <span>{{ currBoard.members.length }} members</span> <span v-if="!isMenu">| </span>
-    <span>{{ tasksLength }} tasks</span> <span v-if="!isMenu">| </span>
-    <span>{{ currBoard.activities.length }} activities</span>
+    <div class="info-cards-container flex">
+      <i class="fas fa-times dashboard-close clickable"> </i>
+      <!-- <div class="info-card flex">
+        <i class="far fa-clock"></i>
+        <span>Created at {{ boardCreatedAt }} </span>
+      </div> -->
+
+      <!-- <i class="far fa-question-circle"></i> -->
+      <!-- unassigned tasks -->
+
+      <div class="info-card flex">
+        <i class="far fa-user fa-2x"></i>
+        <div class="info flex">
+          <span class="bold">{{ currBoard.members.length }}</span>
+          <span>Members</span>
+        </div>
+      </div>
+
+      <div class="info-card flex">
+        <i class="far fa-sticky-note fa-2x"></i>
+        <div class="info flex">
+          <span class="bold">{{ tasksLength }} </span>
+          <span>Tasks</span>
+        </div>
+      </div>
+
+      <div class="info-card flex">
+        <i class="far fa-list-alt fa-2x"></i>
+        <div class="info flex">
+          <span class="bold">{{ currBoard.activities.length }} </span>
+          <span>Activities</span>
+        </div>
+      </div>
+    </div>
     <div class="chart-container flex">
       <div>
         <h5>tasks per group</h5>
@@ -24,13 +53,10 @@ import tasksPerGroupChart from "./tasks-per-group-chart";
 import tasksPerMemberChart from "./tasks-per-member-chart";
 
 export default {
-  props: {
-    isMenu: Boolean
-  },
-  data(){
+  data() {
     return {
-      toggleDashboard: true
-    }
+      toggleDashboard: true,
+    };
   },
   computed: {
     currBoard() {
@@ -47,9 +73,7 @@ export default {
     boardCreatedAt() {
       return this.time(this.$store.getters.currBoard.createdAt);
     },
-    isFromMenu(){
-
-    }
+    isFromMenu() {},
   },
   methods: {
     moment: function () {

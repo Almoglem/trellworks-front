@@ -47,7 +47,7 @@
       <i class="fas fa-chart-bar"></i>
     </button>
     <div
-      class="pop-up-window"
+      class="dashboard pop-up-window"
       v-if="dashboardShown"
       @click="dashboardShown = false"
     ></div>
