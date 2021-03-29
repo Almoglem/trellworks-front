@@ -413,7 +413,7 @@ export default {
     await this.loadBoard();
     const user = this.loggedInUser;
     socketService.setup();
-	// socketService.emit('board topic', this.currBoard._id)
+	  // socketService.emit('board topic', this.currBoard._id)
     socketService.on("board updated", (board) => {
       this.updateBoard(board);
     });

@@ -28,9 +28,10 @@
         z-index: 5;
     }
 
-    .activity-container{
+    .activity-container {
         max-height: 64vh;
         overflow-y: auto;
+        margin-top: 5px;
     }
 }
 
@@ -321,8 +322,8 @@ hr {
         width: 100%;
 
         .search-task-item {
-                width: 100%;
-                height: 100px;
+            width: 100%;
+            height: 100px;
         }
     }
 

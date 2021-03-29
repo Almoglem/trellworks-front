@@ -573,6 +573,7 @@ export default {
 	created() {
 		this.$store.commit({ type: "setTask", taskId: this.taskId });
 		socketService.setup();
+		socketService.emit('board topic', this.currBoard._id)
 		socketService.on("board updated", (board) => {
 			this.updateBoard(board);
 		});
