@@ -1,6 +1,6 @@
 <template>
   <div class="flex board-header">
-    <div class="flex header-container" @submit.prevent="editBoardTitle">
+    <div class="flex board-title">
       <input
         class="clean-input"
         v-model="currBoard.title"
@@ -10,58 +10,62 @@
         @input="calcInputWidth(currBoard.title)"
         maxlength="30"
         style="min-width: 30px, max-width: 500px"
-        :style="{width:inputWidth}"
+        :style="{ width: inputWidth }"
       />
-      <!-- <h2 @click="getInput" v-else class="board-title">
-        {{ currBoard.title }}
-      </h2> -->
       <button class="header-btn star" @click="starBoard">
         <i v-if="!currBoard.isStarred" class="far fa-star"></i
         ><i v-else class="fas fa-star"></i>
       </button>
-      <ul class="flex avatars-show" v-if="boardMembers.length">
-        <span
-          v-for="user in boardMembers"
-          :key="user._id"
-          class="clickable transition board-header-avatar"
-          @click="showProfile(user)"
-          ><userPic @userClicked="currMember = user" :user="user" :size="30"
-        /></span>
-        <div
-          v-if="showMemberProfile"
-          @click="showMemberProfile = false"
-          class="pop-up-window"
-        ></div>
-        <memberProfile
-          :currMember="currMember"
-          v-if="showMemberProfile"
-          @closeProfile="hideProfile"
-        />
-      </ul>
-      <button class="header-btn invite" @click="showUsers">
-        <span class="invite-members"></span>
-      </button>
     </div>
-    <button
-      @click="dashboardShown = !dashboardShown"
-      class="header-btn btn-dashboard"
-    >
-      <i class="fas fa-chart-bar"></i>
-    </button>
-    <div
-      class="dashboard pop-up-window"
-      v-if="dashboardShown"
-      @click="dashboardShown = false"
-    ></div>
-    <dashboard v-if="dashboardShown"></dashboard
-    ><el-badge
-      v-if="userAlerts > 0"
-      :value="userAlerts"
-      :max="10"
-      class="item menu-alert"
-    /><button @click="toggleMenu" class="header-btn menu">
-      <span class="show-menu"></span></button
-    ><transition name="slide-from-right"
+    <div class="flex actions-container">
+      <div class="member-container flex">
+        <ul class="flex avatars-show" v-if="boardMembers.length">
+          <span
+            v-for="user in boardMembers"
+            :key="user._id"
+            class="clickable transition board-header-avatar"
+            @click="showProfile(user)"
+            ><userPic @userClicked="currMember = user" :user="user" :size="30"
+          /></span>
+          <div
+            v-if="showMemberProfile"
+            @click="showMemberProfile = false"
+            class="pop-up-window"
+          ></div>
+          <memberProfile
+            :currMember="currMember"
+            v-if="showMemberProfile"
+            @closeProfile="hideProfile"
+          />
+        </ul>
+        <button class="header-btn invite" @click="showUsers">
+          <span class="invite-members"></span>
+        </button>
+      </div>
+      <div class="side-actions-container flex">
+        <button
+          @click="dashboardShown = !dashboardShown"
+          class="header-btn btn-dashboard"
+        >
+          <i class="fas fa-chart-bar"></i>
+        </button>
+        <div
+          class="dashboard pop-up-window"
+          v-if="dashboardShown"
+          @click="dashboardShown = false"
+        ></div>
+        <dashboard v-if="dashboardShown"></dashboard
+        ><el-badge
+          v-if="userAlerts > 0"
+          :value="userAlerts"
+          :max="10"
+          class="item menu-alert"
+        /><button @click="toggleMenu" class="header-btn menu">
+          <span class="show-menu"></span>
+        </button>
+      </div>
+    </div>
+    <transition name="slide-from-right"
       ><boardMenu
         class="board-menu"
         v-if="menuShown"
@@ -172,7 +176,6 @@ export default {
   },
 
   computed: {
-
     boardMembers() {
       return this.$store.getters.currBoardMembers;
     },
@@ -217,8 +220,8 @@ export default {
   },
 
   methods: {
-        calcInputWidth(boardName){
-  this.inputWidth =  boardName.length * 13 + 'px'
+    calcInputWidth(boardName) {
+      this.inputWidth = boardName.length * 11 + "px";
     },
     updateUserAlerts() {
       const user = this.loggedInUser;
@@ -347,7 +350,7 @@ export default {
   async created() {
     await this.loadUsers();
     this.updateUserAlerts();
-    this.calcInputWidth(this.currBoard.title)
+    this.calcInputWidth(this.currBoard.title);
   },
 
   watch: {

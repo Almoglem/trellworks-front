@@ -14,20 +14,21 @@
         &:hover {
             background-color: rgba(209, 209, 209, 0.349);
         }
-
     }
 
-    .header-container {
+
+    .board-title,
+    .side-actions-container,
+    .member-container {
         align-items: center;
+        justify-content: center;
+    }
+
+    .actions-container {
+        // align-items: center;
+        justify-content: space-between;
         flex: 1;
 
-        &>* {
-            margin: 1%;
-        }
-
-        input {
-            padding-left: 4px;
-        }
 
         h2 {
             color: white;
@@ -50,9 +51,6 @@
     }
 
     .clean-input {
-        min-width: 1%;
-        max-width: 100%;
-        width: 30%;
         box-sizing: content-box;
         color: white;
         display: block;
@@ -89,6 +87,15 @@
 }
 
 @media only screen and (max-width: 580px) {
+    .board-header {
+        flex-direction: column;
+        height: unset;
+    }
+
+    .actions-container {
+        width: 100%;
+    }
+
     .show-menu:after {
         font-family: "FontAwesome";
         content: '\f141';
@@ -99,7 +106,7 @@
         content: '\f234';
     }
 
-    .avatars-show {
-        display: none;
-    }
+    // .avatars-show {
+    //     display: none;
+    // }
 }
