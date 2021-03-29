@@ -11,66 +11,69 @@
 				inactive-color="#eaecf0"
 				@change="toggleActivity"
 		/></span>
-		<section
-			v-for="activity in activities"
-			:key="activity.id"
-			class="activity-container"
-		>
+		<div class="activity-container">
 			<section
-				class="flex activity"
-				style="margin-bottom: 0"
-				:class="{ comment: activity.isComment }"
+				v-for="activity in activities"
+				:key="activity.id"
+				class="activity-container"
 			>
-				<span class="avatar">
-					<userPic :user="activity.byMember" :size="30" />
-				</span>
-				<span class="flex activity-details">
-					<span>
-						<span style="font-weight: bold"
-							>{{ activity.byMember.fullname }}
-						</span>
-						{{ activity.title }}
-					</span>
-					<span class="activity-time flex">
-						<span class="muted-txt">{{ time(activity.createdAt) }}</span>
-						<p
-							@click="replyToComment(activity.id)"
-							v-if="activity.isComment"
-							class="clickable"
-							style="margin: 0 8px"
-						>Reply
-						</p>
-					</span>
-				</span>
-			</section>
-			<section
-				v-if="activity.replies"
-				class="comment reply"
-				style="margin-left: 25px"
-			>
-				<span
+				<section
 					class="flex activity"
-					v-for="(reply, idx) in activity.replies"
-					:key="idx"
-					style="margin-top: 0"
+					style="margin-bottom: 0"
+					:class="{ comment: activity.isComment }"
 				>
 					<span class="avatar">
-					<userPic :user="reply.byMember" :size="30" />
+						<userPic :user="activity.byMember" :size="30" />
 					</span>
 					<span class="flex activity-details">
 						<span>
 							<span style="font-weight: bold"
-								>{{ reply.byMember.fullname }}
+								>{{ activity.byMember.fullname }}
 							</span>
-							{{ reply.title }}
+							{{ activity.title }}
 						</span>
 						<span class="activity-time flex">
-							<span class="muted-txt">{{ time(reply.createdAt) }}</span>
+							<span class="muted-txt">{{ time(activity.createdAt) }}</span>
+							<p
+								@click="replyToComment(activity.id)"
+								v-if="activity.isComment"
+								class="clickable"
+								style="margin: 0 8px"
+							>Reply
+							</p>
 						</span>
 					</span>
-				</span>
+				</section>
+				<section
+					v-if="activity.replies"
+					class="comment reply"
+					style="margin-left: 25px"
+				>
+					<span
+						class="flex activity"
+						v-for="(reply, idx) in activity.replies"
+						:key="idx"
+						style="margin-top: 0"
+					>
+						<span class="avatar">
+						<userPic :user="reply.byMember" :size="30" />
+						</span>
+						<span class="flex activity-details">
+							<span>
+								<span style="font-weight: bold"
+									>{{ reply.byMember.fullname }}
+								</span>
+								{{ reply.title }}
+							</span>
+							<span class="activity-time flex">
+								<span class="muted-txt">{{ time(reply.createdAt) }}</span>
+							</span>
+						</span>
+					</span>
+				</section>
 			</section>
-		</section>
+			
+		</div>
 	</section>
 </template>
 
