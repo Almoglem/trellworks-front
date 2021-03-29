@@ -486,7 +486,8 @@
     }
 }
 
-.quickmenu-popup {
+.pop-up.quickmenu-popup {
+    width: 100px;
     font-size: 14px;
     z-index: 11 !important;
 
@@ -495,7 +496,6 @@
         margin: 0 auto;
         align-items: baseline;
         border-radius: 3px;
-        padding: 5% 9% 5% 13%;
         height: 40px;
 
         &:hover {
