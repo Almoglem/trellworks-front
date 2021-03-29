@@ -258,7 +258,9 @@ export default {
 			const showActivity = this.showActivity
 			if (showActivity === true ){return this.currBoard.activities.filter((activity) => {
 				return (
-					(activity.task && activity.task.id === this.currTask.id)
+					(activity.task && activity.task.id === this.currTask.id && !activity.title.includes("posted a comment to ")
+					&& activity.task && !activity.title.includes("replied to a comment"))
+				
 				);
 			})}
 			else {return this.currBoard.activities.filter((activity) => {
@@ -338,7 +340,7 @@ export default {
 				this.currBoard.activities.unshift(activity);
 				if(this.currBoard.activities.length > 50) this.currBoard.activities.splice(this.currBoard.activities.length-1, 1)
 				if (isComment) {
-					this.updateBoard(this.currBoard);
+					await this.updateBoard(this.currBoard);
 					this.updateBoardSocket(this.currBoard);
 				}
 			} catch (err) {
