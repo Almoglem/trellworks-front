@@ -70,7 +70,7 @@ function _getEmptyBoard(loggedinUser) {
                 task: { id: '', title: '' }
             }
         ],
-        isStarrted: false
+        isStarred: false
     }
 }
 
