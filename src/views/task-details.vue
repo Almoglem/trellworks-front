@@ -336,6 +336,7 @@ export default {
 				}
 				if (activity.isComment) activity.replies = []
 				this.currBoard.activities.unshift(activity);
+				if(this.currBoard.activities.length > 50) this.currBoard.activities.splice(this.currBoard.activities.length-1, 1)
 				if (isComment) {
 					this.updateBoard(this.currBoard);
 					this.updateBoardSocket(this.currBoard);

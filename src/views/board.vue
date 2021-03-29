@@ -268,6 +268,7 @@ export default {
 					title: task.title,
 				},
 			});
+			if(board.activities.length >= 50) board.activities.splice(board.activities.length-1, 1)
 			this.updateBoard(board);
 			socketService.emit("board update", board);
 		},
