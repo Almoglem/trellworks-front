@@ -27,6 +27,11 @@
         right: 19px;
         z-index: 5;
     }
+
+    .activity-container{
+        max-height: 64vh;
+        overflow-y: auto;
+    }
 }
 
 .slide-from-right-enter-active {
