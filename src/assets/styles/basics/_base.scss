@@ -80,46 +80,31 @@ textarea:focus {
   outline: none;
 }
 
-::-webkit-scrollbar {
+.group-container ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
   height: 12px;
 }
-
-::-webkit-scrollbar-button {
-  width: 0px;
-  height: 0px;
+.group-container ::-webkit-scrollbar-thumb {
+  background: #d1d1d1;
+  border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #e1e1e194;
-  border: 0px none #ffffff;
-  border-radius: 42px;
+  background: hsla(0,0%,79.6%,.25);
+  border-radius: 5px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: #ffffff;
+.group-container ::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: inset 7px 10px 12px #f0f0f0;
 }
-
-::-webkit-scrollbar-thumb:active {
-  background: #505050;
-}
-
 ::-webkit-scrollbar-track {
-  background: #6666664d;
-  border: 0px none #ffffff;
-  border-radius: 50px;
-}
-
-::-webkit-scrollbar-track:hover {
-  background: #666666;
-}
-
-::-webkit-scrollbar-track:active {
-  background: #333333;
-}
-
-::-webkit-scrollbar-corner {
-  background: transparent;
+  background: rgba(9,30,66,.08);
+  border-radius: 5px;
 }
 
 .swal2-popup.swal2-toast.swal2-show,
