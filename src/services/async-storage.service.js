@@ -92,4 +92,3 @@ function getBoards() {
     }
     return Promise.resolve(boards)
 }
-getBoards()
