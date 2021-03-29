@@ -501,14 +501,15 @@
         margin: 0 auto;
         align-items: baseline;
         border-radius: 3px;
-        height: 40px;
-
+        padding: 10px 0;
+        
         &:hover {
             background-color: rgba(192, 192, 192, 0.116);
         }
 
         p {
             margin-left: 8px;
+            margin-bottom: 0;
         }
     }
 

@@ -410,11 +410,6 @@ export default {
     },
   },
   async created() {
-    // document.addEventListener("mousedown", (ev) => {
-    // 	if (!ev.target.closest(".quickmenu-popup")) {
-    // 		this.menuToggler = false
-    // 	}
-    // })
     await this.loadBoard();
     const user = this.loggedInUser;
     socketService.setup();
