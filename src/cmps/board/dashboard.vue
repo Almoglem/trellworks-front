@@ -2,14 +2,6 @@
   <section class="dashboard-container">
     <div class="info-cards-container flex">
       <i class="fas fa-times dashboard-close clickable"> </i>
-      <!-- <div class="info-card flex">
-        <i class="far fa-clock"></i>
-        <span>Created at {{ boardCreatedAt }} </span>
-      </div> -->
-
-      <!-- <i class="far fa-question-circle"></i> -->
-      <!-- unassigned tasks -->
-
       <div class="info-card flex">
         <i class="far fa-user fa-2x"></i>
         <div class="info flex">
@@ -36,13 +28,17 @@
     </div>
     <div class="chart-container flex">
       <div>
-        <h5>tasks per group</h5>
+        <h3>Tasks per group</h3>
         <tasksPerGroupChart :board="currBoard" class="chart" />
       </div>
       <div>
-        <h5>tasks per member</h5>
+        <h3>Tasks per member</h3>
         <tasksPerMemberChart :board="currBoard" class="chart" />
       </div>
+    </div>
+    <div>
+      <i class="far fa-clock"></i>
+      <span> Created at {{ boardCreatedAt }} </span>
     </div>
   </section>
 </template>
@@ -73,14 +69,13 @@ export default {
     boardCreatedAt() {
       return this.time(this.$store.getters.currBoard.createdAt);
     },
-    isFromMenu() {},
   },
   methods: {
     moment: function () {
       return moment();
     },
     time(date) {
-      return moment(date).format("DD.MM.YYYY");
+      return moment(date).format("DD/MM/YYYY");
     },
   },
   components: { tasksPerGroupChart, tasksPerMemberChart },

@@ -36,7 +36,7 @@ export default {
         labels: this.usernames,
         datasets: [
           {
-            label: "Tasks per member",
+            label: "Tasks",
             backgroundColor: [
               "#cee6b4",
               "#bb8082",
