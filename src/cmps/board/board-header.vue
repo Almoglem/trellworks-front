@@ -4,15 +4,17 @@
       <input
         class="clean-input"
         v-model="currBoard.title"
-        v-if="isEditing"
         ref="titleInput"
         @keypress.enter="editBoardTitle"
         @focusout="editBoardTitle"
+        @input="calcInputWidth(currBoard.title)"
         maxlength="30"
+        style="min-width: 30px, max-width: 500px"
+        :style="{width:inputWidth}"
       />
-      <h2 @click="getInput" v-else class="board-title">
+      <!-- <h2 @click="getInput" v-else class="board-title">
         {{ currBoard.title }}
-      </h2>
+      </h2> -->
       <button class="header-btn star" @click="starBoard">
         <i v-if="!currBoard.isStarred" class="far fa-star"></i
         ><i v-else class="fas fa-star"></i>
@@ -156,6 +158,7 @@ export default {
       showMemberProfile: false,
       currMember: null,
       userWindow: false,
+      inputWidth: ``,
       memberSearchTxt: "",
       setPos: {
         x: 0,
@@ -169,6 +172,7 @@ export default {
   },
 
   computed: {
+
     boardMembers() {
       return this.$store.getters.currBoardMembers;
     },
@@ -213,6 +217,9 @@ export default {
   },
 
   methods: {
+        calcInputWidth(boardName){
+  this.inputWidth =  boardName.length * 11 + 'px'
+    },
     updateUserAlerts() {
       const user = this.loggedInUser;
       if (!user || user === []) return;
@@ -340,6 +347,7 @@ export default {
   async created() {
     await this.loadUsers();
     this.updateUserAlerts();
+    this.calcInputWidth(this.currBoard.title)
   },
 
   watch: {
