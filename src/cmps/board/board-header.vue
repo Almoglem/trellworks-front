@@ -89,7 +89,7 @@
             v-for="(user, idx) in suggestedUsers"
             @click="toggleBoardMember(user)"
             :key="idx"
-            class="search-members flex"
+            class="search-members flex clickable"
           >
             <span class="flex"
               ><userPic :user="user" :size="30" /><i
@@ -105,7 +105,7 @@
             v-for="user in filteredMembers"
             @click="toggleBoardMember(user)"
             :key="user._id"
-            class="search-members flex"
+            class="search-members flex clickable"
           >
             <span class="flex"
               ><userPic :user="user" :size="30" /><i
@@ -122,7 +122,7 @@
           <li
             v-for="(user, idx) in boardMembers"
             :key="idx"
-            class="search-members flex"
+            class="search-members flex clickable"
             @click="toggleBoardMember(user)"
           >
             <span class="flex"

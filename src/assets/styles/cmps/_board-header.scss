@@ -5,9 +5,16 @@
     height: 52px;
     background-color: transparent;
 
+
     .search-members {
         justify-content: space-between;
         width: 250px;
+        padding: 5px;
+
+        &:hover {
+            background-color: rgba(209, 209, 209, 0.349);
+        }
+
     }
 
     .header-container {
