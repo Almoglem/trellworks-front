@@ -47,7 +47,7 @@
           />
           <i v-if="task.description" :style="{marginRight: '8px'}" class="fas fa-align-left fa-sm desc-preview"></i>
           <span class="flex" v-if="task.imgs.length">
-            <i class="far fa-file-image"></i>  <span> {{task.imgs.length}}</span>
+            <i class="far fa-file-image"></i>  <span style="font-size:12px"> {{task.imgs.length}}</span>
           </span>
           <span
             class="checklist-preview"
