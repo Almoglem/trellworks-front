@@ -280,6 +280,9 @@ hr {
             &:hover {
                 background-color: unset;
             }
+            &:first-child {
+                padding-bottom: 30px;
+            }
         }
     }
 

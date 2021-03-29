@@ -57,7 +57,7 @@ function _getEmptyBoard(loggedinUser) {
         labels: getDefaultLabels(),
         groups: [],
         styles: {
-            backgroundColor: '#61bd4f',
+            backgroundColor: '#0079bf',
             backgroundImage: ''
         },
         members,
