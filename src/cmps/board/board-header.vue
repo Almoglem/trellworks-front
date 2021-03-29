@@ -297,11 +297,14 @@ export default {
 
       if (foundIdx !== -1) {
         this.currBoard.members.splice(foundIdx, 1);
-        return this.$emit("updateBoard", this.currBoard);
+        this.$emit("updateBoard", this.currBoard);
+        this.$emit("updateBoardSocket", this.currBoard);
+        return;
       }
 
       this.currBoard.members.push(user);
       this.$emit("updateBoard", this.currBoard);
+      this.$emit("updateBoardSocket", this.currBoard);
     },
 
     starBoard() {
