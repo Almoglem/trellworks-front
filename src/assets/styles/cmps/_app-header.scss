@@ -35,7 +35,7 @@ header {
 }
 
 .appheader-profile .vue-avatar--wrapper {
-margin:  0 auto 15px auto;
+    margin: 0 auto 15px auto;
 }
 
 .about-user {
@@ -82,5 +82,15 @@ margin:  0 auto 15px auto;
         a {
             color: #516079;
         }
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    header a {
+        font-size: 0.8rem;
+    }
+
+    header .main-logo {
+        font-size: 1.5rem;
     }
 }

@@ -221,7 +221,7 @@ export default {
 
   methods: {
     calcInputWidth(boardName) {
-      this.inputWidth = boardName.length * 11 + "px";
+      this.inputWidth = boardName.length * 13 + "px";
     },
     updateUserAlerts() {
       const user = this.loggedInUser;

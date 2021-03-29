@@ -55,9 +55,9 @@
         color: white;
         display: block;
         font-size: 1.5em;
-        margin-inline-start: 0;
-        margin-inline-end: 0;
         font-weight: bold;
+        padding-left: 0;
+        margin: 0;
     }
 }
 
@@ -79,7 +79,7 @@
 }
 
 .show-menu:after {
-    content: 'Show Menu'
+    content: 'Menu'
 }
 
 .invite-members:after {
@@ -90,10 +90,19 @@
     .board-header {
         flex-direction: column;
         height: unset;
-    }
 
-    .actions-container {
-        width: 100%;
+        .clean-input {
+            font-weight: unset;
+        }
+
+
+        .actions-container {
+            justify-content: center;
+
+            .invite {
+                margin-right: 3px;
+            }
+        }
     }
 
     .show-menu:after {
@@ -106,7 +115,4 @@
         content: '\f234';
     }
 
-    // .avatars-show {
-    //     display: none;
-    // }
 }
