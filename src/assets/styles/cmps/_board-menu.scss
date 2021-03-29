@@ -312,6 +312,15 @@ hr {
         margin-bottom: 15px;
     }
 
+    ul {
+        width: 100%;
+
+        .search-task-item {
+                width: 100%;
+                height: 100px;
+        }
+    }
+
     input {
         width: 85%
     }
