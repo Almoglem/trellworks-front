@@ -76,12 +76,12 @@
         <div v-else class="color-list">
           <li
             class="color-preview clickable"
-            v-for="(image, idx) in 9"
+            v-for="(image, idx) in 12"
             :key="idx"
             @click="setBoardTemplate(idx)"
           >
             <div class="img-container">
-              <img :src="require('../../assets/img/template' + idx + '.jpg')" />
+              <img :src="require('../../assets/img/thumbnail' + idx + '.jpg')" />
             </div>
           </li>
         </div>
