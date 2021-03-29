@@ -31,17 +31,16 @@
           />
         </div>
         <div class="txt-container">
-          <h1>live updates and notifications</h1>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-          necessitatibus adipisci dicta sequi repudiandae distinctio minima
-          inventore consequatur
+          <h1>Live updates and notifications</h1>
+          See every change in real time and get notifications on important
+          activities.
         </div>
       </div>
     </div>
     <div class="features-container">
       <div class="flex feature-content">
         <div class="txt-container">
-          <h1>keep track of your team (DASHBOARD)</h1>
+          <h1>Keep track of your team (DASHBOARD)</h1>
           Each board has an easilly accessable dashboard to see how your team is
           doing.
         </div>
@@ -62,8 +61,9 @@
           />
         </div>
         <div class="txt-container">
-          <h1>work from anywhere(RESPONSIVENESS)</h1>
-          Use Trellworks easily from your computer, tablet or phone.
+          <h1>Work from anywhere(RESPONSIVENESS)</h1>
+          Use Trellworks easily at the home, office or on the way. Trellworks
+          fits your computer, tablet or phone.
         </div>
       </div>
     </div>
