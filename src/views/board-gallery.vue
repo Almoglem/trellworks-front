@@ -97,7 +97,6 @@ export default {
         await this.$store.dispatch({
           type: "loadBoards",
         });
-        this.isLoading = false;
         this.setBoards();
       } catch (err) {
         Swal.fire({
@@ -112,6 +111,8 @@ export default {
           toast: true,
           animation: true,
         });
+      } finally {
+          this.isLoading = false;
       }
     },
     async createBoard() {
