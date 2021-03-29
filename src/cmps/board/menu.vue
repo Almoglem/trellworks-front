@@ -4,16 +4,16 @@
     <h1>{{ setTitle }}</h1>
     <hr />
     <section
-      v-if="!openMenu.colorMenu && !openMenu.searchTasks && menuToggler"
+      v-if="!openMenu.colorMenu && !openMenu.searchTasks && !openMenu.aboutBoard && menuToggler"
       class="menu-info"
     >
       <ul>
-        <li>About this board</li>
+        <li @click="toggleAboutMenu(true)">About this board</li>
         <li @click="toggleColorMenu(true)">Change background</li>
         <li @click="toggleSearchMenu(true)">Search tasks</li>
       </ul>
     </section>
-    <section v-if="openMenu.searchTasks">
+    <section v-if="openMenu.searchTasks" class="search-menu">
       <h1>Search in Board</h1>
       <input
         type="text"
@@ -81,19 +81,26 @@
         </div>
       </div>
     </section>
+    <section class="about-menu" v-if="openMenu.aboutBoard">
+      <ul>
+        <li>{{currBoard.title}}</li>
+        <dashboard :isMenu="isMenu"/>
+      </ul>
+    </section>
     <i
       @click="toggleColorMenu(false)"
       v-if="!menuToggler"
       class="fas fa-angle-left back-btn clickable"
     ></i>
     <activityLog
-      v-if="!openMenu.colorMenu && !openMenu.searchTasks"
+      v-if="!openMenu.colorMenu && !openMenu.searchTasks && !openMenu.aboutBoard"
       :activities="activities"
     />
   </section>
 </template>
 
 <script>
+import dashboard from '@/cmps/board/dashboard'
 import { boardService } from "@/services/board.service.js";
 import activityLog from "../recurring-cmps/activity-list.vue";
 import moment from "moment";
@@ -103,6 +110,7 @@ export default {
       openMenu: {
         colorMenu: false,
         searchTasks: false,
+        aboutBoard: false
       },
       colorPicker: false,
       colorList: boardService.getAllColors(),
@@ -110,6 +118,7 @@ export default {
       isTemplates: false,
       taskSearchTxt: "",
       tasksToShow: [],
+      isMenu: true
     };
   },
   computed: {
@@ -121,7 +130,7 @@ export default {
       return activitiesToShow;
     },
     menuToggler() {
-      return this.openMenu.colorMenu || this.openMenu.searchTasks
+      return this.openMenu.colorMenu || this.openMenu.searchTasks || this.openMenu.aboutBoard
         ? false
         : true;
     },
@@ -147,17 +156,25 @@ export default {
     },
     toggleColorMenu(colorMenuToggler) {
       this.openMenu.searchTasks = false;
-      this.openMenu.colorMenu = colorMenuToggler;
       this.colorPicker = false;
-    },
-    getDetails(task) {
-      this.$router.push(`/board/${this.currBoard._id}/details/${task.id}`);
-      this.closeMenu();
+      this.openMenu.aboutBoard = false;
+      this.openMenu.colorMenu = colorMenuToggler;
     },
     toggleSearchMenu(colorMenuToggler) {
       this.openMenu.colorMenu = false;
       this.colorPicker = false;
+      this.openMenu.aboutBoard = false;
       this.openMenu.searchTasks = colorMenuToggler;
+    },
+    toggleAboutMenu(aboutMenuToggler){
+      this.openMenu.colorMenu = false;
+      this.colorPicker = false;
+      this.openMenu.searchTasks = false;   
+      this.openMenu.aboutBoard = aboutMenuToggler   
+    },
+    getDetails(task) {
+      this.$router.push(`/board/${this.currBoard._id}/details/${task.id}`);
+      this.closeMenu();
     },
     toggleColorList(colorListToggler) {
       this.colorPicker = true;
@@ -224,7 +241,7 @@ export default {
       );
     },
   },
-  components: { activityLog },
+  components: { activityLog, dashboard },
   created() {},
 };
 </script>

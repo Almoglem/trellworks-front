@@ -200,7 +200,7 @@ hr {
 
     .pop-up-window {
 
-      
+
 
         .pop-up {
             padding-bottom: 10px;
@@ -244,4 +244,62 @@ hr {
     left: 0;
     background-color: transparent;
     z-index: 10;
+}
+
+.about-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    h1 {
+        padding-bottom: 20px;
+    }
+
+    input {
+        width: 88%;
+    }
+
+    hr {
+        margin-bottom: 7px;
+    }
+
+    ul {
+        width: 100%;
+
+        li {
+            cursor: unset;
+            font-size: 18px;
+            padding-top: 0;
+
+            &:hover {
+                background-color: unset;
+            }
+        }
+    }
+
+    .dashboard-container {
+        position: unset;
+        transform: unset;
+        display: flex;
+        flex-direction: column;
+        background-color: unset;
+
+        h1 {
+            font-size: 16px;
+        }
+
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            div {
+                width: 100%;
+                height: 367px;
+
+            }
+        }
+    }
 }

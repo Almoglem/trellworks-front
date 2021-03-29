@@ -37,17 +37,17 @@
           </label>
           <label>
             <input
-              type="password"
-              v-model="signupCred.password"
-              placeholder="Password"
+              type="text"
+              v-model="signupCred.username"
+              placeholder="Username"
               required
             />
           </label>
           <label>
             <input
-              type="text"
-              v-model="signupCred.username"
-              placeholder="Username"
+              type="password"
+              v-model="signupCred.password"
+              placeholder="Password"
               required
             />
           </label>

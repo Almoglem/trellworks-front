@@ -1,9 +1,9 @@
 <template>
   <section class="dashboard-container">
     <h1>This board's stats</h1>
-    <span>Created at {{ boardCreatedAt }} </span> |
-    <span>{{ currBoard.members.length }} members</span> |
-    <span>{{ tasksLength }} tasks</span> |
+    <span>Created at {{ boardCreatedAt }} </span> <span v-if="!isMenu">| </span>
+    <span>{{ currBoard.members.length }} members</span> <span v-if="!isMenu">| </span>
+    <span>{{ tasksLength }} tasks</span> <span v-if="!isMenu">| </span>
     <span>{{ currBoard.activities.length }} activities</span>
     <div class="chart-container flex">
       <div>
@@ -24,7 +24,9 @@ import tasksPerGroupChart from "./tasks-per-group-chart";
 import tasksPerMemberChart from "./tasks-per-member-chart";
 
 export default {
-  props: {},
+  props: {
+    isMenu: Boolean
+  },
   data(){
     return {
       toggleDashboard: true
@@ -45,6 +47,9 @@ export default {
     boardCreatedAt() {
       return this.time(this.$store.getters.currBoard.createdAt);
     },
+    isFromMenu(){
+
+    }
   },
   methods: {
     moment: function () {

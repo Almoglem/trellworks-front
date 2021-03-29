@@ -257,12 +257,16 @@ export default {
 			group,
 			task = { title: "", id: "" }
 		) {
+			const loggedUser = this.loggedInUser || { fullname: "Guest", _id: "000" };
+			console.log(loggedUser);
 			board.activities.unshift({
-				byMember: {_id:this.loggedInUser._id,
-				username: this.loggedInUser.username,
-				fullname: this.loggedInUser.fullname,
-				profileImg: this.loggedInUser.profileImg || '',
-				notifications: {board: this.loggedInUser.notifications.board }} || { fullname: "Guest", _id: "000" },
+				byMember: {_id:loggedUser._id,
+					username: loggedUser.username || 'Guest',
+					fullname: loggedUser.fullname,
+					profileImg: loggedUser.profileImg || '',
+					notifications: loggedUser.notifications ? {board: loggedUser.notifications.board} : { board: '000000' },
+				},
+				// notifications: {board: loggedUser.notifications.board }} || { board: '0000000' },
 				title: activityTitle,
 				createdAt: Date.now(),
 				group: group.title,

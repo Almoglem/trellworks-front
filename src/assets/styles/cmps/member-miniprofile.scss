@@ -1,7 +1,7 @@
 .member-miniprofile {
     background-color: white;
     z-index: 1;
-    height: 150px;
+    height: 131px;
     width: 250px;
     top: 95px;
     position: absolute;
@@ -12,17 +12,23 @@
     z-index: 11;
 
     .details-close {
-        float: right;
+        position: absolute;
+        top: 13px;
+        right: 15px;
     }
 
     .flex {
-        align-items: baseline;
-        h5{
+        height: 45px;
+        align-items: center;
+
+        h5 {
             padding-left: 8px;
+            margin: 0;
         }
     }
 }
 
-.task-details-modal .member-miniprofile{
+.task-details-modal .member-miniprofile {
     top: 175px;
-    left: 75px;}
+    left: 75px;
+}
