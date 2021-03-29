@@ -236,7 +236,7 @@ export default {
 					iconClass: "fas fa-square",
 				},
 				{
-					txt: "Canvas",
+					txt: "Note",
 					type: "taskCanvas",
 					iconClass: "fas fa-palette"
 				}

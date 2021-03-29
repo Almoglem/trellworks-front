@@ -1,14 +1,11 @@
 <template>
   <section
-    @mouseover="toggleEditPen(true)"
-    @mouseleave="toggleEditPen(false)"
     @contextmenu.prevent="showEdit = true"
     @click="getDetails"
     class="task-preview clickable"
     :style="bgcToShow"
     :class="setCoverImgFull"
   >
-    <quick-edit @quickEdited="taskEdited" @toggleEdit="toggleEdit" :task="task" v-if="showEdit"/>
     <div class="top-cover" v-if="task.cover.src && typeTop">
       <div
         class="cover-color"
@@ -71,11 +68,6 @@
             </span>
           </span>
         </div>
-        <i
-          v-if="isEditPenShown"
-          :class="penToggler"
-          @click.stop="toggleEdit(true)"
-        ></i>
       </div>
     </div>
   </section>
@@ -83,7 +75,6 @@
 
 <script>
 import labelsPreview from "../task-details/labels-preview.vue";
-import quickEdit from "./task-quick-edit";
 import Avatar from "vue-avatar";
 import dueDatePreview from "@/cmps/task/due-date-preview.vue";
 
@@ -100,7 +91,6 @@ export default {
   },
   data() {
     return {
-      isEditPenShown: false,
       showEdit: false,
       areTodosCompleted: false,
     };
@@ -151,9 +141,6 @@ export default {
       if (this.task.cover.type === "full")
         return { fontSize: "16px", fontWeight: 700 };
     },
-    penToggler() {
-      return { "fas fa-pencil-alt edit-pen": this.isEditPenShown };
-    },
     footerIsShown() {
       if (
         this.task.dueDate ||
@@ -196,11 +183,7 @@ export default {
       this.$store.commit({ type: "setTask", task: this.task });
       this.$router.push(`/board/${currBoard._id}/details/${this.task.id}`);
     },
-    toggleEditPen(boolean) {
-      this.isEditPenShown = boolean;
-    },
     toggleEdit(boolean) {
-      this.isEditPenShown = false;
       this.showEdit = boolean;
     },
     updateDueDate(task) {
@@ -212,7 +195,6 @@ this.$emit("taskEdited",task)
   },
   created() {},
   components: {
-    quickEdit,
     labelsPreview,
     Avatar,
     dueDatePreview,
