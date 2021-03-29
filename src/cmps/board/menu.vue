@@ -87,6 +87,7 @@
         <dashboard :isMenu="isMenu"/>
       </ul>
     </section>
+    <hr>
     <i
       @click="toggleColorMenu(false)"
       v-if="!menuToggler"
