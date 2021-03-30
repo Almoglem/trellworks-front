@@ -23,7 +23,7 @@
 
 
     .menu-close {
-        position: fixed;
+        position: absolute;
         right: 19px;
         z-index: 5;
     }
@@ -280,6 +280,7 @@ hr {
             &:hover {
                 background-color: unset;
             }
+
             &:first-child {
                 padding-bottom: 30px;
             }
