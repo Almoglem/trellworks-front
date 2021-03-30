@@ -9,16 +9,17 @@
 
 html {
   font-size: 16px;
+  font-family: Helvetica, sans-serif;
+
 }
+
 
 body {
   margin: 0;
-  font-family: Helvetica;
   color: $clr2;
   line-height: 20px;
   font-weight: 400;
-  // overflow-y: hidden;
-  // background-color: rgb(0, 174, 204);
+
 }
 
 #app {
@@ -43,7 +44,7 @@ a {
 input,
 textarea,
 button {
-  font-family: Helvetica;
+  font-family: Helvetica, sans-serif;
 }
 
 ul {
