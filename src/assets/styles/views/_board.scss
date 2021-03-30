@@ -79,13 +79,13 @@
     width: 272px;
     min-height: 78px;
     height: fit-content;
-    max-height: 80vh;
+    max-height: 85vh;
     border-radius: 3px;
     position: relative;
     margin-left: 8px;
 
     .tasks-container {
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .group-header {
