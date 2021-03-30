@@ -1,97 +1,96 @@
 <template>
 	<section class="login-signup">
 		<appHeader />
-		<div class="login-signup-container flex">
-			<div class="graphic">
+		<div class="flex login-page-container">
+			<section>
 				<lottie-player
-					autoplay
-					loop
-					mode="normal"
-					speed="0.5"
 					src="https://assets7.lottiefiles.com/packages/lf20_d3yazmwr.json"
-					class="login-hero"
-				>
-				</lottie-player>
-			</div>
-      <div class="login-container">
-			<div v-if="isLogin" class="form-wrapper login">
-				<form @submit.prevent="doLogin">
-					<h2>Login</h2>
-					<input
-						type="text"
-						v-model="loginCred.username"
-						placeholder="User name"
-						required
-					/><input
-						type="password"
-						v-model="loginCred.password"
-						placeholder="Password"
-						required
-					/><button type="submit">Login</button>
-				</form>
-				<span
-					>Don't have an account?
-					<span class="clickable bold" @click="isLogin = false"
-						>Sign Up</span
-					></span
-				>
-			</div>
-			<div v-else class="form-wrapper signup">
-				<h2>Register</h2>
-				<div class="form">
-					<form @submit.prevent="doSignup">
-						<label>
-							<input
-								type="text"
-								v-model="signupCred.fullname"
-								placeholder="Your full name"
-								required
-							/>
-						</label>
-						<label>
-							<input
-								type="text"
-								v-model="signupCred.username"
-								placeholder="Username"
-								required
-							/>
-						</label>
-						<label>
-							<input
-								type="password"
-								v-model="signupCred.password"
-								placeholder="Password"
-								required
-							/>
-						</label>
-						<button type="submit">Signup</button>
-					</form>
-					<div class="profile-image">
-						<label for="file-upload">
-							<div :style="profileToShow" class="image">
-								<img
-									v-if="!this.signupCred.profileImg"
-									src="../assets/img/profile-img.png"
-								/>
-								<img v-else :src="profileToShow" />
-							</div>
-							<a class="clickable">Add a profile image</a>
-						</label>
+					background="transparent"
+					speed="1"
+					style="width: 780px; height: 600px"
+					loop
+					autoplay
+				></lottie-player>
+			</section>
+			<section class="login-signup-container flex">
+
+				<div v-if="isLogin" class="login">
+						<h2>Login</h2>
+					<form @submit.prevent="doLogin">
 						<input
-							type="file"
-							id="file-upload"
-							:style="{ display: 'none' }"
-							@change="addProfileImage"
-						/>
-					</div>
+							type="text"
+							v-model="loginCred.username"
+							placeholder="User name"
+							required
+						/><input
+							type="password"
+							v-model="loginCred.password"
+							placeholder="Password"
+							required
+						/><button type="submit">Login</button>
+					</form>
+					<span
+						>Don't have an account?
+						<span class="clickable bold" @click="isLogin = false"
+							>Sign Up</span
+						></span
+					>
 				</div>
-				<span
-					>Have an account?
-					<span class="clickable bold" @click="isLogin = true">Log in</span>
-				</span>
-			</div>
-			<loader v-if="isLoading" />
-      </div>
+
+				<div v-else class="signup">
+					<h2>Register</h2>
+						<form @submit.prevent="doSignup">
+							<label>
+								<input
+									type="text"
+									v-model="signupCred.fullname"
+									placeholder="Your full name"
+									required
+								/>
+							</label>
+							<label>
+								<input
+									type="text"
+									v-model="signupCred.username"
+									placeholder="Username"
+									required
+								/>
+							</label>
+							<label>
+								<input
+									type="password"
+									v-model="signupCred.password"
+									placeholder="Password"
+									required
+								/>
+							</label>
+							<button type="submit">Signup</button>
+						</form>
+						<div class="profile-image">
+							<label for="file-upload">
+								<div :style="profileToShow" class="image">
+									<img
+										v-if="!this.signupCred.profileImg"
+										src="../assets/img/profile-img.png"
+									/>
+									<img v-else :src="profileToShow" />
+								</div>
+								<a class="clickable">Add a profile image</a>
+							</label>
+							<input
+								type="file"
+								id="file-upload"
+								:style="{ display: 'none' }"
+								@change="addProfileImage"
+							/>
+					</div>
+					<span
+						>Have an account?
+						<span class="clickable bold" @click="isLogin = true">Log in</span>
+					</span>
+					<loader v-if="isLoading" />
+				</div>
+			</section>
 		</div>
 	</section>
 </template><script>

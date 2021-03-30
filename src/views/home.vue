@@ -13,7 +13,7 @@
         >
         </lottie-player>
         <div class="cta">
-          <h1 class="text-center">Take your team to new heights.</h1>
+          <h1 class="text-center">Lead your team to new heights.</h1>
           <router-link
             to="/board/605c6ee08defda42fc5e20ee"
             class="action-call transition"
@@ -25,9 +25,9 @@
     <div class="features-preview">
       <div class="features-container">
           <div class="txt-container">
-            <h1>Live updates and notifications</h1>
-            See every change in real time and get notifications on important
-            activities.
+            <h1>Live Updates & Push Notifications</h1>
+            Always be up-to-date with recent activities in your project; our unique system of real-time push notifications will
+            make sure you always know all about the recent developments.
           </div>
           <div class="img-container">
             <lottie-player
@@ -54,16 +54,16 @@
           </lottie-player>
           </div>
           <div class="txt-container">
-            <h1>Work from anywhere (RESPONSIVENESS)</h1>
-            Use Trellworks easily at the home, office or on the way. Trellworks
-            fits your computer, tablet or phone.
+            <h1>Work From Anywhere</h1>
+            Whether you are working from your phone, your iPad or your 
+            laptop, Trellworks makes teamwork easy again with an unmatched user experience on all your favorite devices.
           </div>
       </div>
       <div class="features-container">
           <div class="txt-container">
-            <h1>Keep track of your team (DASHBOARD)</h1>
+            <h1>Keep Track Of Your Team</h1>
             Each board has an easilly accessable dashboard to see how your team is
-            doing.
+            doing at every given moment. Keep track of your team's performance and the assignment and completion of tasks with ease.
           </div>
           <div class="img-container">
             <lottie-player
