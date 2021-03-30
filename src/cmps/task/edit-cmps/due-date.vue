@@ -27,11 +27,10 @@ export default {
 	},
 	data() {
 		return {
-			taskToEdit: JSON.parse(JSON.stringify(this.task)),
-				value: '',
+			value: '',
 					pickerOptions: {
-				shortcuts: [{
-					text: 'Today',
+						shortcuts: [{
+							text: 'Today',
 					onClick(picker) {
 						picker.$emit('pick', new Date());
 					}
@@ -58,7 +57,10 @@ export default {
 		defaultValue() {
 			if (this.dueDate) return this.dueDate;
 			return new Date();
-		}
+		},
+		taskToEdit(){
+			return JSON.parse(JSON.stringify(this.task))
+		} 
 	},
 	methods: {
 		setDate() {

@@ -45,8 +45,12 @@ export default {
             ctx:null,
             currColor: 'black',
             currWidth: 4,
-            taskToEdit: JSON.parse(JSON.stringify(this.task))
        }
+    },
+    computed: {
+        taskToEdit(){
+            return JSON.parse(JSON.stringify(this.task))
+        }
     },
     methods: {
         setColor(color){

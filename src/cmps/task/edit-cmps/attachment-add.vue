@@ -29,9 +29,13 @@ export default {
   },
   data() {
     return {
-      taskToEdit: JSON.parse(JSON.stringify(this.task)),
       urlToUpload: "",
     };
+  },
+  computed: {
+    taskToEdit(){
+      return JSON.parse(JSON.stringify(this.task))
+    }
   },
   methods: {
     async addFilePc(ev) {
@@ -56,7 +60,6 @@ export default {
         );
         this.$emit("updateTask", this.taskToEdit);
         this.$emit("close");
-        this.$emit("toggleLoader", false);
       } catch (err) {
         Swal.fire({
           position: "bottom-end",
@@ -70,6 +73,8 @@ export default {
           toast: true,
           animation: true,
         });
+      } finally {
+        this.$emit("toggleLoader", false);
       }
     },
     addFileUrl() {

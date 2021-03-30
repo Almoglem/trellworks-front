@@ -46,7 +46,6 @@ export default {
   },
   data() {
     return {
-      taskToEdit: JSON.parse(JSON.stringify(this.task)),
       newLabel: boardService.getEmptyLabel(),
       labelEditToggler: {
         type: '',
@@ -62,6 +61,9 @@ export default {
     },
     currGroup(){
       return this.$store.getters.currGroup
+    },
+    taskToEdit(){
+      return JSON.parse(JSON.stringify(this.task))
     },
     labelIds(){
       return this.taskToEdit.labelIds

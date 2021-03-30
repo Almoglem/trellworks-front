@@ -17,13 +17,17 @@ export default {
   },
   data() {
     return {
-      taskToEdit: JSON.parse(JSON.stringify(this.task)),
       checklist: {
         title: "",
         todos: [],
         completed: null,
       },
     };
+  },
+  computed: {
+    taskToEdit(){
+      return JSON.parse(JSON.stringify(this.task))
+    }
   },
   methods: {
     addChecklist() {

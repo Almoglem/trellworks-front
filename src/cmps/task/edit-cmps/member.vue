@@ -29,8 +29,7 @@ export default {
 	},
 	data() {
 		return {
-			filterTxt: '',
-			taskToEdit: JSON.parse(JSON.stringify(this.task))
+			filterTxt: ''
 		}
 	},
 	computed: {
@@ -42,6 +41,9 @@ export default {
 		},
 		boardMembers() {
 			return this.$store.getters.currBoardMembers
+		},
+		taskToEdit(){
+			return JSON.parse(JSON.stringify(this.task))
 		}
 	},
 	methods: {

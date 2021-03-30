@@ -49,14 +49,17 @@ export default {
   },
   data() {
     return {
-      taskToEdit: JSON.parse(JSON.stringify(this.task)),
       imgToEdit: null,
       txtToEdit: "",
       editToggler: false,
       currImg: null,
     };
   },
-  computed: {},
+  computed: {
+    taskToEdit(){
+      return JSON.parse(JSON.stringify(this.task))
+    }
+  },
   methods: {
     editImg() {
       this.imgToEdit.name = this.txtToEdit;

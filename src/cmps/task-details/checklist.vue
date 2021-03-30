@@ -52,7 +52,6 @@ export default {
   data() {
     return {
       isAddingItem: false,
-      taskToEdit: JSON.parse(JSON.stringify(this.task)),
       todoToAdd: { title: "", isDone: false },
     };
   },
@@ -62,6 +61,9 @@ export default {
         (cl) => cl.id === this.checklist.id
       );
     },
+    taskToEdit(){
+      return JSON.parse(JSON.stringify(this.task))
+    }
   },
   methods: {
     /// updates
