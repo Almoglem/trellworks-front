@@ -196,15 +196,7 @@ export default {
     },
 
     suggestedUsers() {
-      const randomUsers = [];
-
-      for (let i = 0; i < 4; i++) {
-        randomUsers.push(
-          this.users[utilService.getRandomInt(0, this.users.length)]
-        );
-      }
-
-      return randomUsers;
+return [this.users[0],this.users[1],this.users[6]]
     },
 
     setCurrPos() {
