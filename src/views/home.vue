@@ -24,16 +24,39 @@
     </main>
     <div class="features-preview">
       <div class="features-container">
-          <div class="img-container">
-            <img
-              src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-              alt=""
-            />
-          </div>
           <div class="txt-container">
             <h1>Live updates and notifications</h1>
             See every change in real time and get notifications on important
             activities.
+          </div>
+          <div class="img-container">
+            <lottie-player
+            autoplay
+            loop
+            mode="normal"
+            speed="0.5"
+            src="https://assets4.lottiefiles.com/packages/lf20_7igt36x1.json"
+            class="home-hero"
+          >
+          </lottie-player>
+          </div>
+      </div>
+      <div class="features-container">
+          <div class="img-container">
+            <lottie-player
+            autoplay
+            loop
+            mode="normal"
+            speed="0.5"
+            src="https://assets5.lottiefiles.com/packages/lf20_bthb0c3o.json"
+            class="home-hero"
+          >
+          </lottie-player>
+          </div>
+          <div class="txt-container">
+            <h1>Work from anywhere (RESPONSIVENESS)</h1>
+            Use Trellworks easily at the home, office or on the way. Trellworks
+            fits your computer, tablet or phone.
           </div>
       </div>
       <div class="features-container">
@@ -43,23 +66,15 @@
             doing.
           </div>
           <div class="img-container">
-            <img
-              src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-              alt=""
-            />
-          </div>
-      </div>
-      <div class="features-container">
-          <div class="img-container">
-            <img
-              src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-              alt=""
-            />
-          </div>
-          <div class="txt-container">
-            <h1>Work from anywhere(RESPONSIVENESS)</h1>
-            Use Trellworks easily at the home, office or on the way. Trellworks
-            fits your computer, tablet or phone.
+            <lottie-player
+            autoplay
+            loop
+            mode="normal"
+            speed="0.5"
+            src="https://assets2.lottiefiles.com/packages/lf20_mupcxbev.json"
+            class="home-hero"
+          >
+          </lottie-player>
           </div>
       </div>
     </div>

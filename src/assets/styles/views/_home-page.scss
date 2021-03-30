@@ -13,7 +13,7 @@
         align-items: center;
 
         .home-hero {
-            width: 75%;
+            width: 85%;
         }
     }
 }
@@ -53,6 +53,11 @@
         background-color: $offwhite;
     }
 
+    &:nth-child(odd) {
+        background-color: #dbe4e2;
+        ;
+    }
+
     div:nth-child(1) {
         margin-right: 120px;
     }
@@ -69,15 +74,28 @@
     .txt-container {
         max-width: 500px;
         text-align: left;
+        line-height: 2rem;
     }
 
     .img-container {
-        width: 300px;
-        height: 300px;
+        width: 450px;
+        height: 450px;
 
         img {
             width: 100%;
         }
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .features-container {
+
+
+        .img-container {
+            width: 400px;
+            height: 400px;
+        }
+
     }
 }
 
@@ -100,6 +118,11 @@
             margin-left: 5%;
         }
 
+        .img-container {
+            width: 300px;
+            height: 300px;
+        }
+
     }
 }
 
@@ -112,8 +135,54 @@
 
         .img-container {
             width: 44%;
-            height: unset;
+            height: 300px;
         }
 
+        &:nth-child(even) {
+            .img-container {
+                width: 55%
+            }
+        }
     }
+}
+
+@media only screen and (max-width: 900px) {
+
+    .hero-container .hero {
+        .home-hero {
+            width: 100%;
+        }
+    }
+
+    .features-container {
+
+        .img-container {
+            height: 230px;
+        }
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .features-container {
+
+        .img-container {
+            width: 60%;
+            height: 150px;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 680px) {
+    .features-container {
+
+        .txt-container {
+            text-align: center;
+        }
+
+        .img-container {
+            display: none;
+        }
+    }
+
 }
