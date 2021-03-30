@@ -1,4 +1,7 @@
 import axios from 'axios';
+const BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/api/upload'
+    : '//localhost:3030/api/upload'
 
 export const uploadImg = async (ev) => {
     // Defining our variables
@@ -19,12 +22,8 @@ export const uploadImg = async (ev) => {
 }
 
 export const uploadCanvas = async (img) => {
-    const UPLOAD_PRESET = 'ywe6lwct' // Insert yours
-    const CLOUD_NAME = 'dklqusztc' // Insert yours
-    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
-    
     try {
-        const res = await axios.post(UPLOAD_URL, img)
+        const res = await axios.post(BASE_URL, {img})
         return res.data;
     } catch (err) {
         console.error('ERROR!', err)

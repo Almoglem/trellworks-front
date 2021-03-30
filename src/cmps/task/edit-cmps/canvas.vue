@@ -30,7 +30,9 @@
 </template>
 
 <script>
-import { utilService } from "@/services/util.service.js";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import { utilService } from '@/services/util.service.js';
+import { uploadCanvas } from "@/services/img-upload.service.js";
 import canvasColor from '@/cmps/elementui/canvas-color-select'
 import canvasBgc from '@/cmps/elementui/canvas-bgc-select'
 import canvasFontSize from '@/cmps/elementui/canvas-fontsize-select'
@@ -96,23 +98,21 @@ export default {
             this.ctx.beginPath()
             this.ctx.moveTo(x, y)            
         },
-        downloadImg() {
+        async downloadImg() {
             try {
                 this.$emit("toggleLoader", true);
                 const canvasImg  = this.canvas.toDataURL("image/png");
-                const imgUrl = canvasImg.substring(22, canvasImg.length)
+                const imgUrl = await uploadCanvas(canvasImg)
                 const img = {
                     id: utilService.makeId(),
                     src: imgUrl,
                     name: `Your Image`,
                     createdAt: Date.now(),
-                    isNote: true
                 };
                 if (!this.taskToEdit.cover.src) {
                     this.taskToEdit.cover.src = img.src;
                     this.taskToEdit.cover.type = "top";
                     this.taskToEdit.cover.isImg = true;
-                    this.taskToEdit.cover.isNote = true;
                 }
                 this.taskToEdit.imgs.unshift(img);
                 this.$emit(
@@ -149,8 +149,7 @@ export default {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);  
         if(this.canvasImgSetup) {
             const img = new Image();
-            if(this.canvasImgSetup.isNote) img.src = `data:image/png;base64,${this.canvasImgSetup.src}`
-            else img.src = this.canvasImgSetup.src
+            img.src = this.canvasImgSetup.src
             img.setAttribute('crossorigin', 'anonymous'); 
             img.onload = () => {
                 this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);

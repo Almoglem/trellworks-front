@@ -13,8 +13,7 @@
         :style="{ backgroundColor: task.cover.src }"
       ></div>
       <div class="cover-img" v-if="task.cover.isImg">
-        <img v-if="!task.cover.isNote" :src="task.cover.src" />
-        <img v-else :src="`data:image/png;base64,${task.cover.src}`" alt="">
+        <img :src="task.cover.src" />
       </div>
     </div>
 
@@ -103,14 +102,9 @@ export default {
       if (
         this.task.cover.src &&
         this.task.cover.type === "full" &&
-        this.task.cover.isImg && !this.task.cover.isNote
+        this.task.cover.isImg
       )
         return { backgroundImage: `url(${this.task.cover.src})` };
-      else if(
-        this.task.cover.src &&
-        this.task.cover.type === "full" &&
-        this.task.cover.isImg && this.task.cover.isNote
-      ) return { backgroundImage:`url(data:image/png;base64,${this.task.cover.src})`, backgroundRepeat: 'no-repeat', backgroundSize: '256px 244px'}
       else if (
         this.task.cover.src &&
         this.task.cover.type === "full" &&

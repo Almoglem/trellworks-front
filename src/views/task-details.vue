@@ -15,8 +15,7 @@
 				class="cover-image"
 				v-if="currTask.cover.src && currTask.cover.isImg"
 			>
-				<img v-if="!currTask.cover.isNote" :src="currTask.cover.src" />
-				<img v-else :src="`data:image/png;base64,${currTask.cover.src}`" />
+				<img :src="currTask.cover.src" />
 			</div>
 			<div class="task-details-main">
 				<div class="details-header">
@@ -550,8 +549,6 @@ export default {
 			const taskToEdit = JSON.parse(JSON.stringify(this.currTask));
 			taskToEdit.cover.isImg = toggler;
 			taskToEdit.cover.src = img.src;
-			if(img.isNote) taskToEdit.cover.isNote = true
-			else taskToEdit.cover.isNote = false
 			if (!toggler) taskToEdit.cover.type = "top";
 			this.updateTask(taskToEdit);
 		},

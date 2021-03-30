@@ -5,8 +5,7 @@
     <section class="attachments-thumbnail">
       <div class="image-preview" v-for="img in task.imgs" :key="img.id">
         <div class="image-cover clickable">
-          <img v-if="!img.isNote" @click="showImage(true, img)" class="img" :src="img.src" />
-          <img v-else :src="`data:image/png;base64,${img.src}`" @click="showImage(true, img)" class="img" alt=""/>
+          <img @click="showImage(true, img)" class="img" :src="img.src" />
         </div>
         
         <div class="image-details">
@@ -34,8 +33,7 @@
       </div>
       <section class="image-window" v-if="currImg" @click="showImage(false)">
         <div>
-          <img v-if="!currImg.isNote" :src="currImg.src" alt="" />
-          <img v-else :src="`data:image/png;base64,${currImg.src}`" alt="" />
+          <img :src="currImg.src" alt="" />
         </div>
       </section>
     </section>
