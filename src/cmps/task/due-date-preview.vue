@@ -54,9 +54,8 @@ export default ({
 			const task = JSON.parse(JSON.stringify(this.task))
 			// this.isDone = !this.isDone
 			task.isCompleted = !task.isCompleted
-			console.log(task.isCompleted, 'isCompleted')
 			this.$emit('dueDateUpdated', task)
-			if (this.isDone) {this.$emit('logActivity', `marked the task "${task.title}" as completed`)
+			if (task.isCompleted) {this.$emit('logActivity', `marked the task "${task.title}" as completed`)
 					Swal.fire({
 			position: 'bottom-end',
 			title: 'Task completed!',
