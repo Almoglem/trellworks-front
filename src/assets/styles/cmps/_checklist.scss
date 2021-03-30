@@ -5,6 +5,17 @@
 
 .task-checklist {
     margin-bottom: 30px;
+
+    form {
+        input {
+            margin-left: 10px;
+            margin-bottom: 13px;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+    }
 }
 
 .todo-item {
