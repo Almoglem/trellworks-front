@@ -7,7 +7,7 @@
 					src="https://assets7.lottiefiles.com/packages/lf20_d3yazmwr.json"
 					background="transparent"
 					speed="1"
-					style="width: 600px; height: 600px"
+					style="width: 780px; height: 600px"
 					loop
 					autoplay
 				></lottie-player>
