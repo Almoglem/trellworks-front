@@ -1,12 +1,41 @@
 .login-signup {
+    .login-signup-container {
+        width: 70%;
+        height: 550px;
+        margin: 55px auto;
+        background-color: rgb(226, 226, 226);
+        border-radius: 50px;
+        box-shadow: 2px 2px 5px 2px rgba(181, 181, 181, 0.479);
 
-    .form-wrapper.login {
-        text-align: center;
+    }
+
+    .login-container {
+        background-color: rgb(112, 189, 163);
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        padding-top: 10%;
+        width: 90%;
+    }
+
+    .form-wrapper {
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
-        height: 260px;
+        justify-content: space-around;
+        padding: 0 35px;
+
+    }
+
+    form {
+        // height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .form-wrapper.login {
+        text-align: center;
 
         button {
             margin: 10px 0;
@@ -14,76 +43,45 @@
     }
 
     .form {
-        width: 500px;
         display: flex;
         align-items: center;
         justify-content: space-around;
     }
 
-    .form-wrapper {
-        height: 204px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+}
 
-        form {
-            // height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-    }
+h2 {
+    margin: 10px 0 10px 5px;
+}
 
-    h2 {
-        margin: 10px 0 10px 5px;
-    }
+.form-wrapper.signup .form {
 
-
-    .profile-image {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        margin-bottom: 13px;
-        padding-left: 15px;
-
-        .image {
-            @include aspect-ratio(1, 1);
-            width: 137px;
-            height: 137px;
-            border-radius: 50%;
-            cursor: pointer;
-
-            img {
-                width: 100%;
-            }
-
-        }
-    }
-
-    input {
-        margin: 5px auto;
+    form {
+        margin:  5%;
     }
 }
 
-.form-wrapper.signup {
-    height: 329px;
-    text-align: center;
+.profile-image {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
+    margin-bottom: 13px;
+    text-align: center;
+    font-size: 0.8rem;
 
-    form {
-        margin-bottom: 20px;
-        padding-right: 15px;
+    .image {
+        @include aspect-ratio(1, 1);
+        width: 137px;
+        height: 137px;
+        border-radius: 50%;
+        cursor: pointer;
 
-        button {
-            margin-top: 10px;
+        img {
+            width: 100%;
         }
     }
+}
 
-    .form {
-        justify-content: center;
-        height: 215px;
-    }
+input {
+    margin: 5px auto;
 }
