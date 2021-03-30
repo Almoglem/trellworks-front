@@ -9,7 +9,7 @@
 		<form v-else @submit.prevent="postComment">
 			<input type="text" v-model="comment" placeholder="Write a comment..." />
 			<button class="btn-success">Post</button>
-            <button class="btn-gray" @click.prevent="comment=''">Cancel</button>
+            <button class="btn-gray" @click.prevent="comment=''">Clear</button>
 		</form>
 	</section>
 </template>

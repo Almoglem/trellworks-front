@@ -13,7 +13,7 @@
 			class="flex member-list"
 			@click="addMember(member)"
 		>
-			<userPic :user="member" :size="40" />
+			<userPic :user="member" :size="30" />
 			<p>{{ member.fullname }}</p>
 			<i v-if="checkIfMemberExists(member)" class="far fa-check-square"></i>
 			<i v-else class="far fa-square"></i>

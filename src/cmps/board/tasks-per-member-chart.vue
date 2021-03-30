@@ -9,7 +9,7 @@ export default {
   computed: {
     usernames() {
       return this.board.members.map((member) => {
-        return member.username;
+        return member.fullname;
       });
     },
     tasksPerMember() {

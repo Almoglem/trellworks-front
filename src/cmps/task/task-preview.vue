@@ -58,11 +58,7 @@
         <div class="right">
           <span class="flex preview-avatar-container">
             <span class="avatar" v-for="member in task.members" :key="member.id">
-              <avatar
-                v-if="task.members.length"
-                :size="20"
-                :username="member.fullname"
-              ></avatar>
+             <userPic :user="member" :size="20" />
               
             </span>
           </span>
@@ -76,6 +72,8 @@
 import labelsPreview from "../task-details/labels-preview.vue";
 import Avatar from "vue-avatar";
 import dueDatePreview from "@/cmps/task/due-date-preview.vue";
+import userPic from "@/cmps/recurring-cmps/user-pic.vue";
+
 
 export default {
   props: {
@@ -192,6 +190,7 @@ this.$emit("taskEdited",task)
     labelsPreview,
     Avatar,
     dueDatePreview,
+    userPic
   },
   
 };
