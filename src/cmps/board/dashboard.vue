@@ -1,7 +1,7 @@
 <template>
   <section class="dashboard-container">
     <div class="info-cards-container flex">
-      <i class="fas fa-times dashboard-close clickable"> </i>
+      <i class="fas fa-times dashboard-close clickable" @click="closeDashboard"> </i>
       <div class="info-card flex">
         <i class="far fa-user fa-2x"></i>
         <div class="info flex">
@@ -77,6 +77,9 @@ export default {
     time(date) {
       return moment(date).format("DD/MM/YYYY");
     },
+    closeDashboard(){
+      this.$emit('closeDashboard')
+    }
   },
   components: { tasksPerGroupChart, tasksPerMemberChart },
 };

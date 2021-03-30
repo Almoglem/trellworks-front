@@ -54,7 +54,7 @@
           v-if="dashboardShown"
           @click="dashboardShown = false"
         ></div>
-        <dashboard v-if="dashboardShown"></dashboard
+        <dashboard v-if="dashboardShown" @closeDashboard="dashboardShown=false"></dashboard
         ><el-badge
           v-if="userAlerts > 0"
           :value="userAlerts"
