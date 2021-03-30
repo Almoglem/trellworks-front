@@ -132,6 +132,10 @@
     }
 
     .task-preview {
+        .preview-avatar-container img{
+            width: 25px;
+            height: 25px;
+        }
         background-color: white;
         border-radius: 3px;
         box-shadow: 0px 1px 0px 0px rgba(181, 181, 181, 0.79);
