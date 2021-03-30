@@ -22,49 +22,45 @@
         </div>
       </div>
     </main>
-    <div class="features-container">
-      <div class="flex feature-content">
-        <div class="img-container">
-          <img
-            src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-            alt=""
-          />
-        </div>
-        <div class="txt-container">
-          <h1>Live updates and notifications</h1>
-          See every change in real time and get notifications on important
-          activities.
-        </div>
+    <div class="features-preview">
+      <div class="features-container">
+          <div class="img-container">
+            <img
+              src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
+              alt=""
+            />
+          </div>
+          <div class="txt-container">
+            <h1>Live updates and notifications</h1>
+            See every change in real time and get notifications on important
+            activities.
+          </div>
       </div>
-    </div>
-    <div class="features-container">
-      <div class="flex feature-content">
-        <div class="txt-container">
-          <h1>Keep track of your team (DASHBOARD)</h1>
-          Each board has an easilly accessable dashboard to see how your team is
-          doing.
-        </div>
-        <div class="img-container">
-          <img
-            src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-            alt=""
-          />
-        </div>
+      <div class="features-container">
+          <div class="txt-container">
+            <h1>Keep track of your team (DASHBOARD)</h1>
+            Each board has an easilly accessable dashboard to see how your team is
+            doing.
+          </div>
+          <div class="img-container">
+            <img
+              src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
+              alt=""
+            />
+          </div>
       </div>
-    </div>
-    <div class="features-container">
-      <div class="flex feature-content">
-        <div class="img-container">
-          <img
-            src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
-            alt=""
-          />
-        </div>
-        <div class="txt-container">
-          <h1>Work from anywhere(RESPONSIVENESS)</h1>
-          Use Trellworks easily at the home, office or on the way. Trellworks
-          fits your computer, tablet or phone.
-        </div>
+      <div class="features-container">
+          <div class="img-container">
+            <img
+              src="https://www.pikpng.com/pngl/b/286-2864513_download-work-png-file-computer-work-clip-art.png"
+              alt=""
+            />
+          </div>
+          <div class="txt-container">
+            <h1>Work from anywhere(RESPONSIVENESS)</h1>
+            Use Trellworks easily at the home, office or on the way. Trellworks
+            fits your computer, tablet or phone.
+          </div>
       </div>
     </div>
   </section>
