@@ -523,3 +523,24 @@
     overflow-y: auto;
     width: 90%;
 }
+
+@media only screen and (max-width: 1300px) {
+    .group {
+        max-height: 82vh;
+    }
+
+    .group-add {
+        max-height: 30px;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .group {
+        max-height: 70vh;
+    }
+
+    .group-add {
+        max-height: 30px;
+        max-width: 160px;
+    }
+}
