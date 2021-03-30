@@ -50,7 +50,7 @@
         <i class="fas fa-plus"></i>
         Add another task</span
       >
-      <div class="add-task-container" v-if="isAddingTask">
+      <div class="add-task-container" ref="addTaskContainer" v-if="isAddingTask">
         <textarea-autosize
           @keyup.native="addTaskByKey($event, group.id)"
           ref="textarea"
@@ -288,6 +288,21 @@ export default {
     draggable,
     popUp,
   },
-  created() {},
+  created() {
+    document.body.addEventListener('click', e => {
+      if(document.body.contains(this.$refs.addTaskContainer)){
+
+         if(!e.target.closest('.add-task-container')) {
+         console.log('clicked outside');      
+        //  this.isAddingTask = false   
+       } else {
+           console.log('clicked inside'); 
+          //  this.isAddingTask = true
+       
+       }
+
+      }
+    })
+  },
 };
 </script>
