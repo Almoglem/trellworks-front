@@ -58,7 +58,7 @@
         <div class="right">
           <span class="flex preview-avatar-container">
             <span class="avatar" v-for="member in task.members" :key="member.id">
-             <userPic :user="member" :size="20" />
+             <userPic :user="member" :size="25" />
               
             </span>
           </span>
