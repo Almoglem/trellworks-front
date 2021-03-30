@@ -79,10 +79,14 @@
     width: 272px;
     min-height: 78px;
     height: fit-content;
-    max-height: 87vh;
+    max-height: 80vh;
     border-radius: 3px;
     position: relative;
     margin-left: 8px;
+
+    .tasks-container {
+        overflow-y: scroll;
+    }
 
     .group-header {
         justify-content: space-between;
@@ -132,10 +136,11 @@
     }
 
     .task-preview {
-        .preview-avatar-container img{
+        .preview-avatar-container img {
             width: 25px;
             height: 25px;
         }
+
         background-color: white;
         border-radius: 3px;
         box-shadow: 0px 1px 0px 0px rgba(181, 181, 181, 0.79);
@@ -500,7 +505,7 @@
         align-items: baseline;
         border-radius: 3px;
         padding: 10px 0;
-        
+
         &:hover {
             background-color: rgba(192, 192, 192, 0.116);
         }
