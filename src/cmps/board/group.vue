@@ -31,7 +31,6 @@
         animation="400"
         ghostClass="task-ghost"
         v-model="group.task"
-        :style="{overflowY: 'scroll'}"
       >
         <task-preview
           v-for="task in group.task"

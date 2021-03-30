@@ -14,7 +14,7 @@
       @updateBoardSocket="updateBoardSocket"
       @filterBoard="changeGroupsToShow"
     />
-    <div class="flex board group-container" v-dragscroll.y:firstchilddrag>
+    <div class="flex board group-container" v-dragscroll:firstchilddrag>
       <draggable
         v-model="currBoard.groups"
         class="flex"
