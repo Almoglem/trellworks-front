@@ -89,8 +89,8 @@ export default {
     doLogout() {
       this.$store.dispatch({ type: "logout" });
     },
-    togglePopUp(toggler) {
-      this.popUpToggle = toggler;
+    togglePopUp(isShown) {
+      this.popUpToggle = isShown;
     },
     async updateProfileImage(ev) {
       this.isLoading = true;
