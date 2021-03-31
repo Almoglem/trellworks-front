@@ -5,6 +5,13 @@
     background-color: rgb(226, 226, 226);
     border-radius: 50px;
     box-shadow: 2px 2px 5px 2px rgba(181, 181, 181, 0.479);
+    height: 70vh;
+}
+
+.animation-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .login-signup-container {
@@ -46,85 +53,3 @@
         border-radius: 50px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     .form-wrapper {
-//         display: flex;
-//         align-items: center;
-//         flex-direction: column;
-//         justify-content: center;
-//         justify-content: space-around;
-//         padding: 0 35px;
-
-//     }
-
-//     form {
-//         // height: 100%;
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center;
-//     }
-
-//     .form-wrapper.login {
-//         text-align: center;
-
-//         button {
-//             margin: 10px 0;
-//         }
-//     }
-
-//     .form {
-//         display: flex;
-//         align-items: center;
-//         justify-content: space-around;
-//     }
-
-
-// h2 {
-//     margin: 10px 0 10px 5px;
-// }
-
-// .form-wrapper.signup .form {
-
-//     form {
-//         margin: 5%;
-//     }
-// }
-
-// .profile-image {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-evenly;
-//     margin-bottom: 13px;
-//     text-align: center;
-//     font-size: 0.8rem;
-
-//     .image {
-//         @include aspect-ratio(1, 1);
-//         width: 137px;
-//         height: 137px;
-//         border-radius: 50%;
-//         cursor: pointer;
-
-//         img {
-//             width: 100%;
-//         }
-//     }
-// }
-
-// input {
-//     margin: 5px auto;
-// }

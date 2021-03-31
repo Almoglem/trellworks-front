@@ -2,17 +2,17 @@
   <section class="login-signup">
     <appHeader />
     <div class="flex login-page-container">
-      <section>
+      <div class="animation-container">
         <lottie-player
           class="animation"
           src="https://assets7.lottiefiles.com/packages/lf20_d3yazmwr.json"
           background="transparent"
           speed="1"
-          style="width: 780px; height: 600px"
+          style="width: 580px; height: 300px"
           loop
           autoplay
         ></lottie-player>
-      </section>
+      </div>
       <section class="login-signup-container flex">
         <div v-if="isLogin" class="login">
           <h2>Login</h2>
