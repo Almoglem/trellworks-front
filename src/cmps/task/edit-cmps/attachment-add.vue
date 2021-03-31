@@ -5,7 +5,7 @@
     <input
       type="file"
       id="file-upload"
-      @change="addFilePc"
+      @change="addFile($event, false)"
       :style="{ display: 'none' }"
     />
     <label class="link-upload"> Link </label>
@@ -13,8 +13,7 @@
       type="text"
       class="pop-up-input"
       placeholder="Paste any url here..."
-      @paste="addFileUrl"
-      v-model="urlToUpload"
+      @paste="addFile($event, true)"
     />
   </section>
 </template>
@@ -27,25 +26,31 @@ export default {
   props: {
     task: Object,
   },
-  data() {
-    return {
-      urlToUpload: "",
-    };
-  },
   computed: {
-    taskToEdit(){
-      return JSON.parse(JSON.stringify(this.task))
-    }
+    taskToEdit() {
+      return JSON.parse(JSON.stringify(this.task));
+    },
   },
   methods: {
-    async addFilePc(ev) {
+    async addFile(ev, isUrl) {
+      let src;
+      if (isUrl) {
+        src = ev.clipboardData.getData("Text");
+        if (!src.includes("http")) {
+          utilService.showErrorMsg("not a valid link");
+          return;
+        }
+      }
       try {
         this.$emit("toggleLoader", true);
-        const imgUploaded = await uploadImg(ev);
+        if (!isUrl) {
+          const uploadedImg = await uploadImg(ev);
+          src = uploadedImg.url;
+        }
         const img = {
           id: utilService.makeId(),
-          src: imgUploaded.url,
-          name: `${imgUploaded.original_filename}.${imgUploaded.format}`,
+          src,
+          name: `Your image`,
           createdAt: Date.now(),
         };
         if (!this.taskToEdit.cover.src) {
@@ -61,61 +66,11 @@ export default {
         this.$emit("updateTask", this.taskToEdit);
         this.$emit("close");
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "Sorry, There was a problem with uploading your image.",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
+        utilService.showErrorMsg(
+          "Sorry, There was a problem with uploading your image."
+        );
       } finally {
         this.$emit("toggleLoader", false);
-      }
-    },
-    addFileUrl() {
-      try {
-        setTimeout(() => {
-          if (!this.urlToUpload.includes("http"))
-            return console.log("not a valid link");
-          this.$emit("toggleLoader", true);
-          const img = {
-            id: utilService.makeId(),
-            src: this.urlToUpload,
-            name: `Your Image`,
-            createdAt: Date.now(),
-          };
-          if (!this.taskToEdit.cover.src) {
-            this.taskToEdit.cover.src = img.src;
-            this.taskToEdit.cover.type = "top";
-            this.taskToEdit.cover.isImg = true;
-          }
-          this.taskToEdit.imgs.unshift(img);
-          this.$emit(
-            "logActivity",
-            `added an attachment to "${this.taskToEdit.title}"`
-          );
-          this.$emit("updateTask", this.taskToEdit);
-          this.$emit("close");
-          this.$emit("toggleLoader", false);
-        }, 200);
-      } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "Sorry, There was a problem with uploading your image.",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
       }
     },
   },
