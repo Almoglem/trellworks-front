@@ -18,17 +18,17 @@
 
 
     .login form,
-    .signup form 
-    {
+    .signup form {
         padding: 30px 50px;
-        input{
+
+        input {
             margin: 5% auto;
-     }
+        }
     }
 
-    img{
+    img {
         border-radius: 50%;
-        width: 60%;   
+        width: 60%;
     }
 }
 
@@ -36,7 +36,16 @@
 
 
 
+@media only screen and (max-width: 1200px) {
+    .animation {
+        display: none;
+    }
 
+    .login-signup-container {
+        padding: 50px;
+        border-radius: 50px;
+    }
+}
 
 
 
