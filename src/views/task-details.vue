@@ -140,6 +140,8 @@
 								<i :class="action.iconClass"></i>
 								<span class="action-txt"> {{ action.txt }}</span>
 							</li>
+
+
 							<pop-up
 								@closePopUp="togglePopUp"
 								:style="setCurrPos"
@@ -149,15 +151,17 @@
 								<template v-slot:header>{{ currAction.txt }}</template>
 								<component
 									:is="currAction.type"
-									@updateBoard="updateBoard"
+									:task="currTask"
 									@updateTask="updateTask"
+									@updateBoard="updateBoard"
 									@logActivity="saveActivity"
 									@close="togglePopUp(false)"
 									@toggleLoader="toggleLoader"
-									:task="currTask"
 									:canvasImgSetup="canvasImgSetup"
 								/>
 							</pop-up>
+
+
 						</ul>
 						<ul>
 							<h3 class="uppercase-title">Actions</h3>
