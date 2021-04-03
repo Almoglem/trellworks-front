@@ -1,9 +1,10 @@
-
+import Swal from "sweetalert2/dist/sweetalert2.js";
 export const utilService = {
     delay,
     getRandomInt,
     makeId,
     deepCopy,
+    showErrorMsg
 }
 
 function delay(ms = 1500) {
@@ -38,3 +39,17 @@ function deepCopy(object) {
     return objectCopy;
 }
 
+function showErrorMsg(msg) {
+    Swal.fire({
+        position: "bottom-end",
+        title: msg,
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        customClass: {
+            title: "error",
+            popup: "error",
+        },
+        toast: true,
+    });
+}

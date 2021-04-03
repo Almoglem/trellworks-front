@@ -194,9 +194,8 @@ export default {
       this.$refs.textarea.$el.focus();
     },
     async addTaskByKey(ev, groupId) {
-      if (ev.keyCode === 13 && this.taskToAdd.title.length <= 1) return;
+      if (his.taskToAdd.title.length <= 1) return;
       if (ev.keyCode === 13) {
-        console.log(this.taskToAdd);
         this.taskToAdd.title = this.taskToAdd.title.slice(
           0,
           this.taskToAdd.title.length - 1
@@ -236,11 +235,10 @@ export default {
         this.$refs.editTitle.$el.focus();
       }, 0);
     },
-    togglePopUp(boolean, ev) {
-      this.openPopUp = boolean;
-      this.$emit("setToggler", boolean);
-      console.log(ev);
-      if (boolean) {
+    togglePopUp(isOpened, ev) {
+      this.openPopUp = isOpened;
+      this.$emit("setToggler", isOpened);
+      if (isOpened) {
         this.calcPos(ev);
       }
     },
@@ -281,9 +279,9 @@ export default {
         });
       this.$emit("sortGroup", groupCopy);
     },
-    toggleMenu(boolean, ev) {
+    toggleMenu(isShown, ev) {
       this.$emit("setToggler", true);
-      if (boolean) {
+      if (isShown) {
         this.calcPos(ev);
       }
     },
@@ -292,19 +290,6 @@ export default {
     taskPreview,
     draggable,
     popUp,
-  },
-  created() {
-    document.body.addEventListener("click", (e) => {
-      if (document.body.contains(this.$refs.addTaskContainer)) {
-        if (!e.target.closest(".add-task-container")) {
-          console.log("clicked outside");
-          //  this.isAddingTask = false
-        } else {
-          console.log("clicked inside");
-          //  this.isAddingTask = true
-        }
-      }
-    });
   },
 };
 </script>

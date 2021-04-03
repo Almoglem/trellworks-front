@@ -74,7 +74,16 @@
     .txt-container {
         max-width: 500px;
         text-align: left;
-        line-height: 2rem;
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 3rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
     }
 
     .img-container {
@@ -163,7 +172,31 @@
 }
 
 @media only screen and (max-width: 750px) {
+
+    .main {
+        max-width: 200px;
+    }
+
+    .cta .action-call {
+        padding: 10px 15px;
+        font-size: unset;
+    }
+
     .features-container {
+
+        .txt-container {
+
+            p {
+                font-size: 1.2rem;
+            }
+
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+
 
         .img-container {
             width: 60%;

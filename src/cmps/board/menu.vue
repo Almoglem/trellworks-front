@@ -196,14 +196,6 @@ export default {
     toggleColorList(colorListToggler) {
       this.colorPicker = true;
       this.isTemplates = colorListToggler;
-      console.log(
-        "colorpicker",
-        this.colorPicker,
-        "istemplates",
-        this.isTemplates,
-        "openmenu",
-        this.openMenu.colorMenu
-      );
     },
     setBoardColor(color) {
       this.currBoard.styles.backgroundGradient = "";
