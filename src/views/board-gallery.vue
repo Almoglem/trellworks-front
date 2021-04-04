@@ -54,8 +54,7 @@
 </template>
 
 <script>
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
+import { utilService } from "../services/util.service";
 import appHeader from "@/cmps/app-header";
 import loader from "@/cmps/recurring-cmps/loader";
 export default {
@@ -99,20 +98,9 @@ export default {
         });
         this.setBoards();
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "Sorry, could not load boards.",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
+        utilService.showSuccessMsg("Sorry, could not load boards.");
       } finally {
-          this.isLoading = false;
+        this.isLoading = false;
       }
     },
     async createBoard() {

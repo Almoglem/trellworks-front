@@ -194,7 +194,7 @@ export default {
       this.$refs.textarea.$el.focus();
     },
     async addTaskByKey(ev, groupId) {
-      if (his.taskToAdd.title.length <= 1) return;
+      if (this.taskToAdd.title.length <= 1) return;
       if (ev.keyCode === 13) {
         this.taskToAdd.title = this.taskToAdd.title.slice(
           0,

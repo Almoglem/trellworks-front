@@ -4,7 +4,8 @@ export const utilService = {
     getRandomInt,
     makeId,
     deepCopy,
-    showErrorMsg
+    showErrorMsg,
+    showSuccessMsg
 }
 
 function delay(ms = 1500) {
@@ -53,3 +54,18 @@ function showErrorMsg(msg) {
         toast: true,
     });
 }
+
+function showSuccessMsg(msg) {
+    Swal.fire({
+        position: "bottom-end",
+        title: msg,
+        showConfirmButton: false,
+        timer: 2500,
+        customClass: {
+            title: "success",
+            popup: "success",
+        },
+        toast: true,
+    });
+}
+

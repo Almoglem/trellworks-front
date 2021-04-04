@@ -15,7 +15,7 @@
         <div class="cta">
           <h1 class="text-center">Lead your team to new heights.</h1>
           <router-link
-            to="/board/6064af97ebfbbd674ce34349"
+            to="/board/6062231855c6426f8c7ab2e1"
             class="action-call transition"
             >Try it now!</router-link
           >

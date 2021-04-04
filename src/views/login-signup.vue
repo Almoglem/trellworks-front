@@ -95,10 +95,9 @@
   </section>
 </template><script>
 import appHeader from "@/cmps/app-header";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
 import loader from "@/cmps/recurring-cmps/loader";
 import { uploadImg } from "@/services/img-upload.service";
+import { utilService } from "../services/util.service";
 
 export default {
   name: "test",
@@ -175,25 +174,14 @@ export default {
         const imgUploaded = await uploadImg(ev);
         this.signupCred.profileImg = imgUploaded.url;
       } catch (err) {
-        this.showErrorMsg("Sorry, there was a problem uploading your image.");
+        utilService.showErrorMsg(
+          "Sorry, there was a problem uploading your image."
+        );
       } finally {
         this.isLoading = false;
       }
     },
-    showErrorMsg(msg) {
-      Swal.fire({
-        position: "bottom-end",
-        title: msg,
-        showConfirmButton: false,
-        timer: 2500,
-        timerProgressBar: true,
-        customClass: {
-          title: "error",
-          popup: "error",
-        },
-        toast: true,
-      });
-    },
+
     // potential future use- to delete account
     // async removeUser(userId) {
     //   try {

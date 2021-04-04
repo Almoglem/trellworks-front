@@ -80,8 +80,6 @@ import boardHeader from "@/cmps/board/board-header";
 import group from "@/cmps/board/group";
 import loader from "@/cmps/recurring-cmps/loader";
 import draggable from "vuedraggable";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
 import { boardService } from "../services/board.service.js";
 import { socketService } from "@/services/socket.service";
 import { utilService } from "@/services/util.service";
@@ -143,18 +141,7 @@ export default {
           editedBoard: board,
         });
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "Sorry, Could not update the board. " + err,
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
+        utilService.showErrMsg("Sorry, Could not update the board.");
       }
     },
     async loadBoard() {
@@ -166,18 +153,7 @@ export default {
         });
         this.isLoading = false;
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "Sorry, Could not load the requested board.",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
+        utilService.showErrMsg("Sorry, Could not load the requested board.");
       }
     },
     openGroupAdder() {
@@ -214,31 +190,9 @@ export default {
           board,
           oldGroup
         );
-        Swal.fire({
-          position: "bottom-end",
-          title: "Removed successfully",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "success",
-            popup: "success",
-          },
-          toast: true,
-          animation: true,
-        });
+        utilService.showSucessMsg("Removes successfully.");
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "There was a problem removing this group",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
+        utilService.showErrMsg("There was a problem removing this group.");
       }
     },
     async addTask(task, groupId) {
@@ -329,18 +283,9 @@ export default {
       try {
         await socketService.emit("board update", board);
       } catch (err) {
-        Swal.fire({
-          position: "bottom-end",
-          title: "Sorry, There was a problem reaching the server.",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "error",
-            popup: "error",
-          },
-          toast: true,
-          animation: true,
-        });
+        utilService.showErrMsg(
+          "Sorry, There was a problem reaching the server."
+        );
       }
     },
     saveGroupSort(groupCopy) {
@@ -412,7 +357,7 @@ export default {
     await this.loadBoard();
     const user = this.loggedInUser;
     socketService.setup();
-	  socketService.emit('board topic', this.currBoard._id)
+    socketService.emit("board topic", this.currBoard._id);
     socketService.on("board updated", (board) => {
       this.updateBoard(board);
     });

@@ -41,7 +41,6 @@
 <script>
 import { utilService } from "../../services/util.service";
 import todoItem from "../task-details/todo-item";
-import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
 export default {
@@ -61,9 +60,9 @@ export default {
         (cl) => cl.id === this.checklist.id
       );
     },
-    taskToEdit(){
-      return JSON.parse(JSON.stringify(this.task))
-    }
+    taskToEdit() {
+      return JSON.parse(JSON.stringify(this.task));
+    },
   },
   methods: {
     /// updates
@@ -76,20 +75,8 @@ export default {
           `has completed ${this.checklist.completed} of the checklist "${this.checklist.title}" in "${this.taskToEdit.title}"`
         );
       }
-      if (this.checklist.completed === "100%") {
-        Swal.fire({
-          position: "bottom-end",
-          title: "You have finished all of your to-do list!",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            title: "success",
-            popup: "success",
-          },
-          toast: true,
-          animation: true,
-        });
-      }
+      if (this.checklist.completed === "100%")
+        utilService.showSuccessMsg("You have finished all of your to-do list!");
       this.$emit("updateTask", this.taskToEdit);
     },
     updateProgress() {
