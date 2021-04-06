@@ -30,12 +30,10 @@ export const boardStore = {
         },
         boardLabelsForShow(state) {
             const labelsForShow = JSON.parse(JSON.stringify(state.currBoard.labels))
-            // if(!state.labelFilter) return labelsForShow.sort((label1, label2) => label1.colorName.localeCompare(label2.colorName))
             if (!state.labelFilter) return labelsForShow
             return labelsForShow.filter(label => {
                 return (label.colorName.includes(state.labelFilter) || label.title.includes(state.labelFilter))
             })
-            // return labelsForShow.sort((label1, label2) => label1.colorName.localeCompare(label2.colorName))
         },
         boardMembersForShow(state) {
             const membersForShow = JSON.parse(JSON.stringify(state.currBoard.members))
@@ -119,6 +117,7 @@ export const boardStore = {
                 commit({ type: 'setBoards', boards })
             }
             catch (err) {
+                console.dir(err);
                 throw err.message
             }
         }

@@ -117,11 +117,31 @@ export default {
       this.$router.push("/board/" + this.boards[this.boards.length - 1]._id);
     },
     async removeBoard(boardId) {
-      await this.$store.dispatch({
-        type: "removeBoard",
-        boardId,
-      });
-      await this.loadBoards();
+      if (!this.loggedInUser) {
+        utilService.showErrorMsg(
+          "Sorry, you must be logged in to delete a board"
+        );
+        return;
+      }
+      if (
+        boardId === "6062231855c6426f8c7ab2e1" ||
+        boardId === "60632833f0c8d3001556781b" ||
+        (boardId === "606212907ad16945f0800c7f" && !this.loggedInUser.isAdmin)
+      ) {
+        utilService.showErrorMsg(
+          "Sorry, you are not eligable to delete this board"
+        );
+        return;
+      }
+      try {
+        await this.$store.dispatch({
+          type: "removeBoard",
+          boardId,
+        });
+        await this.loadBoards();
+      } catch (err) {
+        utilService.showErrorMsg(err);
+      }
     },
     async getBoard(boardId) {
       await this.$store.dispatch({ type: "getBoard", boardId: boardId });
